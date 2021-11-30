@@ -1,0 +1,77 @@
+@import '../../../../../assets/styles/color';
+
+.widget {
+  padding: 1em;
+  border-bottom: 10px solid $grey;
+
+  .heading {
+    display: grid;
+    grid-template-columns: 60% auto;
+    padding: .65em 0;
+
+    .action {
+      text-align: right;
+
+      a {
+        text-decoration: none;
+        color: $pop-darker;
+      }
+    }
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: repeat(100, 10em);
+    overflow-x: scroll;
+    padding: 1em 0;
+
+    .item {
+      padding: 0;
+      border-radius: 1em;
+      overflow: hidden;
+      width: 12em;
+      height: 12em;
+      border: 2px solid $grey;
+
+      img {
+        width: auto;
+        height: 12em;
+      }
+
+    }
+
+    .free {
+      width: 100%;
+      height: auto;
+      height: 7em;
+      overflow: hidden;
+      width: 9em;
+      height: 6em;
+      cursor: pointer;
+      border-radius: .5em;
+
+      img {
+        width: 100%;
+        display: block;
+        margin: 0;
+        height: 6em;
+      }
+    }
+
+    .name {
+      h3 {
+        color: $black;
+        font-size: .75em;
+        text-align: center;
+        background: rgb(243, 175, 49);
+        width: fit-content;
+        margin: .6em auto;
+        border-radius: .25em;
+        padding: .3em .75em;
+        font-weight: 500;
+        left: -.5em;
+      }
+    }
+  }
+
+}

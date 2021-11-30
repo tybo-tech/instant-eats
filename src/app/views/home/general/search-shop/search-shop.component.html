@@ -1,0 +1,37 @@
+<div class="section">
+
+  <!-- <h1 class="main-heading">
+    Search <span>products.</span>
+  </h1> -->
+
+
+
+  <div class="form">
+    <div class="form-item">
+      <input type="search" [(ngModel)]="searchString" (keyup)="searchNow()" placeholder="Enter product keyword....">
+    </div>
+
+    <div *ngIf="results && results.length" class="results">
+      <div class="item" *ngFor="let item of results" (click)="goto(item.ProductSlug)">
+        <div class="icon">
+          <img [src]="item.FeaturedImageUrl" alt="">
+        </div>
+
+        <div class="details">
+          <p>
+            {{item.Name}}
+
+            <span>
+              {{item.RegularPrice | currency:'R'}}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <app-shop-by-catergory [label]="label"></app-shop-by-catergory>
+
+
+</div>

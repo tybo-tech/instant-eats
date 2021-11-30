@@ -1,0 +1,53 @@
+@import '../../../../../../assets/styles/color';
+
+.main {
+  position: relative;
+  background: $white;
+  padding: 0;
+  margin: 0;
+
+  input {
+    width: 80%;
+    display: block;
+    margin: .4em auto;
+    border: 2px solid $darker-grey;
+    border-radius: 2em;
+    background: $white;
+    padding: .5em 1em;
+    top: .4em;
+
+    &::placeholder {
+      color: $darker-grey;
+      font-weight: 400;
+    }
+
+  }
+
+  .results {
+    position: fixed;
+    left: 17em;
+    top: 4em;
+    box-shadow: $box-shadow;
+    background: $white;
+    z-index: 200000;
+    width: 30em;
+    padding: 1em;
+    max-height: 60vh;
+    overflow-y: scroll;
+
+    .item {
+      display: grid;
+      grid-template-columns: 15% auto;
+      border-bottom: 1px solid $cloud;
+      padding: .5em;
+
+      .icon {
+        padding: .1em;
+      }
+
+      img {
+        width: 2.5em;
+      }
+    }
+  }
+}

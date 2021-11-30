@@ -1,0 +1,41 @@
+<div class="banner" *ngIf="user && user.UserType == SUPER">
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+
+
+    <div class="name menu-back" (click)="back()">
+      Restaurants
+    </div>
+  </div>
+</div>
+
+<div class="banner" *ngIf="user && user.UserType == ADMIN">
+  <div class="backkk">
+    <div class="menu-back">
+
+    </div>
+
+
+    <div class="name menu-back">
+      Notifications will show here.
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="company">
+
+  <app-card-list-widget *ngIf="superMenu && superMenu.length" [items]="superMenu"></app-card-list-widget>
+
+
+</div>
+
+
+<div style="padding-top: 15em;">
+  <app-dash-loader *ngIf="loading"></app-dash-loader>
+</div>
+
+

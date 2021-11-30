@@ -1,0 +1,72 @@
+@import '../../../../../assets/styles/color';
+h1{
+  text-align: center;
+}
+.top-bar {
+  display: grid;
+  background: $pop;
+  padding: 1em;
+  grid-template-columns: 4% auto;
+  font-weight: 600;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 10% auto;
+  }
+}
+
+
+
+
+
+.card {
+  background: $white;
+  margin: 1em;
+  padding: 1em;
+  box-shadow: $box-shadow;
+  border-radius: .2em;
+}
+
+.shop {
+  .top {
+    display: grid;
+    grid-template-columns: 10% 70% auto;
+    border-bottom: 2px solid $cloud;
+
+    img {
+      width: 2.5em;
+      display: block;
+      margin: .1em auto;
+    }
+
+    h4 {
+      padding: .4em 1em;
+    }
+    button{
+      padding: .4em !important;
+      width: fit-content;
+      font-size: .75em !important;
+      top: .2em;
+    }
+  }
+.bot{
+  font-weight: 500;
+  padding: .75em;
+}
+  .actions {
+    display: grid;
+    grid-template-columns: 50% auto;
+    padding: 1em 0;
+    grid-gap: 1em;
+
+    button {
+      padding: .4em !important;
+      margin: 0 auto;
+
+    }
+
+    .secondary {
+      background: $grey !important;
+      color: $black !important;
+      border-color: $grey !important;
+    }
+  }
+}

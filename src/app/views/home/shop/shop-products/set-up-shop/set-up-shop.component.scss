@@ -1,0 +1,25 @@
+@import '../../../../../../assets/styles/color';
+
+.main {
+  padding: 1em;
+  background: $white;
+  height: 90em;
+
+  h3 {
+    margin-top: 2em;
+    color: $black;
+  }
+
+}
+
+.dash-forms .preview .material-icons,
+.dash-forms .upload-preview .material-icons {
+  text-align: center;
+  margin-bottom: .5em
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  padding: .5em;
+}

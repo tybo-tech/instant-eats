@@ -1,0 +1,40 @@
+<div *ngIf="subCatergories" class="main box-shadow phone-only">
+  <h2 class="cat-label">
+    <span>
+    Shop by  Categories
+    </span>
+
+    <span>
+      <!-- Sell all -->
+    </span>
+  </h2>
+  <div class="flexy">
+    <div class="list">
+      <div class="catergory" *ngFor="let catergory of subCatergories; let i = index"
+        (click)="tapChildCategory(catergory)"
+        [ngStyle]="{'background-image': ' linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(128, 128, 128, 0.2)),'+'url(' + catergory.ProductsImages[0].FeaturedImageUrl + ')'}">
+        <span>
+          {{catergory.Name}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div *ngIf="subCatergories && subCatergories.length" class="main  pc-only">
+  <h2 class="cat-label">
+    <span>
+      {{(label + ' Categories') || 'Shop by Categories'}}
+    </span>
+
+    <span>
+      <!-- Sell all -->
+    </span>
+  </h2>
+  <app-section-sliders *ngIf="subCatergories && subCatergories.length"  [items]="subCatergories"></app-section-sliders>
+
+
+</div>

@@ -1,0 +1,28 @@
+<div class="widget">
+  <!-- <div class="heading">
+    <h2>
+      {{heading}}
+    </h2>
+
+    <div class="action">
+      <a href=""><h2>View all</h2></a>
+    </div>
+  </div> -->
+  <div class="items" *ngIf="items && items.length">
+    <div class="col" *ngFor="let item of items" (click)="goto(item)">
+      <div class="item" *ngIf="!freeImage">
+        <img [src]="item.Image" alt="">
+      </div>
+      <div class="free" *ngIf="freeImage">
+        <img [src]="item.Image" alt="">
+      </div>
+      <div class="name" *ngIf="!hideLabel">
+        <h3>
+          {{item.Name}}
+        </h3>
+      </div>
+    </div>
+
+  </div>
+
+</div>

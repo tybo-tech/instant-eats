@@ -1,0 +1,326 @@
+<div class="main" *ngIf="company">
+  <div class="top-bar-conatiner">
+
+    <div class="top-bar">
+      <div class="menu-back">
+        <span class="material-icons" (click)="back()">
+          arrow_back
+        </span>
+      </div>
+
+
+      <div class="name menu-back" (click)="back()">
+        Instant eats
+      </div>
+
+
+
+
+      <div class=""></div>
+
+
+      <div class="col cart" style="text-align: right; padding-right: 1em;">
+        <span [cdkCopyToClipboard]="fullLink" class="material-icons love share" style="left: -2em;" (click)="share()">
+          share
+        </span>
+        <span class="material-icons love share" (click)="back()">
+          home
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="holder">
+
+    <div class="cover">
+
+      <img *ngIf="company.Background" [src]="company.Background" alt="">
+      <img *ngIf="!company.Background" src="assets/images/cover.png" alt="">
+
+      <div class="lg">
+        <img [src]="company.Dp" alt="">
+      </div>
+    </div>
+
+    <div class="intro">
+      <h3>
+        {{company.Name}} <span>.</span>
+      </h3>
+
+      <p *ngIf="company.AddressLine || company.Location">
+        {{company.AddressLine || company.Location}} <br>
+
+      </p>
+      <p class="rate">
+        <span class="material-icons">
+          star
+        </span> 0.0
+      </p>
+    </div>
+
+
+  </div>
+
+
+  <div class="products-holder" *ngIf="!emptyShop && !warning ">
+
+    <div class="products" *ngIf="products">
+      <div class="product" *ngFor="let product of products | searchproductshome:searchString; let i = index"
+        (click)="select(product)">
+
+
+        <div class="product-details">
+          <h3>
+            {{product.Name}}
+          </h3>
+          <br>
+          <h2>
+            {{product.PriceFromLabel}}
+            <span class="price" *ngIf="!product.OnSale">
+              {{product.RegularPrice | currency:'R'}}
+            </span>
+            <span class="price" *ngIf="product.OnSale">
+              <del> {{product.RegularPrice | currency:'R'}}</del> <br>
+              {{product.SalePrice | currency:'R'}}
+            </span>
+
+            <span *ngIf="product.OnSale" class="sale-tag">{{product.Sale}}</span>
+          </h2>
+          <button class="secondary choose">Choose options</button>
+        </div>
+
+        <div class="image">
+          <img [src]="product.FeaturedImageUrl">
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="next" *ngIf="showShowMore">
+      <button class="primary load-more" (click)="loadMore()">Load more</button>
+    </div>
+
+    <div class="cart-btn" *ngIf="showCart" (click)="cart()">
+      <div class="items">{{carttItems}} Items</div>
+      <div class="items">View cart</div>
+      <div class="items">
+        {{order?.Total  | currency:'R'}}
+      </div>
+    </div>
+  </div>
+
+  <div class="warning" *ngIf="warning && company">
+    Note: {{warning}} <br>
+    <span *ngIf="company.OperatingHours[0].OperatingStatus == OPEN_CLOSE[1].Name">
+      Restaurant is closed today
+    </span>
+    <span *ngIf="company.OperatingHours[0].OperatingStatus == OPEN_CLOSE[0].Name">
+      Opens : {{company.OperatingHours[0].StartTime}} to {{company.OperatingHours[0].FinishTime}}
+    </span>
+  </div>
+
+
+  <div class="mt5 empty-state" *ngIf="emptyShop">
+    <br><br><br>
+    <p>
+      You don't have any products listing on your shop yet, Go to your dashboard and start adding products.
+
+      <span (click)="gotoDashboard()">
+        Go to dashboard.
+      </span>
+    </p>
+  </div>
+</div>
+
+<app-home-full-screen-loading *ngIf="loading"></app-home-full-screen-loading>
+
+
+<!-- <app-set-up-shop *ngIf="showSetUpCompany"></app-set-up-shop> -->
+
+
+
+<!-- 
+<app-product-quick-view *ngIf="selectedProduct" [selectedProduct]="selectedProduct"
+  (showProduct)="selectedProduct = null"></app-product-quick-view>
+<app-quick-sign-in [heading]="heading"></app-quick-sign-in> -->
+
+
+
+
+
+
+<div class="quick-add" *ngIf="showAdd && company && company.Followers && company.Followers.length ">
+  <div class="form">
+    <h3>
+      Followers.
+    </h3>
+
+
+
+
+    <div class="form-item">
+
+      <div class="follower" *ngFor="let item of company.Followers; let i = index">
+        <div class="icon">
+          <img [src]="item.SourceDp" alt="">
+        </div>
+
+        <div class="details">
+          <p>
+            {{item.SourceName}}
+          </p>
+        </div>
+      </div>
+
+      <div class="link" (click)="showAdd = false">Cancel</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="quick-add from-top" *ngIf="product">
+
+
+  <div class="form " style="padding: 0;">
+
+
+    <div class="form-item  no-padding no-margin">
+      <div class="product-banner">
+        <div class="close">
+          <span class="material-icons" (click)="product = null">
+            close
+          </span>
+        </div>
+        <img style="width: 100%;" [src]="product.FeaturedImageUrl">
+        <div class="tittle">
+          <h3>
+            {{product.Name}}
+          </h3>
+
+          <p *ngIf="product.Description">
+            {{product.Description}}
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="not-taking-orders" *ngIf="warning && company">
+      Currently not taking orders
+    </div>
+
+
+    <div class="variations" *ngIf="product.ProductVariations">
+
+      <div class="variation" *ngFor="let item of product.ProductVariations">
+        <div class="top">
+          <div class="col">
+            <h3>
+              {{item.VariationName}}
+            </h3>
+          </div>
+
+          <div class="col">
+            <h5>
+              {{item.IsRequired}}
+            </h5>
+          </div>
+        </div>
+
+        <div class="options">
+          <div class="option" *ngFor="let option of item.ProductVariationOptions">
+            <div class="row" *ngIf="option.OptionName" (click)="selectOption(option, item)">
+              <div class="col" *ngIf="item.NumberOfSelection !== VARIATION_NUMBER_OF_SELECTION[0].Name">
+                <span class="material-icons" *ngIf="!option.IsSelected">
+                  check_box_outline_blank
+                </span>
+                <span class="material-icons checked" *ngIf="option.IsSelected">
+                  check_box
+                </span>
+              </div>
+              <div class="col" *ngIf="item.NumberOfSelection === VARIATION_NUMBER_OF_SELECTION[0].Name">
+                <span class="material-icons" *ngIf="!option.IsSelected">
+                  radio_button_unchecked
+                </span>
+                <span class="material-icons checked" *ngIf="option.IsSelected">
+                  radio_button_checked
+                </span>
+              </div>
+
+              <div class="col">
+                <h6>
+                  {{option.OptionName}}
+                </h6>
+              </div>
+              <div class="col">
+                <h6>
+                  {{option.Price || 0  | currency:'R'}}
+                </h6>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="add-to-cart" *ngIf="!warning">
+      <div class="col">
+        <div class="qty">
+          <div class=""><img src="assets/images/sup1.svg" (click)="prev()" alt=""></div>
+          <div class="">
+            <p>{{product.SelectedQuantiy}}</p>
+          </div>
+          <div class=""><img src="assets/images/add1.svg" (click)="next()" alt=""></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <button (click)="addToCart(product)">Add to cart |
+          {{(product.RegularPrice   || 0)*product.SelectedQuantiy |  currency:'R'}}</button>
+      </div>
+    </div>
+
+    <!-- <div class="not-taking-orders" *ngIf="warning && company">
+      Currently not taking orders
+    </div> -->
+
+
+  </div>
+</div>
+
+
+
+
+<div *ngIf="leavingShowWarning" class="leaving-warning">
+  <div class="body">
+    <p>
+      One shop at a time.
+
+      <span>
+        You still have an open cart with <b> {{order.Company?.Name}} </b>, please checkout before you continue shopping
+        from other shops.
+      </span>
+
+      <span>
+        To keep delivery efficient and quicker we stick to one shop per order.
+      </span>
+    </p>
+    <div class="actions">
+
+      <button class="ok" (click)="leavingShowWarning = false">Ok</button>
+      <button (click)="cart()">Go to my cart</button>
+    </div>
+  </div>
+</div>

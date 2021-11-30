@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.943" height="16" viewBox="0 0 19.943 16">
+  <g id="bookings-disabled" transform="translate(-0.307)">
+    <g id="Group_1965" data-name="Group 1965">
+      <g id="Rectangle_161" data-name="Rectangle 161" transform="translate(0.307)" fill="#a4b0be" stroke="#a4b0be" stroke-width="1.5">
+        <rect width="7" height="7" stroke="none"/>
+        <rect x="0.75" y="0.75" width="5.5" height="5.5" fill="none"/>
+      </g>
+      <line id="Line_43" data-name="Line 43" x2="12" transform="translate(7.5 3.5)" fill="none" stroke="#a4b0be" stroke-linecap="round" stroke-width="1.5"/>
+    </g>
+    <g id="Group_1966" data-name="Group 1966" transform="translate(0 9)">
+      <g id="Rectangle_161-2" data-name="Rectangle 161" transform="translate(0.307)" fill="#a4b0be" stroke="#a4b0be" stroke-width="1.5">
+        <rect width="7" height="7" stroke="none"/>
+        <rect x="0.75" y="0.75" width="5.5" height="5.5" fill="none"/>
+      </g>
+      <line id="Line_43-2" data-name="Line 43" x2="12" transform="translate(7.5 3.5)" fill="none" stroke="#a4b0be" stroke-linecap="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

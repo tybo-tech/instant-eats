@@ -1,0 +1,19 @@
+<div class="qty">
+  <div class="col" (click)="prev()">
+    <img src="assets/images/icon-qty-min.svg"  alt="">
+  </div>
+  <div class="col">
+    <span>
+      {{qty}}
+    </span>
+  </div>
+  <div class="col" (click)="next()">
+    <img src="assets/images/icon-qty-plus.svg"  alt="">
+  </div>
+</div>
+<p *ngIf="showNotice ">
+  There is only {{maxItems}} left!
+</p>
+<p *ngIf="showNegError">
+  Press + to add qty
+</p>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="749" height="143" viewBox="0 0 749 143">
+  <g id="close" transform="translate(-85 -789)">
+    <rect id="Rectangle_262" data-name="Rectangle 262" width="749" height="143" rx="16" transform="translate(85 789)" fill="#f3cf3d"/>
+    <g id="Group_2289" data-name="Group 2289">
+      <text id="Close_menu" data-name="Close menu" transform="translate(126 895)" font-size="91" font-family="CenturyGothic, Century Gothic"><tspan x="0" y="0">Close menu</tspan></text>
+      <g id="Group_2288" data-name="Group 2288" transform="translate(-128 -367.291)">
+        <path id="Path_193" data-name="Path 193" d="M0,0H101" transform="translate(848.791 1192.291) rotate(45)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="7"/>
+        <path id="Path_194" data-name="Path 194" d="M0,0H101" transform="translate(920.209 1192.291) rotate(135)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="7"/>
+      </g>
+    </g>
+  </g>
+</svg>

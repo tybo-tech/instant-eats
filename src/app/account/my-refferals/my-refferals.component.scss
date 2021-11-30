@@ -1,0 +1,141 @@
+@import './../../../assets/styles/color';
+
+.section {
+  background: #fff;
+  padding: 5.5em 1em;
+  margin: 0;
+  color: rgb(42, 42, 42);
+  margin: 1em 0;
+
+  @media only screen and (max-width: 600px) {
+
+    padding: 8.5em .5em;
+  }
+
+  h1 {
+    text-transform: uppercase;
+    font-weight: 400;
+    text-align: center;
+
+    span {
+      font-weight: 900;
+    }
+  }
+
+  p {
+    width: 90%;
+    margin: 1em auto;
+    text-align: center;
+    border-bottom: 1px solid $cloud;
+    padding-bottom: 1em;
+  }
+
+
+
+}
+
+
+.form {
+  max-width: 40em;
+  margin: 2em auto;
+  display: block;
+  position: relative;
+}
+
+input,
+textarea {
+  padding: 1em;
+  margin-bottom: 0em;
+  border: 3px solid black;
+  width: 100%;
+}
+
+textarea {
+  height: 10em;
+}
+
+button {
+  margin: 1em 0;
+  padding: 1em;
+  background: $pop;
+  color: $black;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border: 3px solid $pop;
+  width: 100%;
+  max-width: 15em;
+
+  @media only screen and (max-width: 600px) {
+
+    max-width: 100%;
+  }
+
+  &:disabled {
+    opacity: .4;
+    cursor: no-drop;
+  }
+
+}
+
+
+.results {
+  display: block;
+  padding: 1em 2em;
+  text-align: center;
+  left: -1em;
+
+  .item {
+    display: grid;
+    grid-template-columns: 15% 50% auto;
+    border-bottom: 1px solid $cloud;
+
+    .icon {
+      padding: .5em;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+
+  p {
+    text-align: left;
+    padding: .5em;
+    margin: 0;
+    border: none;
+
+    span {
+      display: block;
+      text-align: right;
+      font-weight: 600;
+    }
+  }
+}
+
+.share {
+  text-align: center;
+
+  span {
+    display: block;
+
+    &:last-child {
+      width: 10em;
+      background: $black;
+      color: $white;
+      margin: 1em auto;
+      padding: .4em 1em;
+      text-align: center;
+    }
+  }
+
+  a {
+    background: $cloud;
+    display: block;
+    padding: 1em;
+    border-radius: .4em;
+    font-size: .7em;
+    font-weight: 600;
+  }
+}

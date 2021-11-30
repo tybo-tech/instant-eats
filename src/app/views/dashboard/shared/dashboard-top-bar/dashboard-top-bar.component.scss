@@ -1,0 +1,48 @@
+.new-top-bar {
+  padding: 1.5em;
+  grid-template-columns: 4em 4em 58% auto;
+  border: none;
+  width: 2.5em;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+
+  @media (min-width : 1400px) {}
+
+  .col {
+
+    // border: 1px solid red;
+    img {
+      width: 3em;
+
+      @media (min-width : 800px) {}
+
+      @media (min-width : 1400px) {
+        width: 2.5em;
+      }
+
+    }
+
+    .menu {
+      top: .5em
+    }
+
+    p {
+      padding: .2em 0;
+      font-weight: 600;
+      color: white;
+
+      span {
+        display: block;
+        font-weight: 500;
+        font-size: .8em;
+      }
+    }
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}

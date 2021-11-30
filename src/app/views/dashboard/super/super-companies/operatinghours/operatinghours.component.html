@@ -1,0 +1,26 @@
+<div class="span" *ngIf="company">
+  <div class="form-item" *ngFor="let item of company.OperatingHours">
+    <label for=""><b>{{item.DayOfTheWeek}}</b></label>
+    <label for="">Open / Closed</label>
+    <select [(ngModel)]="item.OperatingStatus">
+      <option *ngFor="let cc of OPEN_CLOSE" [ngValue]="cc.Name"> {{cc.Name}}</option>
+    </select>
+
+    <span *ngIf="item.OperatingStatus == OPEN_CLOSE[0].Name">
+      <br> <br>
+      <label for="">Opening Time</label>
+      <input type="time" name="" id="" [(ngModel)]="item.StartTime " placeholder="">
+
+      <br> <br>
+      <label for="">Closing Time</label>
+      <input type="time" name="" id="" [(ngModel)]="item.FinishTime " placeholder="">
+
+    </span>
+
+  </div>
+
+
+  <div class="form-item">
+    <button (click)="save()" [disabled]="!company.Name">Save times</button>
+  </div>
+</div>

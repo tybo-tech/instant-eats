@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="485" height="485" viewBox="0 0 485 485">
+  <g id="job" transform="translate(-718 -298)">
+    <circle id="Ellipse_93" data-name="Ellipse 93" cx="242.5" cy="242.5" r="242.5" transform="translate(718 298)" fill="#fff"/>
+    <g id="suitcase" transform="translate(806 410)">
+      <path id="Path_216" data-name="Path 216" d="M97.972,59.839A12.858,12.858,0,0,1,85.119,46.986V27.706H33.706v19.28A12.853,12.853,0,0,1,8,46.986V27.706A25.732,25.732,0,0,1,33.706,2H85.119a25.732,25.732,0,0,1,25.706,25.706v19.28A12.858,12.858,0,0,1,97.972,59.839Z" transform="translate(94.825)" fill="#f3cf3d"/>
+      <path id="Path_217" data-name="Path 217" d="M163.364,59.948a26.474,26.474,0,0,1-9.126,1.542,28.164,28.164,0,0,1-9.9-1.8L0,11.62v98.07a35.326,35.326,0,0,0,35.346,35.346H273.129a35.326,35.326,0,0,0,35.346-35.346V11.62Z" transform="translate(0 114.027)" fill="#f3cf3d"/>
+      <path id="Path_218" data-name="Path 218" d="M308.476,40.346V69.78L157.323,120.164a9.511,9.511,0,0,1-6.17,0L0,69.78V40.346A35.326,35.326,0,0,1,35.346,5H273.129A35.326,35.326,0,0,1,308.476,40.346Z" transform="translate(0 35.559)" fill="#f3cf3d"/>
+    </g>
+  </g>
+</svg>

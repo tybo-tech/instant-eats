@@ -1,0 +1,46 @@
+<div class="top-bar">
+  <div class="menu-back">
+    <span class="material-icons" (click)="back()">
+      west
+    </span>
+  </div>
+
+
+  <div class="name">
+    My orders
+  </div>
+</div>
+
+<div class="main" *ngIf="orders">
+
+  <div class="user-section" *ngFor="let order of orders; let i = index"
+    (click)="goto('home/view-my-order/'+order.OrdersId)">
+
+    <div class="card">
+      <div class="shop">
+        <div class="top">
+          <div class="col">
+            <img [src]="order.Company.Dp" alt="">
+          </div>
+          <div class="col">
+            <h4>
+              {{order.Company.Name}}
+            </h4>
+          </div>
+          <div class="col">
+            <button class="tertiary">{{order.Shipping}}</button>
+
+          </div>
+        </div>
+
+        <div class="bot">
+          Order No... #{{order.Id}} <br>
+          Order Status... <span class="order-status"> {{order.Status}}</span> <br>
+          Order Date... {{order.CreateDate | date: 'mediumDate'}} <br>
+          Order Total... {{order.Total  | currency:'R'}}
+        </div>
+      </div>
+
+    </div>
+    <app-customer-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-customer-feedback>
+    <app-home-full-screen-loading *ngIf="!orders"></app-home-full-screen-loading>

@@ -1,0 +1,180 @@
+<div class="banner">
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+
+
+    <div class="name menu-back" (click)="back()">
+      Product list
+    </div>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <div class="tab" *ngFor="let item of PRODUCTS_MODES" [ngClass]="item.Class" (click)="goto(item)">
+      {{item.Name}}
+    </div>
+  </div>
+
+  <div class="quick-add static" *ngIf="product">
+
+    <div class="form" *ngIf="tabId==1">
+
+      <h3>
+        {{product.Name}}
+      </h3>
+
+
+      <div class="form-item">
+        <app-image-widget [image]="product.FeaturedImageUrl" (imageChangedEvent)="onImageChangedEvent($event)">
+        </app-image-widget>
+      </div>
+
+      <div class="form-item">
+        <label for="">Product name</label>
+        <input type="text" name="" id="" [(ngModel)]="product.Name" placeholder="Enter product name.">
+      </div>
+
+      <div class="form-item">
+        <label for="">Product Description</label>
+        <textarea [(ngModel)]="product.Description" placeholder="Enter product description."></textarea>
+      </div>
+
+      <div class="form-item">
+        <label for="">Item Category</label>
+        <select [(ngModel)]="product.CategoryGuid" *ngIf="chilndrenCategories">
+          <option *ngFor="let cc of chilndrenCategories" [ngValue]="cc.CategoryId"> {{cc.Name}}</option>
+        </select> </div>
+
+
+
+      <div class="form-item">
+        <label for="">Base Price (<b>ZAR</b>)</label>
+        <input type="number" name="" id="" [(ngModel)]="product.RegularPrice" placeholder="Stock in hand.">
+      </div>
+
+
+
+
+      <div class="form-item">
+        <button (click)="saveProduct()" [disabled]="!product.Name">Save product</button>
+        <div class="link" (click)="back()">Back</div>
+      </div>
+    </div>
+
+    <div class="form" *ngIf="tabId==2">
+      <h3>
+        {{product.Name}}
+      </h3>
+     
+
+      <div class="form-item cardd" *ngFor="let item of product.ProductVariations">
+        <div class="top">
+          <div class="col" (click)="productVariation = item">
+            <u> {{item.VariationName}}</u>
+          </div>
+          <div class="col">
+            <h4>
+              {{item.PriceMode}}
+            </h4>
+          </div>
+
+        </div>
+
+        <div class="body">
+          <div class="table">
+            <!-- <div class="tr">
+              <div class="td">
+                <b>Option name</b>
+              </div>
+
+              <div class="td">
+                <b>Option price</b>
+              </div>
+            </div> -->
+
+            <div class="tr" *ngFor="let option of item.ProductVariationOptions; let i = index">
+              <div class="td">
+                <input type="text" (change)="optionChanged(option, item)" [(ngModel)]="option.OptionName" name="" id="" placeholder="Option Name">
+              </div>
+
+              <div class="td">
+                <input type="number" (change)="optionChanged(option, item)" [(ngModel)]="option.Price" name="" id="" placeholder="Option Price">
+              </div>
+
+              <div class="td" *ngIf="option.Id">
+                <img src="assets/images/icons/delete.svg" (click)="deleteOption(option, i,item)" alt="">
+              </div>
+              <div class="td" *ngIf="!option.Id">
+                <img src="assets/images/icons/save.svg"  (click)="saveOption(option, item)" alt="">
+              </div>
+
+            </div>
+
+
+          </div>
+          <!-- <a clsass="linnk">Add {{item.VariationName}} </a> -->
+        </div>
+      </div>
+
+
+      <div class="form-item">
+        <button class="secondary" (click)="addProductVariation()">Add variation</button>
+      </div>
+
+      <div class="form-item">
+        <button (click)="saveProduct()" [disabled]="!product.Name">Save product</button>
+        <div class="link" (click)="back()">Back</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-add" *ngIf="productVariation">
+    <div class="form">
+      <h3>
+        Adding product variation
+      </h3>
+
+      <div class="form-item">
+        <input type="text" name="" id="" [(ngModel)]="productVariation.VariationName" placeholder="Variation Name.">
+        <div class="suggestions">
+          <a *ngFor="let item of variations"
+            (click)="productVariation.VariationName = item.Name; productVariation.PriceMode = item.PriceMode; suggestion = item ">{{item.Name}}</a>
+        </div>
+      </div>
+
+
+      <div class="form-item">
+        <label for="">Variation price mode</label>
+        <select [(ngModel)]="productVariation.PriceMode">
+          <option *ngFor="let cc of VARIATION_PRICE_MODES" [ngValue]="cc.Name"> {{cc.Name}}</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label for="">Is Required or Optional?</label>
+        <select [(ngModel)]="productVariation.IsRequired">
+          <option *ngFor="let cc of VARIATION_REQUIRED_MODES" [ngValue]="cc.Name"> {{cc.Name}}</option>
+        </select>
+      </div>
+
+
+      <div class="form-item">
+        <label for="">Allowed number of selections</label>
+        <select [(ngModel)]="productVariation.NumberOfSelection">
+          <option *ngFor="let cc of VARIATION_NUMBER_OF_SELECTION" [ngValue]="cc.Name"> {{cc.Name}}</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <button (click)="saveProductVariation()" [disabled]="!productVariation.VariationName">Save variation</button>
+        <div class="link" (click)="productVariation = null">Cancel</div>
+      </div>
+    </div>
+  </div>
+</div>

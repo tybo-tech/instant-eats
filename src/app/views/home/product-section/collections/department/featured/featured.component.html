@@ -1,0 +1,41 @@
+<div *ngIf="products" class="main box-shadow">
+  <h2 class="cat-label">
+    <span>
+      {{('Top ' + label) || 'Shop by Categories'}}
+    </span>
+
+    <span>
+      <!-- Sell all -->
+    </span>
+  </h2>
+  <div class="flexy">
+    <div class="list">
+      <div class="" *ngFor="let item of products; let i = index">
+        <div class="catergory" (click)="viewMore(item)"
+          [ngStyle]="{'background-image': 'url(' + item.FeaturedImageUrl + ')'}">
+         
+        </div>
+        <div class="name">
+          <b *ngIf="!item.OnSale">
+            {{item.RegularPrice | currency:'R'}}
+          </b>
+          <b *ngIf="item.OnSale">
+            <del>{{item.RegularPrice | currency:'R'}}</del>
+            {{item.SalePrice | currency:'R'}}
+          </b>
+          <span *ngIf="item.OnSale" class="sale-tag">{{item.Sale}}</span>
+
+          <br>
+          <a (click)="gotoComapny(item)">   By {{item.Company.Name}}</a>
+       
+          <!-- {{item.Name}} -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+<app-product-quick-view *ngIf="selectedProduct" [selectedProduct]="selectedProduct"
+  (showProduct)="selectedProduct = null"></app-product-quick-view>

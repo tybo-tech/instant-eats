@@ -1,0 +1,68 @@
+@import '../../../../../assets/styles/color';
+
+.top-bar-conatiner {
+  display: none;
+
+  @media only screen and (max-width: 600px) {
+    display: block;
+  }
+}
+
+.go-back {
+  padding: .5em 2em;
+  // max-width: $max-width;
+  box-shadow: $box-shadow;
+  background:$pop;
+  display: grid;
+  grid-template-columns: 10% auto;
+  padding: 1em 6em;
+
+  span{
+    cursor: pointer;
+  }
+
+
+  p{
+    padding: 1em;
+    font-weight: 700;
+  }
+
+  @media only screen and (max-width: 600px) {
+    margin-top: 1em;
+    padding:1em;
+    padding-top: 2.5em;
+
+  }
+}
+
+.main {
+  // background: $white;
+  padding: 1em;
+  border-radius: .5em;
+  margin: .5em;
+  margin-top: 1em;
+
+  @media only screen and (max-width: 600px) {
+    margin-top: 0;
+  }
+
+
+  .product-section {
+    @media only screen and (max-width: 600px) {
+      margin-top: 4em;
+    }
+  }
+}
+
+
+
+
+
+.child {
+  margin-bottom: 4em;
+  box-shadow: none;
+}
+
+.product-details p {
+  text-align: left;
+}

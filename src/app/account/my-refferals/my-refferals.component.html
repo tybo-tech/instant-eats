@@ -1,0 +1,89 @@
+<div class="section">
+
+  <h1 class="main-heading">
+    My <span>refferals.</span>
+  </h1>
+
+  <p>
+    Refer a friend and earn 2% of the total amount every time  when they buy or sell a product.
+  </p>
+
+
+
+  <div class="form" *ngIf="user">
+    <div class="form-item">
+
+      <div class="share" [cdkCopyToClipboard]="referralCode" (click)="copy()">
+        <span>
+          My Link
+        </span>
+        <a>{{referralCode}}</a>
+
+        <span>Share</span>
+      </div>
+
+      <p>
+        <b>
+
+        </b>
+      </p>
+    </div>
+
+    <div *ngIf="results && results.length" class="results">
+
+      <div class="item" style="grid-template-columns: 50% auto">
+       
+
+        <div class="details">
+          <p>
+            <!-- <span style="text-align: left;">
+              Refferal
+            </span> -->
+          </p>
+        </div>
+        <div class="details">
+          <p>
+            <span>
+              Earnings
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="item" *ngFor="let item of results">
+        <div class="icon">
+          <img [src]="item.Dp" alt="">
+        </div>
+
+        <div class="details">
+          <p>
+            {{item.Name}}
+          </p>
+        </div>
+        <div class="details">
+          <p>
+            <span>
+              {{(item.RegularPrice || 0) | currency:'R'}}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="form" *ngIf="!user">
+    <div class="form-item">
+      <p>
+        Login or sign up to see your refferals and your refferal link.
+        <button class="primary" (click)="login()">Login</button>
+        <button class="secondary" (click)="login()">Sign up</button>
+      </p>
+    </div>
+
+  </div>
+
+
+
+</div>
+<app-quick-sign-in [heading]="heading"></app-quick-sign-in>

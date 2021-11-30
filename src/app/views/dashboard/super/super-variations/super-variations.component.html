@@ -1,0 +1,106 @@
+<div class="banner" >
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+  
+  
+    <div class="name menu-back" (click)="back()">
+    Dashboard
+    </div>
+  </div>
+
+
+</div>
+<div class="container" *ngIf="usersItems">
+  <h3>
+    <span>
+      Variations <br> <br>
+    </span>
+  </h3>
+
+
+  <app-card-list-widget *ngIf="usersItems" (primaryActionEvent)="onPrimaryActionEvent($event)"
+    (itemSelectedEvent)="OnItemSelected($event)" [showFilter]="showFilter" [items]="usersItems"
+    [primaryAction]="primaryAction">
+  </app-card-list-widget>
+
+</div>
+
+
+<app-nodata-widget *ngIf="!usersItems || !usersItems.length" [info]="'No variations found'"></app-nodata-widget>
+
+
+
+<div class="quick-add" *ngIf="variation">
+  <div class="form">
+
+    <div class="module-actions">
+      <button class="tertiary" (click)="variation = null">Back to variation list</button>
+    </div>
+    <h3>
+      {{heading}}
+    </h3>
+
+
+
+    <div class="form-item">
+      <label for="">Variation name</label>
+      <input type="text" name="" id="" [(ngModel)]="variation.Name" placeholder="Enter variation name.">
+    </div>
+
+    <div class="form-item">
+      <label for="">Variation Description</label>
+      <textarea [(ngModel)]="variation.Description"></textarea>
+    </div>
+
+    <div class="form-item">
+      <label for="">Variation selection mode</label>
+      <select [(ngModel)]="variation.SelectionType">
+        <option *ngFor="let cc of VARIATION_SELECTION_MODES" [ngValue]="cc.Name"> {{cc.Name}}</option>
+      </select>
+    </div>
+
+    
+    <div class="form-item">
+      <label for="">Variation price mode</label>
+      <select [(ngModel)]="variation.PriceMode">
+        <option *ngFor="let cc of VARIATION_PRICE_MODES" [ngValue]="cc.Name"> {{cc.Name}}</option>
+      </select>
+    </div>
+
+    <div class="form-item" *ngIf="variation.VariationsOptions">
+      <label for="">Variation Options</label>
+      <div class="line-option" *ngFor="let option of variation.VariationsOptions;let  i = index">
+        <div class="col">
+          <input type="text" name="" (change)="saveOption(option)" id="" [(ngModel)]="option.Name"
+            placeholder="Enter variation name.">
+        </div>
+
+        <div class="col">
+          <img src="assets/images/icons/delete.svg" (click)="deleteOption(option,i)" alt="">
+        </div>
+      </div>
+
+      <div class="line-option">
+        <div class="col">
+          <input type="text" name="" (change)="saveOption()" id="" [(ngModel)]="newOptionName"
+            placeholder="Enter variation name.">
+        </div>
+
+        <div class="col">
+          <img src="assets/images/icons/save.svg">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-item">
+      <button (click)="saveVariation()" [disabled]="!variation.Name">Save Variation</button>
+      <div class="link" style="color:red" (click)="deleteVariation()">Delete</div>
+      <div class="link" (click)="variation = null">Close</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="new-top-bar" *ngIf="user">
+
+  <!-- <div class="menu-back-btn" (click)="menu()">
+    <span class="material-icons menu">
+      menu
+    </span>
+  </div> -->
+
+  <div class="col">
+    <img src="assets/images/menu-icon.svg" (click)="menu()" alt="">
+  </div>
+  <div class="col">
+    <img src="assets/images/user-icon.svg" alt="">
+  </div>
+
+  <div class="col">
+    <p>
+      Hi {{user?.Name}}
+      <span>
+        {{user?.UserType}}
+      </span>
+    </p>
+  </div>
+
+  <div class="col">
+    <!-- <img src="assets/images/bell.svg" alt=""> -->
+  </div>
+</div>
+
+<div class="overlay" *ngIf="showMenu" (click)="menu()"></div>
+<app-dash-nav *ngIf="showMenu"></app-dash-nav>

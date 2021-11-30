@@ -1,0 +1,141 @@
+<!-- <h3>
+  {{addEditCompanyHeading}}
+</h3> -->
+
+<div class="banner">
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+
+
+    <div class="name menu-back" (click)="back()">
+      Restaurant dashboard
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="container" *ngIf="company">
+
+  <div class="tabs">
+    <div class="tab" *ngFor="let item of COMPANY_TABS" [ngClass]="item.Class" (click)="goto(item)">
+      {{item.Name}}
+    </div>
+  </div>
+
+  <div class="quick-add static" *ngIf="company">
+    <div class="form" *ngIf="tabId ==  1">
+
+
+
+
+      <div class="form-item  no-padding">
+        <app-image-banner-widget [image]="company.Background" (imageChangedEvent)="onImageBannerChangedEvent($event)">
+        </app-image-banner-widget>
+      </div>
+      <div class="form-item">
+        <app-image-widget [image]="company.Dp" (imageChangedEvent)="onImageChangedEvent($event)"></app-image-widget>
+      </div>
+
+
+      <div class="form-item">
+        <label for="">Restaurant name*</label>
+        <input type="text" name="" id="" [(ngModel)]="company.Name" placeholder="">
+      </div>
+
+
+
+      <div class="form-item">
+        <label for="">Address *</label>
+        <app-address-widget-dashboard [addressLineHome]="company.AddressLine"
+          (adressChangedEvent)="onAdressEvent($event)">
+        </app-address-widget-dashboard>
+      </div>
+
+      <div class="form-item">
+        <label for="">Email Adress*</label>
+        <input type="email" name="" id="" [(ngModel)]="company.Email" placeholder="">
+      </div>
+
+
+      <div class="form-item">
+        <label for=""> Phone Number*</label>
+        <input type="number" name="" id="" [(ngModel)]="company.Phone" placeholder="">
+      </div>
+
+      <div class="form-item">
+        <label for=""> Delivery radius(KM)</label>
+        <input type="number" name="" id="" [(ngModel)]="company.Radius" placeholder="">
+      </div>
+
+      <div class="form-item">
+        <label for=""> Delivery mode</label>
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="company.DeliveryMode">
+          <mat-radio-button *ngFor="let item of DELIVERY_MODES" [value]="item">{{item}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+
+      <div class="form-item">
+        <label for="">delivery time (minutes)</label>
+        <input type="number" name="" id="" [(ngModel)]="company.DeliveryTime " placeholder="">
+      </div>
+
+      <div class="form-item">
+        <label for="">Minimum Order Amount (ZAR)</label>
+        <input type="number" name="" id="" [(ngModel)]="company.MinimumOrder " placeholder="">
+      </div>
+
+
+      <div class="form-item">
+        <label for="">Base Delivery Charge (ZAR)</label>
+        <input type="number" name="" id="" [(ngModel)]="company.BaseDeliveryCharge " placeholder="">
+      </div>
+
+      <div class="form-item">
+        <label for="">Delivery Charge PerKM(ZAR)</label>
+        <input type="number" name="" id="" [(ngModel)]="company.DeliveryChargePerKM " placeholder="">
+      </div>
+
+
+
+      <div class="form-item">
+        <label for="">Admin Commission Mode</label>
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="company.CommissionMode">
+          <mat-radio-button *ngFor="let item of COMMISSION_MODES" [value]="item">{{item}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="form-item">
+        <label for="" *ngIf="company.CommissionMode === COMMISSION_MODES[0]">Commission Amount (ZAR)</label>
+        <label for="" *ngIf="company.CommissionMode === COMMISSION_MODES[1]">Commission Amount (%)</label>
+        <input type="number" name="" id="" [(ngModel)]="company.CommissionAmount " placeholder="">
+      </div>
+
+      <div class="form-item">
+        <label for="">Delivery Commission Amount (%)</label>
+        <input type="number" name="" id="" [(ngModel)]="company.DeliveryCommissionAmount " placeholder="">
+      </div>
+
+
+      <div class="form-item">
+        <button (click)="save()" [disabled]="!company.Name">Save</button>
+      </div>
+    </div>
+
+    <div class="form" *ngIf="tabId ==  2">
+      <app-operatinghours [company]="company"></app-operatinghours>
+    </div>
+  </div>
+
+
+
+
+</div>

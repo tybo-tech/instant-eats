@@ -1,0 +1,26 @@
+<div class="new-top-bar">
+
+
+  <div class="col">
+    <img src="assets/images/icons/menu-icon.svg" (click)="menu()" alt="">
+  </div>
+  <div class="col">
+    <img src="assets/images/icons/user-icon.svg" alt="">
+  </div>
+
+  <div class="col">
+    <p>
+      Hi {{user?.Name}}
+      <span>
+        {{ user?.UserType}}
+      </span>
+    </p>
+  </div>
+
+  <div class="col">
+    <!-- <img src="assets/images/icons/bell.svg" alt=""> -->
+  </div>
+</div>
+
+<!-- <div class="overlay" *ngIf="showMenu" (click)="menu()"></div> -->
+<app-dash-nav *ngIf="showMenu"></app-dash-nav>

@@ -1,0 +1,135 @@
+<div class="quick-add" *ngIf="canShow && heading">
+
+  <div class="form" *ngIf="newUser && isLoggingIn">
+    <div class="go-back">
+      <span class="material-icons pointer"  (click)="back()">
+        close
+      </span>
+    </div>
+
+    <div *ngIf="loginStep == 1">
+      <h3>
+        {{'Please login to ' + heading }}
+      </h3>
+
+      <div class="form-item">
+        <input type="email" name="" id="" [(ngModel)]="newUser.Email" placeholder="Your Email">
+
+      </div>
+
+      <div class="form-item">
+        <mat-icon class="pointer hidePassword" (click)="hidePassword = !hidePassword">
+          {{hidePassword ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+        <input [type]="hidePassword? 'password': 'text'" name="" id="" [(ngModel)]="newUser.Password"
+          placeholder="Your Password ">
+        <div class="error" *ngIf="wrongPassword" (click)="isLoggingIn = true; login()">
+          Sorry that password is incorrect netflix.
+        </div>
+      </div>
+
+      <div class="form-item">
+        <button (click)="login()" [disabled]="!newUser.Email || !newUser.Password">Login</button>
+      </div>
+
+      <div class="blue">
+        <div class="or">
+          Or continue with
+        </div>
+        <div class="social-buttons">
+          <button class="btn-google" (click)="signInWithGoogle()">Google</button>
+          <button class="btn-google btn-facebook" (click)="signInWithFB()">Facebook</button>
+        </div>
+
+        <div class="or" (click)="isLoggingIn = false">
+          Don't have an account? Sign up.
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loginStep == 2">
+      <p>
+        Email address <b>{{newUser.Email}}</b> did not match our records, but dont worry let's create a new account for
+        you.
+      </p>
+      <div class="form-item">
+        <!-- <label for="">Your Email</label> -->
+        <input type="text" name="" id="" [(ngModel)]="newUser.Name" placeholder="Your Full Names">
+      </div>
+
+      <div class="form-item">
+        <!-- <label for="">Your Email</label> -->
+        <input type="email" name="" id="" [(ngModel)]="newUser.Email" placeholder="Your Email">
+      </div>
+
+      <div class="form-item">
+        <!-- <label for="">Your Password </label> -->
+        <mat-icon class="pointer hidePassword" (click)="hidePassword = !hidePassword">
+          {{hidePassword ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+        <input [type]="hidePassword? 'password': 'text'" name="" id="" [(ngModel)]="newUser.Password"
+          placeholder="Your Password ">
+      </div>
+
+      <div class="form-item">
+        <button (click)="register()" [disabled]="!newUser.Name || !newUser.Email || !newUser.Password">Sign up</button>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="form" *ngIf="newUser && !isLoggingIn">
+    <div class="go-back" >
+      <span class="material-icons pointer" (click)="back()">
+        close
+      </span>
+    </div>
+    <h3>
+      {{'Please sign up to ' + heading }}
+    </h3>
+
+    <div class="form-item">
+      <input type="text" name="" id="" [(ngModel)]="newUser.Name" placeholder="Your Full Names">
+    </div>
+
+    <div class="form-item">
+      <input type="email" name="" id="" [(ngModel)]="newUser.Email" placeholder="Your Email">
+
+      <div class="error" *ngIf="showUserExits" (click)="isLoggingIn = true; login()">
+        The account with this email address already exists. Try login?
+      </div>
+    </div>
+
+    <div class="form-item">
+      <mat-icon class="pointer hidePassword" (click)="hidePassword = !hidePassword">
+        {{hidePassword ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+      <input [type]="hidePassword? 'password': 'text'" name="" id="" [(ngModel)]="newUser.Password"
+        placeholder="Your Password ">
+    </div>
+
+    <div class="form-item">
+      <button (click)="register()" [disabled]="!newUser.Name || !newUser.Email || !newUser.Password">Sign up</button>
+    </div>
+
+    <div class="blue">
+      <div class="or">
+        Or continue with
+      </div>
+      <div class="social-buttons">
+        <button class="btn-google" (click)="signInWithGoogle()">Google</button>
+        <button class="btn-google btn-facebook" (click)="signInWithFB()">Facebook</button>
+      </div>
+
+
+      <div class="or" (click)="isLoggingIn = true">
+        I have an account? Login.
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

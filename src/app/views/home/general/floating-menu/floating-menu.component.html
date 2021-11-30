@@ -1,0 +1,12 @@
+<div class="floating-menu phone-only">
+  <div class="menu">
+    <div class="item" *ngFor="let item of menus" [ngClass]="item.Class" (click)="goto(item)">
+      <span class="material-icons"  >
+        {{item.Icon}}
+      </span>
+      <a>{{item.Name}}</a>
+    </div>
+
+  </div>
+</div>
+<app-quick-sign-in [heading]="heading"></app-quick-sign-in>

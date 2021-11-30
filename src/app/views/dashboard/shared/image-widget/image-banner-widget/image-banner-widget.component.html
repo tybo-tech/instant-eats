@@ -1,0 +1,14 @@
+<div class="upload-preview" *ngIf="!loading">
+  <div class="upload">
+    <input type="file" accept="image/png, image/jpeg" #file placeholder="Choose file" (change)="uploadFile(file.files)"
+      style="display:none;">
+    <span class="user-dp" *ngIf="!image" (click)="file.click()">
+      Upload restaurant cover
+    </span>
+  </div>
+  <div class="preview" (click)="file.click()">
+    <img *ngIf="image" [src]="image" alt="">
+  </div>
+</div>
+
+<app-dash-loader *ngIf="loading"></app-dash-loader>

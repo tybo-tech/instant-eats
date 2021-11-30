@@ -1,0 +1,62 @@
+@import '../../../../../../../assets/styles/color';
+
+.slider-container {
+  max-width: 92%;
+  margin: .5em auto;
+
+
+  .item {
+    margin: .5em;
+    box-shadow: $box-shadow;
+
+    .slider-item {
+      height: 30vh;
+      overflow: hidden;
+      transition: all .3s ease;
+      // width:20em;
+      margin: .2em auto;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 0 10px 1px #dbdbdb;
+      }
+
+      img {
+        width: 100%;
+
+
+      }
+    }
+
+    h3 {
+      padding: .2em 1em;
+      margin: 0;
+      background: $white;
+    }
+  }
+
+}
+
+
+
+::ng-deep {
+    .owl-prev, .owl-next {
+        background: $pop !important;
+        color: $black !important;
+        padding: .5em !important;
+        width: 3em !important;
+        height: 3em !important;
+        border-radius: 50% !important ;
+        box-shadow: $box-shadow !important;
+
+        span{
+            margin: 0;
+            position: relative;
+            top: .1em;
+        }
+
+        &:disabled{
+            color: $grey !important;
+        }
+      }
+}

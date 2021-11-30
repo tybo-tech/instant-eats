@@ -1,0 +1,41 @@
+.qty {
+  width: 6.5em;
+  display: grid;
+  grid-template-columns: 1.65em  2.5em 1.65em;
+  position: relative;
+  top: .4em;
+
+  img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    z-index: 100000;
+    display: block;
+  }
+
+  span {
+    margin: 0;
+    text-align: center;
+    border-radius: 0;
+    // background: rgb(219, 219, 219);
+    display: block;
+    font-weight: 700;
+    padding: .85em .7em;
+    max-width: 88%;
+    margin: 0 auto;
+    border-radius: .3em;
+    line-height: 0;
+  }
+}
+
+
+p{
+    color: rgb(243, 63, 63);
+    font-size: .75em;
+    font-weight: 700;
+    margin: .4em 0;
+    position: absolute;
+    left: 0;
+    bottom: -2em;
+}

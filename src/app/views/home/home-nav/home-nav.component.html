@@ -1,0 +1,78 @@
+<div class="top-nav-bar phone-only">
+  <!-- <div class="notice ">
+    <span> Delivery from R60.00 nationwide</span>
+  </div> -->
+
+
+
+  <div class="nav-grid">
+
+
+    <div class="col" (click)="toggle()">
+      <span class="icon-margin material-icons pointer">
+        menu
+      </span>
+    </div>
+
+    <div class="search col">
+
+    </div>
+
+    <div class="logo col" (click)="goto('')">
+      <img src="assets/images/common/logo.jpeg">
+    </div>
+
+
+
+    <!-- <div class="search col">
+      <mat-icon [matBadge]="productsInteractions.length" class="love loved pointer" matBadgeColor="pink"
+        (click)="goto('home/wishlist')">favorite</mat-icon>
+    </div> -->
+
+
+    <div class="cart col" style="text-align: right;">
+      <mat-icon [matBadge]="carttItems" class="icon-margin" matBadgeColor="pink" (click)="goto('shop/cart')">shopping_cart</mat-icon>
+    </div>
+  </div>
+
+</div>
+
+<div class="pc-nav-bar">
+
+  <div class="col" (click)="toggle()">
+    <span class="material-icons pointer">
+      menu
+    </span>
+  </div>
+
+
+  <div class="logo col" (click)="goto('')">
+    <img src="assets/images/common/logo.jpeg">
+  </div>
+
+  <div class="search col">
+    <app-search-bar></app-search-bar>
+  </div>
+
+  <div class="col">
+    <app-home-tabs></app-home-tabs>
+  </div>
+  <div class="col">
+    <app-home-user-tabs></app-home-user-tabs>
+  </div>
+
+
+  <div class="search col">
+    <mat-icon [matBadge]="productsInteractions.length" class="love loved pointer" matBadgeColor="pink"
+      (click)="goto('home/wishlist')">favorite</mat-icon>
+  </div>
+
+
+  <div class="cart col">
+    <mat-icon [matBadge]="carttItems" matBadgeColor="pink" (click)="goto('shop/cart')">shopping_bag</mat-icon>
+  </div>
+</div>
+
+
+
+<app-home-side-nav *ngIf="showMenu"></app-home-side-nav>

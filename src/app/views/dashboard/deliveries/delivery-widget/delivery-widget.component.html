@@ -1,0 +1,49 @@
+<div class="cards" *ngIf="items">
+  <div class="card" style="margin-bottom: 2em; cursor: default;" *ngIf="showFilter">
+    <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+    <button class="primary" *ngIf="primaryAction" (click)="primaryActionClicked()"> {{primaryAction}} </button>
+  </div>
+  <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString;"  (click)="goto(item.Link, item)">
+    <div class="top">
+      <div class="item">
+        <span>Order No:</span>
+        {{item.OrderNo}}
+      </div>
+      <div class="item">
+        <span>Order Status: </span>
+        {{item.OrderStatus}}
+      </div>
+    </div>
+    <div class="card-grid" style="cursor: pointer;">
+      <div class="col">
+        <img [src]="item.Icon" alt="">
+      </div>
+      <div class="col details">
+        <p>
+          <i>Pickup location {{item.FromName}}</i>
+        </p>
+        <h3>
+          {{item.Name}}
+        </h3>
+        <br>
+        <p>
+          <i>Delivery location {{item.ToName}}</i>
+        </p>
+        <h3>
+          {{item.Description}}
+        </h3>
+
+
+      </div>
+    </div>
+    <div class="tags">
+      <div class="tag">
+       {{item.PaymentType}}
+      </div>
+
+      <div class="tag">
+       R15.50 Fee
+      </div>
+    </div>
+  </div>
+</div>

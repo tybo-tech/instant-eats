@@ -1,0 +1,47 @@
+@import '../assets/styles/color';
+
+.app {
+  max-width: 35em;
+  margin: 0 auto;
+  margin-top: 4em;
+  position: relative;
+  background: $cloud;
+  height: 90vh;
+  overflow-y: scroll;
+  border-radius: 1.5em;
+  padding: 0;
+  border: 1.2em solid $grey;
+
+  @media only screen and (max-width: 600px) {
+    border-radius: 0;
+    height: 100%;
+    width: 100%;
+    border: none
+  }
+}
+// .app {
+//   overflow-y: scroll;
+//   height: 100vh;
+// }
+
+// iframe {
+//   width: 100%;
+//   max-width: 45em;
+//   margin: 0 auto;
+//   display: block;
+//   margin-top: 4em;
+//   position: relative;
+//   background: $cloud;
+//   height: 90vh;
+//   border-radius: 1.5em;
+//   padding: 0;
+//   border: 1.2em solid $grey;
+
+//   @media only screen and (max-width: 600px) {
+//     border-radius: 0;
+//     height: 100vh;
+//     width: 100%;
+//     border: none;
+//     margin: 0;
+//   }
+// }

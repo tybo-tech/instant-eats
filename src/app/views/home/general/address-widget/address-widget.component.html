@@ -1,0 +1,26 @@
+ <input type="search" ngx-google-places-autocomplete [options]='options' [(ngModel)]="addressLineHome"
+   placeholder="Enter your street name" class="input" #places="ngx-places"
+   (onAddressChange)="handleAddressChange($event)" />
+
+
+
+
+
+ <agm-map *ngIf="locationModel" [latitude]="locationModel.lat" [longitude]="locationModel.lng" [zoom]="zoom"
+   [disableDefaultUI]="false" [zoomControl]="false">
+
+   <agm-marker [latitude]="locationModel.lat" [longitude]="locationModel.lng" 
+   [markerDraggable]="draggable" [iconUrl]="icon"
+     (dragEnd)="markerDragEnd($event)">
+
+     <agm-info-window>
+       <strong>Move the map to find your location</strong>
+     </agm-info-window>
+
+   </agm-marker>
+
+ </agm-map>
+
+ <div class="user" *ngIf="locationModel">
+   <button class="primary" (click)="onAdressEvent(locationModel)">Use this location</button>
+ </div>

@@ -1,0 +1,11 @@
+<!-- <button class="btn-google"  #loginRef> Login with Google</button> -->
+<div class="or">
+    Continue with
+</div>
+<div class="login-or-reg">
+  <button class="btn-google" (click)="signInWithGoogle()"> Google</button>
+  <button class="btn-google btn-facebook" (click)="signInWithFB()"> Facebook</button>
+</div>
+<br>
+<hr>
+<app-customer-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-customer-feedback>

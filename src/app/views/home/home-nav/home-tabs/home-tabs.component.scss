@@ -1,0 +1,32 @@
+@import '../../../../../assets/styles/color';
+
+.main {
+  padding: 0;
+  margin: 0;
+  background: $white;
+}
+
+.global-tabs {
+  padding: 0;
+  max-width: 25em;
+  margin: 0 auto;
+  border: none;
+  position: relative;
+  top: .5em;
+
+  .tab {
+    border: none;
+    display: block;
+    font-size: 1.4em;
+
+    p {
+      position: relative;
+      top: -.65em;
+    }
+  }
+
+  .active {
+    color: $black;
+    border-bottom: .2em solid $cloud;
+  }
+}

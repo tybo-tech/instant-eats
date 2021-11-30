@@ -1,0 +1,126 @@
+<div class="sell">
+  <div class="bannners">
+    <div class="banner">
+      <img src="assets/images/sell.jpg" alt="">
+    </div>
+  </div>
+  <h1>
+    START SELLING
+  </h1>
+
+  <p>
+    <b>
+      Sell fashion all over South Africa. Make money.
+    </b>
+    <br> <br>
+    1. Create your shop <br>
+    2. List products <br>
+    3. Accept orders<br>
+    4. Ship the products<br>
+    5. Get your money!<br>
+    6 . Repeat!<br>
+  </p>
+
+
+  <div class="actions">
+    <button (click)="add()" class="primary">Start your shop</button>
+    <button class="secondary" (click)="login()">Login</button>
+  </div>
+  <!-- <div class="banner">
+    <img src="assets/images/yourshop.png" alt="">
+  </div> -->
+<!-- 
+  <p>
+    <b>
+      Instant Eats listing is free.
+    </b>
+    <br> <br>
+    Pay 8% when your product it sells. <br>
+    Easy to get technical support. <br>
+
+  </p> -->
+
+
+<!-- 
+  <div class="banner" style="margin-top: 4em;">
+    <img src="assets/images/promos.jpg" alt="">
+  </div> -->
+
+  <!-- <p>
+    <b>
+      Get free marketing!
+
+    </b>
+    <br> <br>
+    We are continuously marketing our platform, and the shops on it. <br>
+
+  </p>
+
+
+  <div class="actions">
+    <button (click)="add()" class="primary">Start your shop</button>
+    <button class="secondary" (click)="login()">Login</button>
+  </div> -->
+</div>
+<app-quick-sign-in *ngIf="heading" [heading]="heading" [isLoggingIn]="isLoggingIn"></app-quick-sign-in>
+
+<!-- <div class="main">
+  <div class="body">
+
+    <div class="logo">
+      <a routerLink="">
+        <img src="assets/images/common/logo.jpeg" alt="">
+      </a>
+    </div>
+
+    <div class="intro">
+      <div class="eg-image">
+        <img src="assets/images/common/shopeg.png" (swipeleft)="handleSwipe('left')" (swiperight)="handleSwipe('right')"
+          *ngIf="slide == 1" alt="" [ngClass]="imageClass">
+        <img src="assets/images/common/shopeg2.png" (swipeleft)="handleSwipe('left')"
+          (swiperight)="handleSwipe('right')" *ngIf="slide == 2" alt="" [ngClass]="imageClass">
+        <img src="assets/images/common/shopeg3.png" (swipeleft)="handleSwipe('left')"
+          (swiperight)="handleSwipe('right')" *ngIf="slide == 3" alt="" [ngClass]="imageClass">
+        <div class="btns">
+          <div class="btn" (click)="changeSlide(1)" [ngStyle]="slide == 1 && {'background': '#F3CF3D'}"></div>
+          <div class="btn" (click)="changeSlide(2)" [ngStyle]="slide == 2 && {'background': '#F3CF3D'}"></div>
+          <div class="btn" (click)="changeSlide(3)" [ngStyle]="slide == 3 && {'background': '#F3CF3D'}"></div>
+        </div>
+      </div>
+      <h1>
+        Start your fashion shop in few minutes, for FREE.
+      </h1>
+      <p>
+        Get your own personal shop with unique link, <i>e.g. Instanteats.co.za/<b>your_shop</b></i>
+      </p>
+      <p>
+        Get a full dashboard to manage your products, orders, invoices, jobs, tasks, and people.
+      </p>
+      <p>
+        Oh! and the nice thing is you only pay <b>8% of the total order amount</b> each time
+        <i> the customer purchase online. </i> That's all, no monthly fees, no hidden fees.
+      </p>
+
+
+      
+
+<div class="examples">
+  <h3>
+   See shops...
+  </h3>
+  <app-all-shops [fromPage]="fromPage"></app-all-shops>
+</div>
+
+      <div class="actions">
+        <button (click)="add()">Start your shop</button>
+        <button class="login" (click)="login()">Login</button>
+      </div>
+
+
+    </div>
+
+
+  </div>
+</div>
+<app-quick-sign-in *ngIf="heading" [heading]="heading" [isLoggingIn]="isLoggingIn"></app-quick-sign-in>
+ -->

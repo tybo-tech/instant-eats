@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="301" height="143" viewBox="0 0 301 143">
+  <g id="all" transform="translate(-1003 -664)">
+    <g id="Group_2285" data-name="Group 2285" transform="translate(29)">
+      <rect id="Rectangle_262" data-name="Rectangle 262" width="301" height="143" rx="16" transform="translate(974 664)" fill="#f3cf3d"/>
+      <g id="Group_2284" data-name="Group 2284" transform="translate(-28 7)">
+        <g id="right-arrow-angle" transform="translate(1034.346 689)">
+          <g id="_x38_" transform="translate(164.654)">
+            <g id="Group_2283" data-name="Group 2283" transform="translate(0)">
+              <path id="Path_190" data-name="Path 190" d="M210.881,37.832,170.453.99a3.41,3.41,0,0,0-4.8,0,3.369,3.369,0,0,0,0,4.781l37.99,34.623L165.652,75.017a3.369,3.369,0,0,0,0,4.781,3.41,3.41,0,0,0,4.8,0l40.428-36.842a3.328,3.328,0,0,0,.963-2.559A3.357,3.357,0,0,0,210.881,37.832Z" transform="translate(-164.654 0)"/>
+            </g>
+          </g>
+        </g>
+        <text id="All-2" data-name="All" transform="translate(1037 763)" font-size="91" font-family="CenturyGothic, Century Gothic"><tspan x="0" y="0">All</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

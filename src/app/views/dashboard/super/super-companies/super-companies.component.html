@@ -1,0 +1,38 @@
+<div class="banner" >
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+  
+  
+    <div class="name menu-back" (click)="back()">
+    Dashboard
+    </div>
+  </div>
+
+
+</div>
+
+<div class="container" *ngIf="usersItems && usersItems.length">
+
+
+  <h3>
+    <span>
+      Restaurants <br> <br>
+    </span>
+  </h3>
+
+
+  <app-card-list-widget *ngIf="usersItems && usersItems.length" [primaryAction]="primaryAction"
+    (primaryActionEvent)="onPrimaryActionEvent($event)"
+    [showFilter]="showFilter" [items]="usersItems">
+  </app-card-list-widget>
+
+</div>
+
+
+<div style="padding-top: 15em;">
+  <app-dash-loader *ngIf="loading"></app-dash-loader>
+</div>

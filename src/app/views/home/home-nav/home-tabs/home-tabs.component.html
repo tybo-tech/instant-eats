@@ -1,0 +1,7 @@
+<div class="main">
+  <div class="global-tabs">
+    <div class="tab" *ngFor="let item of TABS" [ngClass]="item.Classes" (click)="tab(item)">
+      <p>{{item.Name}}</p>
+    </div>
+  </div>
+</div>

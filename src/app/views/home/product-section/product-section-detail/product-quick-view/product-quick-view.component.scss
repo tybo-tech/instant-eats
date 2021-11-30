@@ -1,0 +1,68 @@
+@import '../../../../../../assets/styles/color';
+
+.quick-view {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 9000000;
+  top: 0;
+  left: 0;
+  padding: 2em;
+  background: $white;
+  overflow-y: scroll;
+
+  @media only screen and (max-width: 600px) {
+    padding: 0;
+  }
+
+  .product-section-container {
+    width: 60vw;
+    background: $white;
+    ;
+    margin: 2em auto;
+    box-shadow: $box-shadow;
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+
+
+.top-bar-conatiner {
+  display: block;
+  position: relative;
+
+  @media only screen and (max-width: 600px) {
+    display: block;
+  }
+}
+
+.top-bar {
+  grid-template-columns: 3% 40% 20% 20% auto;
+  // div{
+  //   border: 1px solid red;
+  // }
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 5% 40% 20% 20% auto;
+    padding: .75em .5em;
+    background: rgba(255, 255, 255, 0.472);
+    border: none;
+
+  }
+
+  .share,
+  .cart {
+    text-align: right;
+
+
+    @media only screen and (max-width: 600px) {
+      text-align: center;
+
+    }
+  }
+
+}

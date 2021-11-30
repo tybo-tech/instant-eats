@@ -1,0 +1,40 @@
+<div class="banner" >
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+  
+  
+    <div class="name menu-back" (click)="back()">
+     {{backto}}
+    </div>
+  </div>
+
+
+</div>
+
+<div class="container" >
+  <h3>
+    <span>
+     Orders <br> <br>
+    </span>
+  </h3>
+
+
+
+  
+  <div class="tabs">
+    <div class="tab" *ngFor="let item of ORDER_TABS" [ngClass]="item.Class" (click)="goto(item)">
+      {{item.Name}}
+    </div>
+  </div>
+
+  <app-order-widget [orders] ="orders" [user]="user" (orderClicked)="onOrderClicked($event)"></app-order-widget>
+  <!-- <app-card-list-widget *ngIf="usersItems && usersItems.length" [showFilter]="showFilter" [items]="usersItems">
+  </app-card-list-widget> -->
+
+  <app-nodata-widget *ngIf="!orders || !orders.length" [info]="noData"></app-nodata-widget>
+
+</div>

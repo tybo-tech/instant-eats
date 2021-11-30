@@ -1,0 +1,17 @@
+<div class="container" *ngIf="superMenu && superMenu.length">
+  <h3>
+    <!-- <span>
+      Active deliveries <br> <br>
+    </span> -->
+  </h3>
+  <app-mylocation *ngIf="user && user.UserType == DRIVER"></app-mylocation>
+  <app-card-list-widget *ngIf="superMenu && superMenu.length" [items]="superMenu"></app-card-list-widget>
+
+</div>
+<div style="padding-top: 15em;" *ngIf="loading">
+  <app-dash-loader></app-dash-loader>
+</div>
+<!-- 
+ <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map> -->

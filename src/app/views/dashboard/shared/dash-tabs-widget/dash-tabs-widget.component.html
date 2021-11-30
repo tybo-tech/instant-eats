@@ -1,0 +1,5 @@
+<div class="items" *ngIf="items">
+  <div class="item" *ngFor="let item of items; let i = index" [ngClass]="item.Class" [innerHtml]="item.Name"  (click)="tab(item)">
+    <!-- {{item.Name}} -->
+  </div>
+</div>

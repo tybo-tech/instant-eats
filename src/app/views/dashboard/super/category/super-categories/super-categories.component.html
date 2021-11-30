@@ -1,0 +1,58 @@
+<div class="banner" >
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+  
+  
+    <div class="name menu-back" (click)="back()">
+    Dashboard
+    </div>
+  </div>
+
+
+</div>
+
+<div class="container" *ngIf="usersItems && usersItems.length">
+  <h3>
+    <span>
+      Categories <br> <br>
+    </span>
+  </h3>
+
+
+  <app-card-list-widget *ngIf="usersItems && usersItems.length" (itemSelectedEvent)="OnItemSelected($event)"
+    [showFilter]="showFilter" [primaryAction]="primaryAction" (primaryActionEvent)="onPrimaryActionEvent($event)" [items]="usersItems">
+  </app-card-list-widget>
+
+</div>
+
+
+
+
+<div class="quick-add" *ngIf="category">
+  <div class="form">
+    <h3>
+      Edit category
+    </h3>
+
+    <div class="form-item">
+     <app-image-widget [image]="category.ImageUrl" (imageChangedEvent)="onImageChangedEvent($event)"></app-image-widget>
+    </div>
+
+    <div class="form-item">
+      <label for="">Category name</label>
+      <input type="text" name="" id="" [(ngModel)]="category.Name" placeholder="Enter Category Name.">
+    </div>
+
+
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!category.Name">Save</button>
+      <div class="link" (click)="category = null">Cancel</div>
+    </div>
+  </div>
+</div>

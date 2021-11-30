@@ -1,0 +1,83 @@
+<div class="banner">
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+
+
+    <div class="name menu-back" (click)="back()">
+      Dashboard
+    </div>
+  </div>
+
+
+</div>
+<div class="container" *ngIf="superMenu">
+  <h3 style="text-transform: capitalize;">
+    <span>
+      {{statusId}} deliveries <br> <br>
+    </span>
+  </h3>
+
+  <!-- <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button>
+  </div> -->
+
+  <div class="tabs">
+    <div class="tab" *ngFor="let item of DRIVER_TABS" [ngClass]="item.Class" (click)="goto(item)">
+      {{item.Name}}
+    </div>
+  </div>
+  <app-delivery-widget *ngIf="superMenu && superMenu.length" [items]="superMenu"
+    (itemSelectedEvent)="OnItemSelected($event)"></app-delivery-widget>
+  <app-nodata-widget *ngIf="!superMenu || !superMenu.length"
+    [info]="'You have no '+statusId+' deliveries at the moment.'"></app-nodata-widget>
+
+</div>
+<div style="padding-top: 15em;" *ngIf="loading">
+  <app-dash-loader></app-dash-loader>
+</div>
+
+
+
+
+<div class="quick-add" *ngIf="delivery">
+
+  <div class="form white">
+    <!-- <div class="module-actions">
+      <button class="tertiary" (click)="delivery = null">Back to deliveries</button>
+    </div>
+    <h3>
+      {{modalHeading}}
+    </h3> -->
+
+
+    <div class="form-item" *ngIf="delivery.DeliverStatus == 'Pending'">
+      <button style="background: #46c746; color: #fff;" (click)="accept(delivery)">Accept</button>
+      <button style="background: #FF2350; color: #fff;" (click)="reject(delivery)">Reject</button>
+      <div class="link" (click)="delivery = null">Back</div>
+    </div>
+
+
+    <div class="form-item" *ngIf="delivery.DeliverStatus == ORDER_STATUSES[1] || delivery.DeliverStatus == ORDER_STATUSES[5]">
+
+      <button *ngIf="delivery.Order && delivery.Order.Status === ORDER_STATUSES[3]" (click)="updateOrder(delivery.Order, ORDER_STATUSES[4])">Picked Up</button>
+      <button *ngIf="delivery.Order && delivery.Order.Status === ORDER_STATUSES[4]" (click)="updateOrder(delivery.Order, ORDER_STATUSES[5])">Delivered</button>
+      <p class="notes">
+        Order is {{delivery.Order.Status}}
+      </p>
+      <a *ngIf="delivery.Order.AddressId && delivery.Order.Status === ORDER_STATUSES[3]" [href]="delivery.Order.AddressId" rel="noopener noreferrer">
+        <button class="tertiary">Directions to resurant</button>
+      </a>
+      <a *ngIf="delivery.Order.AddressId && delivery.Order.Status === ORDER_STATUSES[4]" [href]="delivery.Order.AddressId" rel="noopener noreferrer">
+        <button class="tertiary">Directions to customer</button>
+      </a>
+
+
+
+      <div class="link" (click)="delivery = null">Back</div>
+    </div>
+  </div>
+</div>

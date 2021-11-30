@@ -1,0 +1,44 @@
+@import '../../../../../assets/styles/color';
+
+.items {
+  padding: 1em 0;
+  display: flex;
+  grid-template-columns: repeat(3, 33.3%);
+  border-bottom: 2px solid $grey;
+
+  .item {
+    width: fit-content;
+    padding: .5em;
+    display: block !important;
+    margin: 0 .5em;
+    font-weight: 600;
+    border: 2px solid $grey;
+    border-radius: .2em;
+    background: $white;
+    color: $black;
+    font-size: .9em;
+  }
+
+  .active {
+    border: 2px solid $black;
+    background: $black;
+    color: $white;
+
+  }
+
+  .back-btn {
+    margin-right: 1em;
+    background: $grey;
+    color: $black;
+
+    span{
+        font-size: .9em;
+        position: relative;
+        top: .25em;
+        margin: 0;
+        padding: 0;
+    }
+  }
+
+
+}

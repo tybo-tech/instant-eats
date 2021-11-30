@@ -1,0 +1,28 @@
+<div class="cards" *ngIf="item">
+  <div class="card" style="margin-bottom: 2em; cursor: default;" *ngIf="showFilter">
+    <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+    <button class="primary" *ngIf="primaryAction"> {{primaryAction}} </button>
+  </div>
+  <div class="card" (click)="goto(item.Link, item)">
+    <div class="card-grid">
+
+      <div class="col">
+        <h3>
+          {{item.Name}}
+        </h3>
+
+        <p>
+          {{item.Description}}
+        </p>
+      </div>
+
+      <div class="col">
+        <img [src]="item.Icon" alt="">
+      </div>
+    </div>
+<br>
+    <button class="tertiary" *ngIf="primaryAction && canEdit">{{primaryAction}}</button>
+
+
+  </div>
+</div>

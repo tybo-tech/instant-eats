@@ -1,0 +1,244 @@
+<div *ngIf="product && order" id="top" class="all">
+
+
+  <div class="product-section-container">
+
+    <div class="top-bar-conatiner">
+
+      <div class="top-bar">
+        <div class="menu-back">
+          <span class="material-icons" (click)="back()">
+            arrow_back
+          </span>
+        </div>
+
+
+        <div class="name menu-back" (click)="back()">
+          Back
+        </div>
+
+        <div class="share">
+          <span class="material-icons love" *ngIf="liked == 'no'" (click)="onLike('yes')">
+            favorite_border
+          </span>
+
+
+          <span class="material-icons love loved" *ngIf="liked == 'yes'" (click)="onLike('no')">
+            favorite
+          </span>
+        </div>
+
+
+
+        <span [cdkCopyToClipboard]="fullLink" class="material-icons love share" (click)="share()">
+          share
+        </span>
+
+        <div class="col cart">
+          <mat-icon [matBadge]="carttItems" matBadgeColor="pink" (click)="cart()">shopping_bag</mat-icon>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="product-grid" style="grid-template-columns: 100%;">
+      <app-bread [items]="items"></app-bread>
+
+    </div>
+
+    <div class="product-grid" style="padding-top: 0;">
+      <div class="images">
+        <div class="image" *ngIf="product.FeaturedImageUrl">
+
+
+
+          <img id="i" [src]="product.FeaturedImageUrl" (swipeleft)="handleSwipe('left')"
+            (swiperight)="handleSwipe('right')" [ngClass]="imageClass" alt="">
+        </div>
+
+
+        <div class="tiles" *ngIf="product.Images && product.Images.length">
+          <div class="tile">
+            <img *ngFor="let image of product.Images; let i = index" [src]="image.Url" alt="" (click)="showImage(image)"
+              [ngClass]="image.Class">
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="">
+
+        <div class="details">
+          <div class="name-grid">
+            <p>
+              <span class="p-name"> {{product.Name}} </span>
+              <span (click)="gotoCompany()" class="by-name" *ngIf="company">By {{company.Name}}</span>
+            </p>
+
+            <p>
+              <span class="price" *ngIf="!product.OnSale" class="tar p-price">
+                {{product.RegularPrice | currency:'R'}}
+              </span>
+              <span class="price" *ngIf="product.OnSale" class="tar p-price">
+                <del> {{product.RegularPrice | currency:'R'}}</del> <br>
+                {{product.SalePrice | currency:'R'}}
+              </span>
+            </p>
+
+
+          </div>
+
+
+
+        </div>
+
+
+        <div class="options" *ngIf="colors">
+          <h4>
+            Selected Color
+          </h4>
+          <button class="btn-color" *ngFor="let option of colors.ProductVariationOptions"
+            [ngStyle]="{'background-color':option.Description, 'background-image': option.ImageUrl? 'url(' + option.ImageUrl + ')' : 'none'}"
+            [ngClass]="option.Class" (click)="selectOption(option, 'Coulor')">
+          </button>
+        </div>
+
+        <div class="options" *ngIf="sizes">
+          <h4>
+            Selected Size
+          </h4>
+          <div *ngFor="let option of sizes.ProductVariationOptions" class="option size-btn" [ngClass]="option.Class"
+            (click)="selectOption(option, 'Size')">
+            {{option.OptionName}}
+
+          </div>
+          <div class=""></div>
+        </div>
+
+
+        <div class="action box-shadow1">
+          <div class="">
+            <p>
+              Qty:
+            </p>
+          </div>
+          <select name="" [(ngModel)]="selectedQuantiy" id="">
+            <option *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]" [value]="item">{{item}}</option>
+          </select>
+
+          <button class="mat-primary add-to-cart btn-pop" [disabled]="product.TotalStock == 0" mat-button
+            color="primary" (click)="addCart(product)">
+            <span class="material-icons cart-icon">
+              add_shopping_cart
+            </span>
+            Add to cart
+          </button>
+        </div>
+
+        <div class="details description line-break" *ngIf="product.Description">
+          <p>
+            <span class="label">Description</span>
+            {{product.Description}}
+          </p>
+
+          <!-- <div [innerHtml]="htmlPreview"></div> -->
+
+        </div>
+
+
+    
+        <div class="pc-only pclikes">
+          <div class="share">
+            <span class="material-icons love" *ngIf="liked == 'no'" (click)="onLike('yes')">
+              favorite_border
+            </span>
+
+
+            <span class="material-icons love loved" *ngIf="liked == 'yes'" (click)="onLike('no')">
+              favorite
+            </span>
+          </div>
+
+
+
+          <span [cdkCopyToClipboard]="fullLink" class="material-icons love share" (click)="share()">
+            share
+          </span>
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+
+
+    <div class="more-info" style="display: none;">
+      <h3>
+        Payment methods
+      </h3>
+      <p>
+        <b> Instant EFT</b>
+        If you have
+        access to internet banking with any bank you can make an Electronic Funds
+        Transfer (EFT) that gets instantly verified.
+
+        <b>Debit cards</b>
+        Debit cards issued by Maestro and Visa Electron can
+        be used to make online pay.
+      </p>
+
+      <h3>
+        Shipping methods
+      </h3>
+      <p>
+        <b> We deliver nationwide </b>
+        With various couriers including
+        Aramex, Paxi and More
+      </p>
+    </div>
+<br>
+    <hr>
+    <app-product-slider [products]="otherproducts" [tittle]="tittle"></app-product-slider>
+
+
+
+    <div class="devider"></div>
+
+    <div class="payments">
+      <img src="assets/images/common/payfast.png" alt="">
+    </div>
+
+
+
+  </div>
+</div>
+
+<div *ngIf="leavingShowWarning" class="leaving-warning">
+  <div class="body">
+    <p>
+      One shop at a time.
+
+      <span>
+        You still have an open cart with <b> {{order.Company?.Name}} </b>, please checkout before you continue shopping
+        from other shops.
+      </span>
+
+      <span>
+        To keep delivery efficient and quicker we stick to one shop per order.
+      </span>
+    </p>
+    <div class="actions">
+
+      <button class="ok" (click)="toggleLeavingShowWarning()">Ok</button>
+      <button (click)="cart()">Go to my cart</button>
+    </div>
+  </div>
+</div>
+<app-quick-sign-in [heading] = "heading"></app-quick-sign-in>

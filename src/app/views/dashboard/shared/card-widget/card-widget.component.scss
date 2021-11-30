@@ -1,0 +1,10 @@
+@import '../../../../../assets/styles/color';
+
+.card {
+  background: $white;
+  padding: 1em;
+  text-align: center;
+  h3 {
+    padding: .4em;
+  }
+}

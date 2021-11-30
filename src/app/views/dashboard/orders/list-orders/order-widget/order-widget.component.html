@@ -1,0 +1,163 @@
+<div class="main" *ngIf="orders">
+
+  <div class="user-section" *ngFor="let order of orders; let i = index">
+
+    <div class="card">
+      <div class="shop">
+        <div class="top">
+          <div class="col">
+            <img [src]="order.Company.Dp" alt="">
+          </div>
+          <div class="col">
+            <h4>
+              {{order.Company.Name}}
+            </h4>
+          </div>
+          <div class="col">
+            <button class="tertiary">{{order.Shipping}}</button>
+
+          </div>
+        </div>
+
+        <div class="bot">
+
+          Order No... #{{order.Id}} <br>
+          Order Status... <span class="order-status">{{order.Status}}</span> <br>
+          Order Date... {{order.CreateDate | date: 'mediumDate'}} <br>
+          <hr>
+          <p *ngFor="let item of order.Orderproducts">
+            {{item.Quantity}} x {{item.ProductName}}... {{item.SubTotal | currency:'R'}}
+          </p>
+          Delivery Fee... {{order.ShippingPrice  | currency:'R'}} <br>
+          <b>
+            Order Total... {{order.Total  | currency:'R'}} <br>
+
+          </b>
+          <hr>
+          Customer: {{order.Customer.Name}} <br>
+          Address: {{order.Customer.AddressLineHome}} <br>
+        </div>
+
+        <div class=" driver">
+          <div class="col">
+            <img src="assets/images/bike.png" alt="">
+          </div>
+
+          <div class="col">
+            <h5>
+              {{order.DriverName || 'No driver assigned'}}
+            </h5>
+          </div>
+
+          <div class="col" *ngIf="!order.DriverId">
+            <button class="secondary" (click)="assignDriver(order)">Assign</button>
+          </div>
+        </div>
+
+
+        <div class="actions">
+          <!-- <a *ngIf="order.AddressId" [href]="order.AddressId" target="_blank" rel="noopener noreferrer">
+            <button class="tertiary">Directions</button>
+
+          </a> -->
+
+          <a >
+            <button class="tertiary" (click)="view(order)">Order details</button>
+
+          </a>
+          <button *ngIf="order.StatusId == PENDINGORDERS" class="primary" (click)="orderAction('Accept', order)">Accept
+            order</button>
+          <button *ngIf="order.Status == ORDER_STATUSES[1]" class="primary" (click)="orderAction(ORDER_STATUSES[2], order)">Mark As
+            Preparing</button>
+          <button *ngIf="order.Status == ORDER_STATUSES[2]" class="primary"
+            (click)="orderAction(ORDER_STATUSES[3], order)">{{ORDER_STATUSES[3]}}</button>
+          <button *ngIf="order.Status == ORDER_STATUSES[3]" class="primary"
+            (click)="orderAction(ORDER_STATUSES[4], order)">Mark as On the way</button>
+          <button *ngIf="order.Status == ORDER_STATUSES[4]" class="primary" (click)="orderAction(ORDER_STATUSES[5], order)">Mark as
+            Delivered</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="quick-add" *ngIf="showAdd">
+  <div class="form">
+    <img src="assets/images/cooking.svg" alt="">
+
+    <h1>Estimated preparation time?
+    </h1>
+
+    <div class="form-item">
+      <input type="tel" name="" (keyup)="calTime()" id="" placeholder="Time in Minutes"
+        [(ngModel)]="order.DeliveryMins">
+      <h3 *ngIf="order.EstimatedDeliveryDate">
+        <span>This order will be done by:</span>
+        {{order.EstimatedDeliveryDate| date:'mediumTime'}}
+      </h3>
+    </div>
+
+    <div class="form-item">
+      <button (click)="updateOrder()" [disabled]="!order.EstimatedDeliveryDate || formError">Accept order</button>
+      <div class="link" (click)="showAdd = false">Cancel</div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="quick-add" *ngIf="showAddCancel">
+  <div class="form">
+    <h3>
+      Cancelling order
+    </h3>
+
+    <div class="form-item">
+      <button class="btn-danger" (click)="updateOrder()">Finish order cancel</button>
+      <div class="link" (click)="showAddCancel = false">Cancel</div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="quick-add" *ngIf="showAssignDrivers">
+  <div class="form">
+    <h3>
+      Assign Drivers
+    </h3>
+
+    <div class="form-item">
+      <div class="driver" *ngFor="let item of users">
+        <div class="col">
+          <img [src]="item.Dp || 'assets/images/def-user.svg'" alt="">
+        </div>
+
+        <div class="col">
+          <h4>
+            {{item.Name}}
+          </h4>
+        </div>
+
+        <div class="col">
+          <button class="secondary" (click)="saveAssignDriver(item)">Assign</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-item">
+      <div class="link" (click)="showAssignDrivers = false">Close</div>
+    </div>
+
+  </div>
+</div>
+
+
+<div style="padding-top: 15em;">
+  <app-dash-loader *ngIf="loading"></app-dash-loader>
+</div>

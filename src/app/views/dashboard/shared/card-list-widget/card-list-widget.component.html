@@ -1,0 +1,36 @@
+<div class="cards" *ngIf="items">
+  <div class="card" style="margin-bottom: 2em; cursor: default;" *ngIf="showFilter">
+    <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+    <button class="primary" *ngIf="primaryAction"  (click)="primaryActionClicked()"> {{primaryAction}} </button>
+  </div>
+  <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString;" >
+    <div class="card-grid" style="cursor: pointer;" (click)="goto(item.Link, item)">
+      <div class="col">
+        <img [src]="item.Icon" alt="">
+      </div>
+      <div class="col details">
+        <h3>
+          {{item.Name}}
+        </h3>
+
+        <p>
+          {{item.Description}}
+        </p>
+        <p *ngIf="item.Description2">
+          {{item.Description2}}
+        </p>
+   
+      </div>
+    </div>
+
+    <div class="qty" *ngIf="showQty">
+      <div class="col">
+        <img src="assets/images/icon-rem.svg" (click)="qty(-1, item)" alt="">
+      </div>
+      <div class="col"><input type="number" [(ngModel)]="item.Qty"></div>
+      <div class="col">
+        <img src="assets/images/icon-add.svg"  (click)="qty(1, item)" alt="">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="">
+  <input type="file" accept="image/png, image/jpeg" #file placeholder="Choose file" multiple
+  (change)="onSelectFiles($event)" style="display:none;position: fixed;">
+<div class="images">
+  <div class="image" *ngFor="let image of images; let i = index">
+    <div class="">
+      <img [src]="image.Url" alt="" (click)="showImage(image, i)" 
+        *ngIf="image.IsMain === '0' ">
+
+      <img [src]="image.Url" alt="" (click)="showImage(image, i)" 
+        *ngIf="image.IsMain === '1' " class="active">
+    </div>
+  </div>
+
+
+  <div class="add-image" *ngIf="file && !laoding" (click)="file.click()">
+
+    <span class="material-icons">
+      add_box
+    </span>
+  </div>
+</div>
+
+<div class="laoding" *ngIf="laoding">
+  <div class="bt" [style.width.%]="progress" ></div>
+</div>
+
+
+
+<div class="quick-add" *ngIf="viewImage && selectImage">
+  <div class="form">
+    <h3>
+      Product image.
+    </h3>
+    <div class="image-zoomed">
+      <img [src]="selectImage.Url" (swipeleft)="handleSwipe('left')" (swiperight)="handleSwipe('right')" alt="">
+      <div class="actions">
+        <button class="action" (click)="delete()">
+          Delete
+        </button>
+        <button class="action" (click)="setmain()">
+          Set as main
+        </button>
+      </div>
+    </div>
+
+    <div class="form-item">
+      <div class="link" (click)="viewImage = false">Close</div>
+    </div>
+  </div>
+</div>
+
+</div>

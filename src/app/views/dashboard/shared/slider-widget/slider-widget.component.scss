@@ -1,0 +1,9 @@
+@import '../../../../../assets/styles/color';
+
+.items {
+  display: grid;
+  grid-template-columns: repeat(100, 15em);
+  grid-gap: 1em;
+  overflow-x: scroll;
+  max-width: 100%;
+}

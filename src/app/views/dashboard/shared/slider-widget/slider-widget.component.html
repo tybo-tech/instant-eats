@@ -1,0 +1,5 @@
+<div class="items" *ngIf="items">
+  <div class="item" *ngFor="let item of items">
+    <app-card-widget [item]="item"></app-card-widget>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<!-- <div class="container" *ngIf="widgetItems">
+
+
+</div> -->
+<!-- 
+
+<h3>
+  <span>
+    System {{userType}}s <br> <br>
+  </span>
+</h3>
+
+<div class="module-actions">
+  <button class="tertiary" (click)="back()">Back to resturant</button>
+</div> -->
+
+<div class="banner">
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+
+
+    <div class="name menu-back" (click)="back()">
+      Restaurant dashboard
+    </div>
+  </div>
+</div>
+
+<div class="container" >
+  <app-card-list-widget (itemSelectedEvent)="OnItemSelected($event)" [showFilter]="showFilter"
+  [primaryAction]="primaryAction" (primaryActionEvent)="onPrimaryActionEvent($event)" [items]="widgetItems">
+</app-card-list-widget>
+
+<app-nodata-widget *ngIf="!widgetItems || !widgetItems.length" [info]="'No users found in this resturant'"></app-nodata-widget>
+</div>
+
+
+
+
+
+<div class="quick-add" *ngIf="user">
+  <div class="form">
+    <h3>
+     {{heading}}
+    </h3>
+
+    <div class="form-item">
+     <app-image-widget [image]="user.Dp" (imageChangedEvent)="onImageChangedEvent($event)"></app-image-widget>
+    </div>
+
+    <div class="form-item">
+      <label for="">Full Name</label>
+      <input type="text" name="" id="" [(ngModel)]="user.Name">
+    </div>
+
+    <div class="form-item">
+      <label for="">Email</label>
+      <input type="text" name="" id="" [(ngModel)]="user.Email">
+    </div>
+    <div class="form-item">
+      <label for="">Phone Number</label>
+      <input type="text" name="" id="" [(ngModel)]="user.PhoneNumber">
+    </div>
+
+<!-- 
+    <div class="form-item">
+      <label for="">Address *</label>
+      <app-address-widget-dashboard [addressLineHome]="user.AddressLineHome " (adressChangedEvent)="onAdressEvent($event)">
+      </app-address-widget-dashboard>
+    </div> -->
+
+
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!user.Name">Save</button>
+      <div class="link" (click)="user = null">Cancel</div>
+    </div>
+  </div>
+</div>
+

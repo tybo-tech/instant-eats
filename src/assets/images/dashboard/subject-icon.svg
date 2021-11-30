@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58">
+  <g id="subject-icon" transform="translate(0 0.322)">
+    <g id="Ellipse_115" data-name="Ellipse 115" transform="translate(0 -0.322)" fill="#fff" stroke="#009CD7" stroke-width="2">
+      <circle cx="29" cy="29" r="29" stroke="none"/>
+      <circle cx="29" cy="29" r="28" fill="none"/>
+    </g>
+    <g id="google-docs" transform="translate(16 12)">
+      <path id="Path_564" data-name="Path 564" d="M63.908,33.09H83.3a2.912,2.912,0,0,0,2.908-2.908V9.694H79.419a2.912,2.912,0,0,1-2.908-2.908V0h-12.6A2.912,2.912,0,0,0,61,2.908V30.182A2.912,2.912,0,0,0,63.908,33.09Zm3.878-19.453H79.419a.969.969,0,1,1,0,1.939H67.786a.969.969,0,0,1,0-1.939Zm0,3.878H79.419a.969.969,0,1,1,0,1.939H67.786a.969.969,0,1,1,0-1.939Zm0,3.878H79.419a.969.969,0,0,1,0,1.939H67.786a.969.969,0,0,1,0-1.939Zm0,3.878h7.755a.969.969,0,1,1,0,1.939H67.786a.969.969,0,1,1,0-1.939Z" transform="translate(-61)" fill="#35b23d"/>
+      <path id="Path_565" data-name="Path 565" d="M331.969,15.976h6.218L331,8.789v6.218A.97.97,0,0,0,331.969,15.976Z" transform="translate(-313.55 -8.221)" fill="#35b23d"/>
+    </g>
+  </g>
+</svg>

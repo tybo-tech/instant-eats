@@ -1,0 +1,124 @@
+<div class="main">
+  <div class="top-bar-conatiner">
+    <div class="top-bar">
+      <div class="menu-back">
+        <span class="material-icons" (click)="back()">
+          chevron_left
+        </span>
+      </div>
+
+
+      <div class="name">
+        My favorites
+      </div>
+
+      <div class="btn-menu">
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="global-tabs">
+    <div class="tab" *ngFor="let item of TABS" [ngClass]="item.Classes" (click)="onTab(item)">{{item.Name}}</div>
+  </div>
+
+
+
+  <div class="product-section col-1-of-1" *ngIf="currentTab.Name === TABS[0].Name">
+
+    <div class="mt5 empty-state" *ngIf="!productsInteractions || !productsInteractions.length">
+      <p>
+        You don't have any products on your favorites.
+
+        <span  (click)="goto('/')">
+          Discover products.
+        </span>
+      </p>
+    </div>
+    <div class="mt5" *ngIf="productsInteractions">
+      <div class="shops" *ngFor="let item of productsInteractions">
+        <div class="shop">
+          <div class="icon">
+            <img *ngIf="item.ImageUrl" [src]="item.ImageUrl" alt="">
+            <img *ngIf="!item.ImageUrl" src="assets/images/shop.svg" alt="">
+          </div>
+          <div class="item">
+            <h3>
+              {{item.Name}}
+              <span class="price" *ngIf="item.InteractionBody != 'Follow'">
+                {{item.Price  | currency:'R'}}
+              </span>
+              <span class="cta" *ngIf="item.InteractionBody == 'Follow'" (click)="goto(item.InteractionTargetId)">
+                Go to shop
+              </span>
+              <span class="cta" *ngIf="item.InteractionBody != 'Follow'" (click)="select(item)">
+                View product
+              </span>
+            </h3>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="product-section col-1-of-1" *ngIf="currentTab.Name === TABS[1].Name">
+    <div class="empty-state" *ngIf="!shopsInteractions || !shopsInteractions.length">
+      <p >
+        You don't have any shops you following.
+
+        <span (click)="goto('/home/shops')">
+          Go to shops.
+        </span>
+      </p>
+    </div>
+    <div class="mt5" *ngIf="shopsInteractions && shopsInteractions.length">
+      <div class="shops" *ngFor="let item of shopsInteractions">
+        <div class="shop">
+          <div class="icon">
+            <img *ngIf="item.ImageUrl" [src]="item.ImageUrl" alt="">
+            <img *ngIf="!item.ImageUrl" src="assets/images/shop.svg" alt="">
+          </div>
+          <div class="item">
+            <h3>
+              {{item.Name}}
+              <span class="price" *ngIf="item.InteractionBody != 'Follow'">
+                {{item.Price  | currency:'R'}}
+              </span>
+              <span class="cta" *ngIf="item.InteractionBody == 'Follow'" (click)="goto(item.InteractionTargetId)">
+                Go to shop
+              </span>
+              <span class="cta" *ngIf="item.InteractionBody != 'Follow'" (click)="select(item)">
+                View product
+              </span>
+            </h3>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="form" *ngIf="!user">
+    <div class="form-item">
+      <p>
+        Login or sign up to view your wishlist.
+
+      </p>
+
+      <button class="primary" (click)="login()">Login</button>
+      <button class="secondary" (click)="login()">Sign up</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<app-quick-sign-in [heading]="heading"></app-quick-sign-in>

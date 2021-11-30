@@ -1,0 +1,47 @@
+<div class="main">
+
+
+  <div class="basic">
+    <h3 class="header-label heading">
+      Hi {{user?.Name}}, please set up your shop to start selling.
+    </h3>
+
+    <div class="dash-forms">
+
+      <div class="upload-preview">
+        <label class="map" style="display: block; text-align: center;" for="exampleInputSurname">Restaurant logo design</label>
+
+        <div class="upload">
+          <input type="file" accept="image/png, image/jpeg" #file placeholder="Choose file" multiple
+            (change)="uploadFile(file.files)" style="display:none;">
+          <span class="material-icons  user-dp" *ngIf="!company.Dp" (click)="file.click()">
+            add_a_photo
+          </span>
+        </div>
+        <div class="preview" (click)="file.click()">
+          <img *ngIf="company.Dp" [src]="company.Dp" alt="">
+        </div>
+      </div>
+      <div class="form-item">
+        <label for="name">Your Restaurant Name*</label>
+        <input type="text" [(ngModel)]="company.Name" placeholder="Mamas ketchen">
+      </div>
+
+      <div class="form-item">
+        <label class="map" for="exampleInputSurname">Restaurant Location</label>
+        <!-- <textarea [(ngModel)]="company.AddressLine"></textarea> -->
+
+        <app-address-widget (adressChangedEvent)="onAdressEvent($event)"></app-address-widget>
+      </div>
+
+   
+
+      <br><br>
+
+      <button mat-button class="more" type="button" (click)="save()">
+        Save Restaurant
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,556 @@
+@import './home-container';
+@import './inputs';
+
+.container {
+  padding: 1em;
+  padding-top: 26%;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h4,
+  h6 {
+    padding: 0 1em;
+  }
+}
+
+
+.line-option {
+  display: grid;
+  grid-template-columns: 80% auto;
+  background: $cloud;
+  padding: .5em;
+  margin: .75em 0;
+
+  input {
+    border: none;
+  }
+
+  img {
+    margin: 0 auto;
+    width: 3em;
+    position: relative;
+    top: .65em;
+    display: block;
+  }
+}
+
+.global-padding {
+
+  @media only screen and (max-width: 600px) {
+    padding: 0;
+  }
+}
+
+
+.new-top-bar {
+  background: $primary;
+  display: grid;
+  grid-template-columns: 4.5em auto;
+  color: $white;
+  border-top: 1px solid $cloud;
+  padding: 1em;
+
+  .menu-back-btn {
+    padding: 0;
+    font-weight: 600;
+    top: -.5em;
+    cursor: pointer;
+
+    span {
+      top: .4em;
+      margin: 0;
+
+    }
+
+  }
+
+  .col-header {
+    font-weight: 600;
+    font-size: 1.2em;
+    overflow: hidden;
+    // padding: 1em 0;
+
+    span {
+      display: block;
+      font-weight: 400;
+      font-size: .9em;
+
+      a {
+        background: $pop;
+        color: $primary;
+        padding: .3em .5em;
+        display: block;
+        width: 10em;
+        margin: .5em 0;
+        cursor: pointer;
+        border-radius: 5em;
+        text-align: center;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.action-bar {
+  background: $primary;
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  padding: .5em 1em;
+
+  a {
+    background: $pop;
+    color: $primary;
+    padding: .5em;
+    display: block;
+    margin: .5em auto;
+    cursor: pointer;
+    border-radius: 5em;
+    text-align: center;
+    font-weight: 600;
+    width: 94%;
+    font-size: .8em;
+  }
+}
+
+.action-header {
+  display: grid;
+  grid-template-columns: 85% auto;
+  margin: 2em auto;
+  max-width: $max-width;
+
+  &:last-child {
+    text-align: right;
+  }
+
+  @media only screen and (max-width: 600px) {
+    padding: 1em;
+    grid-template-columns: 60% auto;
+  }
+
+  a {
+    display: block;
+    padding: .5em 0;
+  }
+
+  span {
+    display: block;
+    // width: 98%;
+    margin: 0 auto;
+    color: $white;
+    background: $primary;
+    text-align: center;
+    padding: .5em 1em;
+  }
+}
+
+.no-data {
+  width: 80%;
+  margin: 10em auto !important;
+  text-align: center;
+  padding: 1em;
+  background: rgba(255, 155, 155, 0.418);
+
+  h1 {
+    font-size: 1.2em;
+  }
+}
+
+.block {
+  display: block;
+}
+
+
+.black {
+  color: $black !important;
+}
+
+.lnk {
+  color: $tertiary !important;
+  cursor: pointer;
+  font-weight: 500;
+  padding: .75em 0;
+}
+
+.line-break {
+  white-space: pre-wrap;
+}
+
+
+.strong-text {
+  font-size: 1em !important;
+  font-weight: 600 !important;
+  color: $primary !important;
+}
+
+.subject-line {
+  display: grid;
+  grid-template-columns: 50% auto;
+  padding: .5em 0;
+  font-weight: 600;
+
+  .grade {
+    select {
+      width: 90%;
+    }
+  }
+
+  .subject {
+    text-align: right;
+
+    select {
+      width: 90%;
+    }
+  }
+}
+
+
+.quick-add {
+  position: fixed;
+  background: rgb(0 0 0 / 77%);
+  width: 100%;
+  height: 86vh;
+  z-index: 90000000000;
+  max-width: 34em;
+  left: 50%;
+  top: 5.2em;
+  border-radius: 0.5em;
+  transform: translate(-49.555555%, 0);
+
+  @media only screen and (max-width: 600px) {
+    top: 0;
+    height: 100%;
+    max-width: 100%;
+  }
+
+  img {
+    display: block;
+    margin: 1em auto;
+    width: 7.5em;
+  }
+
+  h3 {
+    text-align: center;
+    padding: 1em;
+    border-bottom: 1px solid $cloud;
+
+    span {
+      display: block;
+      font-weight: 500;
+      font-size: .85em;
+      padding: 1em;
+    }
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .form {
+    margin: 0 auto;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0;
+    max-height: 100%;
+    overflow-y: scroll;
+    max-width: 60em;
+    animation: fadeIn .2s ease-out 0s;
+    animation-fill-mode: backwards;
+    background: $cloud;
+
+  
+    .form-item {
+      background: $white;
+      padding: 1em;
+      border-radius: .4em;
+      margin: 1em auto;
+      width: 100%;
+
+      input {
+        background: $white;
+        border: 1px solid $cloud;
+      }
+    }
+
+    .no-padding {
+      padding: 0;
+    }
+
+    .no-margin {
+      margin: 0;
+    }
+
+    // @media only screen and (max-width: 600px) {
+    //   width: 100%;
+    //   position: absolute;
+    //   bottom: 0;
+    //   margin: 0 auto;
+    //   border-radius: 0;
+    //   max-height: 100%;
+    //   animation: moveInButton .2s ease-out 0s;
+    //   animation-fill-mode: backwards;
+
+    //   padding-bottom: 4em !important;
+    // }
+
+    h1 {
+      text-align: center;
+
+      border-bottom: 1px solid $cloud;
+      padding: 1em;
+    }
+
+    // .form-item {
+    //   width: 90%;
+    // }
+
+    button {
+      background: $pop;
+      margin: .75em 0;
+      color: $black;
+      padding: 1em;
+      border-radius: .4em;
+
+      &:disabled {
+        background: $darker-grey;
+        cursor: no-drop;
+      }
+    }
+
+    .link {
+      display: block;
+      text-align: center;
+      padding: 1em;
+      font-weight: 600;
+    }
+  }
+
+  .white {
+    background: $white;
+  }
+
+  .items {
+    .item {
+      display: grid;
+      grid-template-columns: 50% auto;
+
+      .col {
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+  }
+}
+
+
+
+.static {
+  z-index: auto;
+  position: relative;
+  background: $cloud;
+
+  .form {
+    position: relative;
+  }
+}
+
+
+.order-status {
+  background: $popbg;
+  padding: .1em;
+  border-radius: .2em;
+}
+
+@media (min-width : 300px) {
+  .phone-only {
+    display: block;
+  }
+
+  .pc-only {
+    display: none;
+  }
+
+  .tab-only {
+    display: none;
+  }
+}
+
+@media (min-width : 800px) {
+  .phone-only {
+    display: none;
+  }
+
+  .pc-only {
+    display: none;
+  }
+
+  .tab-only {
+    display: block;
+  }
+}
+
+@media (min-width : 1400px) {
+  .phone-only {
+    display: none;
+  }
+
+  .pc-only {
+    display: block;
+  }
+
+  .tab-only {
+    display: none;
+  }
+}
+
+.module-actions {
+  padding: 1em;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+
+  .tab {
+    font-weight: 600;
+    display: block;
+    text-align: center;
+    border-bottom: 3px solid $grey;
+    padding: .5em;
+    color: $darker-grey;
+    font-size: .85em;
+  }
+
+  .active {
+    border-bottom: 3px solid $pop;
+    color: $black;
+
+  }
+}
+
+
+.banner {
+  margin: 0;
+  padding: 2em 1em;
+  overflow: hidden;
+  background: $pop;
+  position: relative;
+  margin-top: 6em;
+  font-weight: 600;
+  // padding-bottom: .5em;
+
+  .backkk {
+    display: grid;
+    grid-template-columns: 2em auto;
+    width: fit-content;
+  }
+}
+
+.suggestions {
+  padding: .5em;
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  grid-gap: .5em;
+
+  a {
+    background: #F3BB1C;
+    display: block;
+    margin: 0 .5em;
+    border-radius: .7em;
+    font-size: .75em;
+    padding: .5em;
+    font-weight: 500;
+    text-align: center;
+
+  }
+}
+
+.error-rr {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 999000000000000;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.918);
+
+  .data {
+    display: block;
+    margin: 60% auto;
+    background: rgb(243, 79, 79);
+    color: $white;
+    border-radius: 1em;
+    padding: 1em;
+    text-align: center;
+    max-width: 90%;
+    position: relative;
+    top: 4em;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 1.5em;
+    padding: 1em;
+
+  }
+
+  button {
+    width: 10em;
+    margin: 1em auto;
+  }
+
+
+}
+
+
+.pop {
+  position: fixed;
+  background: $secondary;
+  color: $black;
+  padding: 1em;
+  font-weight: 600;
+  width: 90%;
+  left: 5%;
+  bottom: 1rem;
+  border-radius: .5em;
+  box-shadow: $box-shadow;
+  z-index: 9999999999;
+  animation: moveInButton .2s ease-in-out 0s;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 90% auto;
+
+  //   animation-fill-mode: backwards;
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  span {
+    top: 0;
+    margin: 0;
+  }
+}
+
+
+
+.order-product-name {
+  margin: 0 !important;
+  padding: .1em;
+
+  span {
+    display: block;
+    font-weight: 400 !important;
+    font-size: .85em !important;
+    color: $darker-grey !important;
+    padding: .1em 0;
+    margin: 0;
+  }
+}
+.pointer,.menu-back{
+  cursor: pointer;
+}

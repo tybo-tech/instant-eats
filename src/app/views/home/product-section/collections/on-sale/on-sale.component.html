@@ -1,0 +1,31 @@
+<div *ngIf="productsOnSale && productsOnSale.length" class="main box-shadow">
+  <h2 class="cat-label">
+    <span>
+      Today specials
+    </span>
+
+    <span>
+      <!-- Sell all -->
+    </span>
+  </h2>
+  <div class="flexy">
+    <div class="list">
+      <span *ngFor="let item of productsOnSale; let i = index">
+        <div class="catergory"  (click)="viewMore(item)"
+        [ngStyle]="{'background-image': ' linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(128, 128, 128, 0.2)),'+'url(' + item.FeaturedImageUrl + ')'}">
+    
+      </div>
+      <p>
+        {{item.SalePrice | currency:'R'}}
+        <span>
+        {{item.Sale}}
+        </span>
+      </p>
+      </span>
+   
+    </div>
+  </div>
+
+</div>
+<app-product-quick-view *ngIf="selectedProduct" [selectedProduct]="selectedProduct"
+  (showProduct)="selectedProduct = null"></app-product-quick-view>

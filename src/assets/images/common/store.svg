@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180.488" height="182.927" viewBox="0 0 180.488 182.927">
+  <g id="store" transform="translate(-97 -263)">
+    <g id="store-2" data-name="store" transform="translate(97 256)">
+      <g id="Group_2296" data-name="Group 2296" transform="translate(0 32)">
+        <g id="Group_2295" data-name="Group 2295">
+          <path id="Path_212" data-name="Path 212" d="M180.319,81.4,170.11,40.539A11.272,11.272,0,0,0,159.168,32H21.331a11.3,11.3,0,0,0-10.953,8.539L.169,81.4A5.518,5.518,0,0,0,0,82.762c0,15.545,12.014,28.2,26.791,28.2a26.323,26.323,0,0,0,21.151-10.908,25.96,25.96,0,0,0,42.3,0,25.96,25.96,0,0,0,42.3,0A26.307,26.307,0,0,0,153.7,110.964c14.777,0,26.791-12.657,26.791-28.2A5.518,5.518,0,0,0,180.319,81.4Z" transform="translate(0 -32)" fill="#b5b5b5"/>
+        </g>
+      </g>
+      <g id="Group_2298" data-name="Group 2298" transform="translate(11.281 115.611)">
+        <g id="Group_2297" data-name="Group 2297">
+          <path id="Path_213" data-name="Path 213" d="M174.417,275.817a36.907,36.907,0,0,1-21.151-6.633,37.961,37.961,0,0,1-42.3,0,37.961,37.961,0,0,1-42.3,0A36.622,36.622,0,0,1,32,272.309V332.22A11.285,11.285,0,0,0,43.281,343.5H88.4V298.378h45.122V343.5h45.122a11.285,11.285,0,0,0,11.281-11.28V272.309A36.6,36.6,0,0,1,174.417,275.817Z" transform="translate(-32 -269.184)" fill="#b5b5b5"/>
+        </g>
+      </g>
+    </g>
+    <g id="Ellipse_89" data-name="Ellipse 89" transform="translate(161 263)" fill="#ff2626" stroke="#fff" stroke-width="4">
+      <circle cx="26.5" cy="26.5" r="26.5" stroke="none"/>
+      <circle cx="26.5" cy="26.5" r="24.5" fill="none"/>
+    </g>
+    <text id="_" data-name="!" transform="translate(188 304)" fill="#fff" font-size="33" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-5.398" y="0">!</tspan></text>
+  </g>
+</svg>

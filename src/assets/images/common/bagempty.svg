@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="589" height="589" viewBox="0 0 589 589">
+  <g id="bagempty" transform="translate(-1271 -440)">
+    <circle id="Ellipse_94" data-name="Ellipse 94" cx="294.5" cy="294.5" r="294.5" transform="translate(1271 440)" fill="#f6f6f6"/>
+    <g id="shopping-bags" transform="translate(1380 548.965)">
+      <g id="Group_2308" data-name="Group 2308" transform="translate(0 4.035)">
+        <g id="Group_2307" data-name="Group 2307">
+          <path id="Path_221" data-name="Path 221" d="M367.671,127.319a8.217,8.217,0,0,0-6.849-2.283h-98.17V81.658a77.623,77.623,0,0,0-155.246,0v43.378H9.234c-2.74,0-5.479,0-6.849,2.283A7.764,7.764,0,0,0,.1,134.168L34.347,321.377a55.706,55.706,0,0,0,53.88,45.661h193.6a56.163,56.163,0,0,0,53.88-46.117l34.246-186.753A7.764,7.764,0,0,0,367.671,127.319Zm-242-45.661a59.359,59.359,0,1,1,118.717,0v43.378H125.669ZM317.444,318.637a36.53,36.53,0,0,1-35.615,30.136H88.227a36.529,36.529,0,0,1-35.615-30.136L20.192,143.3H349.863Z" transform="translate(0 -4.035)" fill="#b5b5b5"/>
+          <path id="Path_222" data-name="Path 222" d="M288.759,258.675a9.132,9.132,0,0,0,9.132-9.132v-27.4a9.132,9.132,0,0,0-18.264,0v27.4A9.131,9.131,0,0,0,288.759,258.675Z" transform="translate(-35.24 -30.371)" fill="#b5b5b5"/>
+          <path id="Path_223" data-name="Path 223" d="M132.024,258.675a9.132,9.132,0,0,0,9.132-9.132v-27.4a9.132,9.132,0,1,0-18.264,0v27.4A9.132,9.132,0,0,0,132.024,258.675Z" transform="translate(-15.487 -30.371)" fill="#b5b5b5"/>
+        </g>
+      </g>
+    </g>
+    <path id="Path_224" data-name="Path 224" d="M3.216,3s25.14-23.684,53.14-22.934S112,3,112,3" transform="translate(1512.5 843.5)" fill="none" stroke="#b5b5b5" stroke-linecap="round" stroke-width="10"/>
+  </g>
+</svg>

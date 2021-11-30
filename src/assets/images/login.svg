@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="489" height="84" viewBox="0 0 489 84">
+  <g id="login" transform="translate(-68 -651)">
+    <g id="log" transform="translate(8 179)">
+      <g id="log-2" data-name="log" transform="translate(0 128)">
+        <g id="zinsta" transform="translate(0 128)">
+          <g id="Group_2277" data-name="Group 2277" transform="translate(0 128)">
+            <rect id="Rectangle_254" data-name="Rectangle 254" width="489" height="84" rx="9" transform="translate(60 88)" fill="#ebebeb"/>
+            <text id="Login-2" data-name="Login" transform="translate(186 146)" fill="#2c3e50" font-size="38" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Login</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <path id="lock" d="M36.265,20.723H34.538V13.815a13.815,13.815,0,0,0-27.63,0v6.908H5.181A5.187,5.187,0,0,0,0,25.9V50.08A5.187,5.187,0,0,0,5.181,55.26H36.265a5.187,5.187,0,0,0,5.181-5.181V25.9A5.187,5.187,0,0,0,36.265,20.723ZM11.513,13.815a9.21,9.21,0,1,1,18.42,0v6.908H11.513Zm0,0" transform="translate(105 665)" fill="#2c3e50"/>
+  </g>
+</svg>

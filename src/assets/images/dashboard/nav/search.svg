@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26.2" height="21.903" viewBox="0 0 26.2 21.903">
+  <g id="search" transform="translate(0 -0.094)">
+    <g id="Ellipse_80" data-name="Ellipse 80" transform="translate(0 0.094)" fill="rgba(210,218,226,0.5)" stroke="#a4b0be" stroke-width="2">
+      <circle cx="9.5" cy="9.5" r="9.5" stroke="none"/>
+      <circle cx="9.5" cy="9.5" r="8.5" fill="none"/>
+    </g>
+    <line id="Line_29" data-name="Line 29" x2="7.565" y2="5.884" transform="translate(17.232 14.71)" fill="none" stroke="#a4b0be" stroke-linecap="round" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+@import '../../../../../assets/styles/color';
+.container {
+  padding-top: 4%;
+}
+
+.product-item {
+  grid-template-columns: 4em 70% auto;
+
+  img {
+    width: 3em;
+    height: auto;
+  }
+
+  .count {
+    text-align: right;
+    font-weight: 600;
+
+    padding: .5em;
+  }
+}
+
+.quick-add {
+  .form {
+    min-height: 100vh;
+
+  }
+}

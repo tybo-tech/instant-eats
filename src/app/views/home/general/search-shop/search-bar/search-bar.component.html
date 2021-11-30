@@ -1,0 +1,20 @@
+<div class="main">
+  <input type="search" name="" placeholder="🔎 Search products"  [(ngModel)]="searchString" (keyup)="searchNow()" id="">
+  <div *ngIf="results && results.length && showResults" class="results">
+    <div class="item" *ngFor="let item of results" (click)="goto(item.ProductSlug)">
+      <div class="icon">
+        <img [src]="item.FeaturedImageUrl" alt="">
+      </div>
+
+      <div class="details">
+        <p>
+          {{item.Name}}
+
+          <span>
+            {{item.RegularPrice | currency:'R'}}
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

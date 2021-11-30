@@ -1,0 +1,31 @@
+<router-outlet></router-outlet>
+
+
+
+<div class="overlay" *ngIf="loadingUx && loadingUx.Loading">
+
+  <div class="main">
+    <app-home-loader></app-home-loader>
+  </div>
+
+</div>
+
+
+<div class="pop" *ngIf="message">
+  <p>
+    {{message}}
+  </p>
+  <div class="">
+    <span class="material-icons" (click)="message = ''">
+      close
+    </span>
+  </div>
+</div>
+
+
+
+<button *ngIf="showScrollUp" class="scroll-top" (click)="totop()">
+  <span class="material-icons">
+    arrow_circle_up
+  </span>
+</button>

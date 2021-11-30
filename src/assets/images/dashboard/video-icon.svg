@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <g id="video-icon" transform="translate(8619 16310)">
+    <g id="Ellipse_115" data-name="Ellipse 115" transform="translate(-8619 -16310)" fill="#fff" stroke="#009CD7" stroke-width="2">
+      <circle cx="50" cy="50" r="50" stroke="none"/>
+      <circle cx="50" cy="50" r="49" fill="none"/>
+    </g>
+    <g id="files-and-folders_1_" data-name="files-and-folders (1)" transform="translate(-8591 -16288.999)">
+      <g id="Group_155" data-name="Group 155" transform="translate(0.991 0.99)">
+        <g id="Group_154" data-name="Group 154" transform="translate(0)">
+          <path id="Path_584" data-name="Path 584" d="M370.158,8.789v9.158H361Z" transform="translate(-361 -8.789)" fill="#35b23d"/>
+        </g>
+      </g>
+      <g id="Group_157" data-name="Group 157" transform="translate(10.149 20.411)">
+        <g id="Group_156" data-name="Group 156">
+          <path id="Path_585" data-name="Path 585" d="M162.841,181A11.841,11.841,0,1,1,151,192.841,11.855,11.855,0,0,1,162.841,181Zm5.074,21.767V182.915l-14.89,9.926Z" transform="translate(-151 -181)" fill="#35b23d"/>
+        </g>
+      </g>
+      <g id="Group_159" data-name="Group 159" transform="translate(18.273 28.645)">
+        <g id="Group_158" data-name="Group 158">
+          <path id="Path_586" data-name="Path 586" d="M246.408,254.022v7.212L241,257.628Z" transform="translate(-241 -254.022)" fill="#35b23d"/>
+        </g>
+      </g>
+      <g id="Group_161" data-name="Group 161" transform="translate(0 -0.001)">
+        <g id="Group_160" data-name="Group 160">
+          <path id="Path_587" data-name="Path 587" d="M74.532,13.532V0h30.447V57.738H61V13.532ZM82.99,47.476A15.224,15.224,0,1,0,67.766,32.252,15.24,15.24,0,0,0,82.99,47.476Z" transform="translate(-61)" fill="#35b23d"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

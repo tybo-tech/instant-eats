@@ -1,0 +1,155 @@
+@import '../../../../assets/styles/color';
+
+.top-nav-bar {
+  background: $black;
+  position: fixed;
+  z-index: 10000;
+  color: $white;
+  left: 0;
+  top: 0;
+  grid-template-columns: 15% 10% 60% auto;
+  width: 100%;
+  border-radius: 0;
+
+  .nav-grid {
+    display: grid;
+    margin: 0 auto;
+    width: 100%;
+    grid-template-columns: 10% 10% 60% auto;
+    padding: .5em .2em;
+    padding-right: 1em;
+
+    &:last-child {
+      text-align: right;
+    }
+
+    &:nth-child(2) {
+      text-align: left;
+    }
+
+    &:nth-child(1) {
+      text-align: left;
+    }
+
+
+    .col {
+      padding: .5em;
+    }
+
+
+
+    .logo {
+      display: block;
+      margin-top: 0;
+
+      img {
+        top: .25em;
+        width: 10em;
+      }
+    }
+
+    .cart {
+      text-align: right;
+      cursor: pointer;
+
+      @media only screen and (max-width: 600px) {
+        text-align: left;
+      }
+
+      .material-icons {
+        top: .5em;
+      }
+    }
+
+    .user-col {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .name {
+      span {
+        top: .15em
+      }
+    }
+
+
+
+    .search {
+      text-align: right;
+    }
+
+
+
+    .user-col {
+      text-align: right;
+
+      img {
+        width: 1.5em;
+        border: 1px solid $pop;
+        border-radius: 10em;
+
+        @media only screen and (max-width: 600px) {
+          top: .4em;
+        }
+      }
+    }
+  }
+}
+
+.notice {
+  background: $black;
+  color: $pop;
+  text-align: left;
+  padding: .5em;
+
+  span {
+    display: block;
+    width: fit-content;
+    margin: .2em auto;
+    padding: .15em;
+  }
+
+
+}
+
+
+.pc-nav-bar {
+  display: grid;
+  grid-template-columns: 3% 10% 20% 25% 30% 5% auto;
+  background: $white;
+  padding: .5em 2em;
+  box-shadow: $box-shadow;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+
+  .col {
+    // border: 1px solid $darker-grey;
+    padding: 0;
+  }
+  
+
+  .logo {
+    display: block;
+    margin: 0;
+    padding:.4em;
+    cursor: pointer;
+    text-align: center;
+
+    img {
+      width: 96%;
+    }
+  }
+}
+
+
+.icon-margin {
+  top: 2em !important;
+  position: relative;
+}

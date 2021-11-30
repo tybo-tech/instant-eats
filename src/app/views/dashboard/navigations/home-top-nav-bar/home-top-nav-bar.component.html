@@ -1,0 +1,30 @@
+<div class="new-top-bar" >
+
+  <div class="col pointer">
+    <img src="assets/images/icons/back-icon.svg" (click)="back()" alt="">
+  </div>
+
+  <div class="col" style="text-align: center;">
+    <img src="assets/images/icons/user-icon.svg" alt="">
+  </div>
+
+  <div class="col">
+    <p (click)="goto('/home/profile')" alt="">
+      Hi {{user?.Name}}
+      <span>
+        {{locationData?.formatedAddress}}
+      </span>
+    </p>
+  </div>
+
+  <div class="col">
+    <img src="assets/images/icons/icon-cart.svg"  (click)="goto('/shop/cart')" alt="">
+  </div>
+
+  <div class="col">
+    <img src="assets/images/icons/menu-icon.svg" (click)="menu()" alt="">
+  </div>
+</div>
+
+<div class="overlay" *ngIf="showMenu" (click)="menu()"></div>
+<app-home-side-nav *ngIf="showMenu"></app-home-side-nav>

@@ -1,0 +1,21 @@
+.main{
+  
+    position: fixed;
+    background: rgb(212, 212, 212);
+    width: 100%;
+    height: 86.5vh;
+    z-index: 90000000;
+    max-width: 34em;
+    left: 50%;
+    top: 5.0em;
+    border-radius: 0.5em;
+    transform: translate(-49.555555%, 0);
+    padding-top: 30%;
+  
+    @media only screen and (max-width: 600px) {
+      top: 0;
+      height: 100%;
+      max-width: 100%;
+    }
+  
+}

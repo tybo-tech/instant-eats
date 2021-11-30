@@ -1,0 +1,89 @@
+<div class="main-products">
+  <div class="go-back">
+    <div class="col" (click)="back()">
+      <span class="material-icons">
+        arrow_back
+        </span>
+    </div>
+
+    <div class="col">
+      <p>
+        {{currentCategory?.Name}}
+      </p>
+    </div>
+  </div>
+  <div class="picked" *ngIf="products" style="padding-top: 0;">
+    <app-bread [items]="items"></app-bread>
+    <h4>
+      <!-- {{heading}} -->
+     
+    </h4>
+    <div class="products">
+      <div class="product" *ngFor="let product of products; let i = index">
+        <div class="image">
+          <img [src]="product.FeaturedImageUrl" alt="Awesome Sunglasses" (click)="viewMore(product)">
+        </div>
+
+        <div class="product-details">
+          <p>
+            {{product.Name}}
+
+            <span class="price" *ngIf="!product.OnSale">
+              {{product.RegularPrice | currency:'R'}}
+            </span>
+            <span class="price" *ngIf="product.OnSale">
+              <del> {{product.RegularPrice | currency:'R'}}</del> <br>
+              {{product.SalePrice | currency:'R'}}
+            </span>
+
+            <span class="company-name" *ngIf="product.Company && product.Company.Name" (click)="gotoComapny(product)">
+              By {{product.Company.Name}}
+            </span>
+
+          </p>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="next">
+      <button class="primary load-more" *ngIf="showShowMore" (click)="loadMore()">Load more</button>
+    </div>
+  </div>
+
+  <div class="picked" *ngIf="allUxisexProducts && allUxisexProducts.length">
+    <h4>
+      Products you may like
+    </h4>
+    <div class="products">
+      <div class="product" *ngFor="let product of allUxisexProducts; let i = index">
+        <div class="image">
+          <img [src]="product.FeaturedImageUrl" alt="Awesome Sunglasses" (click)="viewMore(product)">
+        </div>
+
+        <div class="product-details">
+          <p>
+            {{product.Name}}
+
+            <span class="price" *ngIf="!product.OnSale">
+              {{product.RegularPrice | currency:'R'}}
+            </span>
+            <span class="price" *ngIf="product.OnSale">
+              <del> {{product.RegularPrice | currency:'R'}}</del> <br>
+              {{product.SalePrice | currency:'R'}}
+            </span>
+
+            <span class="company-name" *ngIf="product.Company && product.Company.Name" (click)="gotoComapny(product)">
+              By {{product.Company.Name}}
+            </span>
+
+          </p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<app-product-quick-view *ngIf="selectedProduct" [selectedProduct] = "selectedProduct" (showProduct)="selectedProduct = null"></app-product-quick-view>

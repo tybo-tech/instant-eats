@@ -1,0 +1,44 @@
+@import '../../../../../assets/styles/color';
+
+.floating-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000000;
+  background: $cloud;
+  box-shadow: $box-shadow;
+  width: 100%;
+  padding: .5em;
+  padding-bottom: 1.5em;
+
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(4,25%);
+
+    .item {
+      text-align: center;
+    //   background: $black;
+      color: $darker-grey;
+      padding: .5em;
+      margin: .2em auto;
+      width: 8em;
+
+      span {
+        position: relative;
+        margin: 0;
+        top: .2em;
+      
+      }
+      a{
+        display: block;
+        text-align: center;
+        font-weight: 400;
+        font-size: .75em;
+      }
+    }
+
+    .active{
+      color: $black;
+    }
+  }
+}

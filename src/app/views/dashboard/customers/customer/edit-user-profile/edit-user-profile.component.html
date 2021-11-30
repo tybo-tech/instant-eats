@@ -1,0 +1,80 @@
+<div class="banner">
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+
+
+    <div class="name menu-back" (click)="back()">
+      Edit My profile
+    </div>
+  </div>
+
+</div>
+
+<div class="container">
+
+
+
+
+
+  <div class="quick-add static" *ngIf="user">
+
+    <div class="form">
+
+
+      <div class="form-item">
+        <div class="upload-preview">
+          <div class="upload">
+            <input type="file" accept="image/png, image/jpeg" #file placeholder="Choose file" multiple
+              (change)="uploadFile(file.files)" style="display:none;">
+
+            <img class="profile-user" *ngIf="!user.Dp" (click)="file.click()"
+              src="assets/images/common/profile-user.svg" alt="">
+          </div>
+          <div class="preview" (click)="file.click()">
+            <img *ngIf="user.Dp" [src]="user.Dp" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <label for="name">My Name *</label>
+        <input type="text" [(ngModel)]="user.Name" placeholder="e.g. John">
+      </div>
+
+      <div class="form-item">
+        <label for="name">My Email</label>
+        <input type="text" [(ngModel)]="user.Email" placeholder="e.g. john.mnisi@gmail.com">
+      </div>
+
+      <div class="form-item">
+        <label for="name">My Phone Number</label>
+        <input type="text" [(ngModel)]="user.PhoneNumber" placeholder="e.g. 084 001 0100">
+      </div>
+
+
+
+
+      <div class="form-item">
+        <button (click)="save()" [disabled]="!user.Name">Save profile</button>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>
+<app-loader *ngIf="showLoader"></app-loader>

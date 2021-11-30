@@ -1,0 +1,113 @@
+@import '../../../../../../assets/styles/color';
+
+.card {
+  background: $white;
+  margin: 2em .5em;
+  padding: 1em;
+  box-shadow: $box-shadow;
+  border-radius: .2em;
+}
+
+.shop {
+  .top {
+    display: grid;
+    grid-template-columns: 10% 70% auto;
+    border-bottom: 2px solid $cloud;
+
+    img {
+      width: 2.5em;
+      display: block;
+      margin: .1em auto;
+    }
+
+    h4 {
+      padding: .4em 1em;
+    }
+
+    button {
+      padding: .4em !important;
+      width: fit-content;
+      font-size: .75em !important;
+      top: .2em;
+    }
+  }
+
+  .bot {
+    font-weight: 500;
+    padding: .75em;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 40% auto;
+    padding: 1em 0;
+    grid-gap: 1em;
+
+    button {
+      padding: .4em !important;
+      margin: 0 auto;
+
+    }
+
+    .secondary {
+      background: $grey !important;
+      color: $black !important;
+      border-color: $grey !important;
+    }
+  }
+}
+
+hr {
+  border: 1px solid $cloud;
+  display: block;
+  margin: 1em auto;
+}
+
+.driver {
+  display: grid;
+  grid-template-columns: 5em 60% auto;
+  padding: .75em 0;
+  border-bottom: 2px solid $cloud;
+  border-top: 2px solid $cloud;
+  margin: .5em 0;
+
+  h5 {
+    font-size: 1em;
+    padding: .5em 0;
+    font-weight: 500;
+  }
+
+
+  button {
+    padding: .4em !important;
+    margin: 0 auto;
+    top: .25em;
+
+  }
+
+
+  img {
+    width: 3.5em;
+    border-radius: .4em;
+  }
+}
+
+.quick-add {
+  .form {
+    background: $white;
+    input{
+      background: $cloud;
+    }
+  }
+
+  .driver {
+    grid-template-columns: 2em 70% auto;
+
+
+    img {
+      width: 1.5em;
+      border-radius: .4em;
+    }
+  }
+
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="489" height="84" viewBox="0 0 489 84">
+  <g id="log" transform="translate(-60 -472)">
+    <g id="log-2" data-name="log" transform="translate(0 128)">
+      <g id="zinsta" transform="translate(0 128)">
+        <g id="Group_2277" data-name="Group 2277" transform="translate(0 128)">
+          <rect id="Rectangle_254" data-name="Rectangle 254" width="489" height="84" rx="9" transform="translate(60 88)" fill="#ebebeb"/>
+          <text id="Logout" transform="translate(186 146)" fill="#2c3e50" font-size="38" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Logout</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g id="logout_2_" data-name="logout (2)" transform="translate(79 482.5)">
+      <g id="Group_2281" data-name="Group 2281" transform="translate(0 6.5)">
+        <g id="Group_2280" data-name="Group 2280" transform="translate(0 0)">
+          <g id="Group_2282" data-name="Group 2282">
+            <path id="Path_187" data-name="Path 187" d="M84.132,6.5a24.821,24.821,0,0,0-14.667,4.753,1.16,1.16,0,0,0-.306,1.547l4.026,6.531a1.16,1.16,0,0,0,1.668.33,14.62,14.62,0,1,1,0,23.683,1.16,1.16,0,0,0-1.668.33l-4.026,6.532a1.16,1.16,0,0,0,.306,1.547A25,25,0,1,0,84.132,6.5Z" transform="translate(-56.84 -6.5)" fill="#2c3e50"/>
+          </g>
+          <path id="Path_188" data-name="Path 188" d="M15.918,111.133a1.159,1.159,0,0,0-.057-1.19l-2.723-4.084H29.613a4.1,4.1,0,1,0,0-8.206H13.138l2.723-4.084a1.16,1.16,0,0,0-.965-1.8H7.047a1.159,1.159,0,0,0-.965.516l-5.887,8.83a1.159,1.159,0,0,0,0,1.286l5.887,8.83a1.16,1.16,0,0,0,.965.516H14.9A1.159,1.159,0,0,0,15.918,111.133Z" transform="translate(0 -76.751)" fill="#2c3e50"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

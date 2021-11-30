@@ -1,0 +1,32 @@
+<div class="banner" >
+  <div class="backkk">
+    <div class="menu-back">
+      <span class="material-icons" (click)="back()">
+        arrow_back
+      </span>
+    </div>
+  
+  
+    <div class="name menu-back" (click)="back()">
+      Restaurant dashboard
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="container" *ngIf="usersItems">
+
+  <app-card-list-widget *ngIf="usersItems" (primaryActionEvent)="onPrimaryActionEvent($event)"
+    (itemSelectedEvent)="OnItemSelected($event)" [primaryAction]="primaryAction" [showFilter]="showFilter"
+    [items]="usersItems">
+  </app-card-list-widget>
+
+</div>
+
+
+<app-nodata-widget *ngIf="!usersItems || !usersItems.length" [info]="'No products found'"></app-nodata-widget>
+

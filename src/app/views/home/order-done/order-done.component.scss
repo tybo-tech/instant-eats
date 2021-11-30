@@ -1,0 +1,19 @@
+
+@import '../../../../assets/styles/color';
+.quick-add{
+    img{
+      display: block;
+      margin:1em auto;
+      width: 10em;
+    }
+    text-align: center;
+    p{
+      font-weight: 500;
+      max-width: 80%;
+      margin: 0 auto;
+      font-size: 1.2em;
+    }
+    .form{
+      background: $white;
+    }
+  }

@@ -1,0 +1,13 @@
+<div class="main">
+  <div class="global-tabs" *ngIf="!user">
+    <div class="tab" *ngFor="let item of TABS" [ngClass]="item.Classes" (click)="goto(item)">
+      <button  [ngClass]="item.Class">{{item.Name}}</button>
+    </div>
+  </div>
+  <div class="global-tabs user" *ngIf="user">
+    <div class="tab" *ngFor="let item of LOGGEDINTABS" [ngClass]="item.Classes" (click)="goto(item)">
+      <button  [ngClass]="item.Class">{{item.Name}}</button>
+    </div>
+  </div>
+</div>
+<app-quick-sign-in [heading]="heading" [isLoggingIn]="isLoggingIn"></app-quick-sign-in>

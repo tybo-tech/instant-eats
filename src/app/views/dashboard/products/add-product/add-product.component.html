@@ -1,0 +1,146 @@
+<div class="data-view-main" *ngIf="product">
+  <app-dashbread [items]="items"></app-dashbread>
+  <div class="actions-linsk">
+    <span class="material-icons" *ngIf="product.ProductStatus != STATUS_TRASHED_STRING" (click)="delete()">
+      delete
+    </span>
+    <span class="material-icons" *ngIf="product.ProductStatus == STATUS_TRASHED_STRING" (click)="undelete()">
+      recycling
+    </span>
+
+    <span class="material-icons" [cdkCopyToClipboard]="productLink" (click)="copy()">
+      share
+    </span>
+
+
+
+  </div>
+
+
+
+  <div class="basic">
+    <h3 class="header-label">
+      Product images.
+    </h3>
+    <app-images *ngIf="product" [images]="product.Images" [user]="user" [product]="product"
+    (onUploadFinished)="saveImage($event)" (deleteImageEvent)="deleteImage($event)"
+    (setMianImageEvent)="setMianImage($event)" (showImageEvent)="showImage($event)"></app-images>
+
+  </div>
+
+
+  <div class="basic">
+    <h3 class="header-label">
+      Product info.
+    </h3>
+
+    <div class="no-child">
+      <div class="black-label">
+        Name
+      </div>
+      <div class="link">
+        <input type="text" [(ngModel)]="product.Name" placeholder="e.g. Floral summer shirts">
+      </div>
+    </div>
+    <div class="no-child">
+      <div class="black-label">
+        Description
+      </div>
+      <div class="link">
+        <textarea name="" [(ngModel)]="product.Description" placeholder="Enter product description "></textarea>
+      </div>
+    </div>
+
+    <div class="no-child">
+      <div class="black-label">
+        <p>
+          Price <strong>(ZAR)</strong>
+        </p>
+      </div>
+      <div class="link">
+        <div class="link">
+          <input type="number" [(ngModel)]="product.RegularPrice" placeholder="Selling price">
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="no-child">
+      <div class="black-label">
+        <p>
+          Catergory
+        </p>
+      </div>
+      <div class="link">
+        <select [(ngModel)]="product.CategoryGuid" (change)="catChanged()"
+          *ngIf="chilndrenCategories">
+          <option value="add"> ➕ Add new</option>
+          <option *ngFor="let cc of chilndrenCategories" [ngValue]="cc.CategoryId"> {{cc.Name}}</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="basic">
+    <div class="ctas">
+
+      <div class="cta">
+        <button class="mat-primary checkout cancel" [disabled]="!product.Name" mat-button color="primary"
+          (click)="back()">
+          Cancel
+        </button>
+      </div>
+
+      <div class="cta">
+        <button class="mat-primary checkout" [disabled]="!product.Name" mat-button color="primary"
+          (click)="saveProduct()">
+          Save product
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="quick-add" *ngIf="shoWaddNewCatergory  && newCatergory">
+  <div class="form">
+    <h1>
+      Add new category.
+    </h1>
+
+
+    <div class="form-item">
+      <label for="">Category Name *</label>
+      <input type="text" name="" id="" [(ngModel)]="newCatergory.Name" placeholder="Enter product name.">
+    </div>
+
+
+    
+
+
+    <div class="form-item">
+      <button (click)="saveCatergory()" [disabled]="!newCatergory.Name">Save Catergory</button>
+      <div class="link" (click)="shoWaddNewCatergory = false">Cancel</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="quick-add" *ngIf="order">
+  <div class="form">
+    <img src="assets/images/cooking.png" alt="">
+
+    <!-- <h1>Cash required   {{order.Total  | currency:'R'}} -->
+
+    <h1>Order placed successfully
+    </h1>
+    <br>
+    <p>
+      For more order details, check order progress under my orders tab.
+    </p>
+
+    <div class="form-item">
+      <button (click)="track()">Order progress</button>
+      <div class="link" (click)="goto('')">Home</div>
+    </div>
+  </div>
+</div>
+
+<app-home-full-screen-loading *ngIf="!order"></app-home-full-screen-loading>
+

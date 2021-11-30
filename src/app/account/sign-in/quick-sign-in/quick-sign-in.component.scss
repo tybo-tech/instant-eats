@@ -1,0 +1,70 @@
+@import '../../../../assets/styles/color';
+
+.label {}
+
+.input {
+  input {
+    display: block;
+  }
+}
+
+.blue {
+  background-color: rgba(218, 255, 203, 0.596);
+  padding: 1em;
+  padding-bottom: 2em;
+}
+
+.quick-add {
+  padding: 0;
+
+  .form {
+    padding: 0 !important;
+    width: 30%;
+    overflow-y: hidden;
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+    }
+
+    .form-item {
+      position: relative;
+      padding: .4em 1em;
+      width: 80%;
+    }
+  }
+}
+
+.social-buttons {
+  display: grid;
+  grid-template-columns: 50% auto;
+  margin-bottom: 1em;
+
+  button {
+    display: block;
+    width: 96%;
+    margin: 0 auto;
+  }
+}
+
+.go-back {
+  padding: 1em;
+  text-align: right;
+  color: $danger;
+}
+
+h3 {
+  // text-align: left;
+  border-top: 1px solid $cloud;
+}
+
+p {
+  padding: 1em;
+}
+
+.hidePassword {
+  position: absolute;
+  right: 1em;
+  top: 0.75em;
+  z-index: 100;
+  font-size: 1.7em;
+}

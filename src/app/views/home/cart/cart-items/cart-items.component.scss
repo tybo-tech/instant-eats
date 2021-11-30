@@ -1,0 +1,175 @@
+@import '../../../../../assets/styles/color';
+
+.card {
+  background: $white;
+  margin: 1em;
+  padding: 1em;
+  box-shadow: $box-shadow;
+  border-radius: .2em;
+}
+
+.shop {
+  .top {
+    display: grid;
+    grid-template-columns: 3.5em auto;
+    border-bottom: 2px solid $cloud;
+
+    img {
+      width: 2.5em;
+      display: block;
+      margin: .1em auto;
+    }
+
+    h4 {
+      padding: 1em;
+  
+    }
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 50% auto;
+    padding: 1em 0;
+    grid-gap: 1em;
+
+    button {
+      padding: .4em !important;
+      margin: 0 auto;
+
+    }
+
+    .secondary {
+      background: $grey !important;
+      color: $black !important;
+      border-color: $grey !important;
+    }
+  }
+}
+
+.item {
+  cursor: default;
+  .top {
+    display: grid;
+    grid-template-columns: 50% auto;
+    .col{
+      text-align: right;
+    }
+    // border-bottom: 2px solid $cloud;
+
+    img {
+      width: 2.5em;
+      display: block;
+      margin: .1em auto;
+    }
+
+    h4 {
+      padding: .45em 1em;
+    }
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 50% auto;
+    padding: 1em 0;
+    grid-gap: 1em;
+
+    button {
+      padding: .4em !important;
+      margin: 0 auto;
+
+    }
+
+    .secondary {
+      background: $grey !important;
+      color: $black !important;
+      border-color: $grey !important;
+    }
+  }
+}
+
+.close {
+  display: grid;
+  grid-template-columns: 90% auto;
+  padding: .25em;
+  border-bottom: 2px solid $cloud;
+
+  .col{
+    text-align: right;
+  }
+}
+
+.sammary{
+  h4{
+    padding: .2em 0;
+  }
+}
+
+.edit-info{
+  margin-top: 1.8em;
+  font-size: .75em;
+  width: fit-content;
+  padding: .45em 1em !important;
+}
+.quick-add{
+  img{
+    display: block;
+    margin:1em auto;
+    width: 10em;
+  }
+  text-align: center;
+  p{
+    font-weight: 500;
+    max-width: 80%;
+    margin: 0 auto;
+    font-size: 1.2em;
+  }
+  .form{
+    background: $white;
+  }
+}
+
+
+
+.promo-section {
+  display: grid;
+  grid-template-columns: 70% auto;
+  grid-gap: 1em;
+
+  input {
+    border: 3px solid $cloud;
+
+    &::placeholder {
+      font-weight: 700;
+      color: rgb(131, 131, 131) !important;
+    }
+  }
+
+  button {
+    top: .45em;
+    position: relative;
+  }
+}
+
+
+.promo-code{
+  padding: 0;
+  margin: 1em 0;
+  text-align: left;
+  display: grid;
+  grid-template-columns:50% auto;
+  color: red;
+  span{
+    display: grid;
+    &:last-child{
+      text-align: right;
+    }
+  } 
+ }
+
+ .remove-discount{
+   background: red;
+   color: $white;
+   width: 12em;
+   margin: .5em auto;
+   font-size: .75em;
+ }

@@ -1,0 +1,52 @@
+@import '../../../../assets/styles/color';
+
+.main {
+
+  .bg-image,
+  .form {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+
+  }
+
+  .form {
+    top: 0;
+    width: 100%;
+    left: 0;
+    background: none;
+    background: $white;
+    padding: 0;
+    max-width: 33em;
+    left: 50%;
+    top: 5.2em;
+    height: 86vh;
+    border-radius: 0.5em;
+    transform: translate(-49.555555%, 0);
+    // display: grid;
+    // grid-template-columns: 4em auto;
+
+    .or {
+      color: $white;
+    }
+
+    button {
+      margin-top: 2em;
+    }
+  }
+}
+
+
+.col {
+  padding: .5em;
+  text-align: right;
+
+  img {
+    width: 2em;
+    position: relative;
+    top: 1em;
+  }
+}
