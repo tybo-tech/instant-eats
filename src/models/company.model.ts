@@ -25,7 +25,9 @@ export interface Company {
   Radius?: number;
   DeliveryMode?: string;
   DeliveryTime?: string;
+  MaxDeliveryTime?: string;
   MinimumOrder?: string;
+  PushId?: string;
   
   BaseDeliveryCharge?: number;
   DeliveryChargePerKM?: number;

@@ -6,6 +6,8 @@ export const CC_EMAILS = 'mrnnmthembu@gmail.com';
 export const ACTIVEORDERS = 1;
 export const HISTORYORDERS = 2;
 export const PENDINGORDERS = 3;
+export const DRAFT_ORDERS = 4;
+export const ACCEPT_REQUEST_SECONDS = 45;
 
 export const COMMISSION_MODES = ['Fixed Fee', 'Percentage'];
 export const DELIVERY_MODES = ['Self Pickup & Delivery', 'Self Pickup only', 'Delivery Only'];
@@ -107,7 +109,22 @@ export const TABS: HomeTabModel[] = [
 ];
 
 
-export const ORDER_STATUSES = ['Pending','Accepted', 'Preparing', 'Ready to be picked','On the way', 'Delivered', 'Cancelled'];
+export const ORDER_STATUSES = [
+    'Pending',  // 0
+    'Accepted', // 1 
+    'Preparing', //2
+    'Ready to be picked',  //3
+    'On the way', //4
+    'Delivered', // 5
+    'Cancelled'  //6
+];
+
+export const ORDER_DRIVER_STATUSES = {
+    OPEN: { Name: 'Open' },
+    BUSY: { Name: 'Busy' },
+    TRANSICT: { Name: 'Transict' },
+    COMPLETE: { Name: 'Complete' }
+}
 export const SENDING_ORDER = 'Sending order to the restaurant please wait';
 export const PLACING_ORDER = 'Placing your order'; //https://www.youtube.com/watch?v=EJoBrAFjsa8
 export function ORDER_CONFIRMED_ORDER(time: string) { return `Order  confirmed for delivery in ${time} minutes`; }
@@ -139,3 +156,38 @@ export const OPEN_CLOSE = [{ Id: 1, Name: 'Open', Class: ['active'] }, { Id: 2, 
 
 
 export const YOUR_API_KEY = 'AIzaSyAd_7TDEANElRfne8E2Goj3XNIAZFHkXCQ'
+export const ITEM_TYPES = {
+    CUSTOMER_ADDRESS: { Name: 'CustomerAddress' },
+    CUSTOMER_DATA: { Name: 'CustomerData' },
+    CHAT: { Name: 'Chat' },
+    RATING: { Name: 'Rating' },
+    REQUEST: { Name: 'Request' },
+}
+export const MESSAGE_STATUSES = {
+    SENT: { Name: 'Sent' },
+    READ: { Name: 'Read' }
+}
+export const PAY_METHODS = {
+    CASH: { Name: 'Cash' },
+    ONLINE: { Name: 'Online' }
+}
+
+export const DELIVERY_REQUEST_STATUSES = {
+    REQUESTED: { Name: 'Requested' },
+    ACCEPTED: { Name: 'Accepted' },
+    DECLINED: { Name: 'Declined' },
+    PROGRESS: { Name: 'Progress' },
+    DONE: { Name: 'Done' },
+    TIMEDEDOUT: { Name: 'Timed Out' },
+};
+export const DRIVER_STATUSES = {
+    ONLINE: { Name: 'Online' },
+    OFFLINE: { Name: 'Offline' },
+    PENDING: { Name: 'Pending' },
+    BUSY: { Name: 'Busy' }
+};
+export const VAPID_PUBLIC_KEY =
+{
+    publicKey: "BG5qWnWu7dHTv7S-I4WVbqx6NIkH5qYjBdR50ifM4jnCGjn6kadDcS01NX3zacx0AYneX-5zhSURVyXANH_4owc",
+    privateKey: ""
+}

@@ -78,8 +78,8 @@ export class ViewOrderComponent implements OnInit {
         We will send you the email as soon the seller confirms the shipment.
         
         `;
-        this.sendEmailLogToShop(body, this.order.Customer.Name, this.order.Customer.Email);
-        this.sendEmailLogToShop(body,  this.order.Customer.Name, NOTIFY_EMAILS);
+        this.sendEmailLogToShop(body, this.order.CustomerName, this.order.CustomerEmail);
+        this.sendEmailLogToShop(body,  this.order.CustomerName, NOTIFY_EMAILS);
       }
     });
   }
@@ -118,4 +118,6 @@ export class ViewOrderComponent implements OnInit {
     const win = window.open(url, '_blank');
     win.focus();
   }
+
+  back(){}
 }

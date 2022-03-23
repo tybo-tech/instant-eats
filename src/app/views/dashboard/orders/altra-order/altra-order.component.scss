@@ -1,0 +1,59 @@
+@import "../../../../../assets/styles/color";
+._main {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    left: 0;
+    top: 0;
+    z-index: 10000000;
+    background: $pop;
+    text-align: center;
+    animation: flash 2s infinite;
+    animation-fill-mode: backwards;
+
+    .details {
+        margin: 40% auto;
+        h1 {
+            font-weight: 900;
+        }
+        $number: 4em;
+        .number {
+            margin: 2em auto;
+            width: $number;
+            height: $number;
+            padding-top: 1.3em;
+            border-radius: $number;
+            border: 2px solid #d3ad45;
+        }
+
+        p {
+            padding: 3em 0;
+        }
+    }
+}
+.card {
+    max-width: 98%;
+    margin: 1em auto;
+
+    p,
+    h1,
+    h5,
+    h6 {
+        span {
+            display: block;
+            font-size: 0.75em;
+            color: $silver;
+        }
+        text-align: left;
+    }
+
+    h6 {
+        padding: 0.2em 1em;
+    }
+}
+
+.no-animation {
+    animation: none;
+    background: $cloud;
+}

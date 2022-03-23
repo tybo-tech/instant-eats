@@ -6,7 +6,7 @@ import { User } from 'src/models/user.model';
 import { LocationModel, SliderWidgetModel } from 'src/models/UxModel.model';
 import { EmailService, UserService } from 'src/services';
 import { UxService } from 'src/services/ux.service';
-import { CC_EMAILS, DRIVER, GENDER, SUPER, VIHICLES } from 'src/shared/constants';
+import { CC_EMAILS, DRIVER, DRIVER_STATUSES, GENDER, SUPER, VIHICLES } from 'src/shared/constants';
 
 @Component({
   selector: 'app-all-users',
@@ -105,6 +105,7 @@ export class AllUsersComponent implements OnInit {
         CreateUserId: 'sign-up-shop',
         ModifyUserId: 'sign-up-shop',
         StatusId: '1',
+        UserStatus: DRIVER_STATUSES.OFFLINE.Name,
         UserToken: ''
       };
       this.heading = `Add a ${this.userType}`

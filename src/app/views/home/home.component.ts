@@ -6,6 +6,7 @@ import { AccountService } from 'src/services';
 import { HomeShopService } from 'src/services/home-shop.service';
 import { UxService } from 'src/services/ux.service';
 import { LoaderUx } from 'src/models/UxModel.model';
+import { DRIVER } from 'src/shared/constants';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +40,9 @@ export class HomeComponent implements OnInit {
     this.user = this.accountService.currentUserValue;
     this.accountService.user.subscribe(user => {
       this.user = user;
+      if(this.user && this.user.UserType === DRIVER){
+        this.router.navigate([`driver/dashboard/${this.user.UserId}`])
+      }
     });
 
 

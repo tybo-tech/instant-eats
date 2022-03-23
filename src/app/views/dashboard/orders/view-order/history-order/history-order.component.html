@@ -1,0 +1,112 @@
+<div class="main" *ngIf="order">
+    <h3>
+      New order : {{order.OrderNo}}
+      <span>
+        {{order.CreateDate | dateformater}}
+        <a *ngIf="order.OrderSource">{{order.OrderSource}}</a> <br>
+        <a class="order-status"> {{order.FulfillmentStatus}}</a>
+        <a class="order-status"> {{order.Status}}</a>
+      </span>
+    </h3>
+    <div class="bag" *ngIf="order.Orderproducts && order.Orderproducts.length">
+      <div class="cart-item" *ngFor="let item of order.Orderproducts; let i = index">
+
+        <div class="item">
+          <h4 class="order-product-name">
+            {{item.ProductName}}
+            <span *ngFor="let option of item.OrderOptions">
+              {{option.OptionName}} - {{option.Price | currency :'R ' }}
+            </span>
+          </h4>
+          <p>
+            <span class="price">
+              {{item.Quantity}} x {{item.UnitPrice | currency:'R'}}
+            </span>
+          </p>
+        </div>
+
+        <div class="item">
+          <div class="icon" *ngIf="item.FeaturedImageUrl">
+            <div class="user-dp-image">
+              <img [src]="item.FeaturedImageUrl" alt="">
+            </div>
+          </div>
+
+          <div class="icon" *ngIf="!item.FeaturedImageUrl">
+            <div class="user-dp-image">
+              <img src="assets/images/icons/add.svg" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="shipping-method">
+      <div class="name">
+        {{ order.Shipping}} : <b>{{ this.order.ShippingPrice | currency:'R'}}</b>
+      </div>
+    </div>
+
+    <div class="shipping-method" *ngIf="order.Delivery">
+      <div class="name">
+        🛵 {{ order.Delivery.DriverName}} <b>{{ this.order.Delivery.DriverReg}}</b>
+      </div>
+    </div>
+
+
+    <div class="shipping-method">
+      <div class="name">
+        <b>
+          Delivery information <br>
+        </b>
+        {{order.CustomerName}} {{order.CustomerSurname}} <br>
+        {{order.CustomerPhone}} <br>
+        {{order.CustomerEmail}} <br>
+
+
+        <p class="full-address" *ngIf="order.FullAddress">
+
+          {{order.FullAddress}}
+        </p>
+
+        <p *ngIf="!order.FullAddress" class="warn">
+          Please capture your delivery address
+          <br>
+        </p>
+      </div>
+
+
+    </div>
+
+
+    <div class="shipping-method">
+      <div class="name">
+        <b>
+          Order Notes <br>
+        </b>
+
+      </div>
+      <p>
+        {{order.Notes || 'No notes'}}
+      </p>
+    </div>
+
+
+    <h3 class="sammary" *ngIf="order">
+      <span class="tot">
+        Order Total: {{order.Total | currency:'R'}} <a *ngIf="order.Due == 0">Fully paid.</a>
+      </span>
+    </h3>
+
+
+    <div class="actions">
+      <button type="button" (click)="goto('home/my-orders')" class="cta shop-more secondary">Order History</button>
+      <button type="button" (click)="reOrder()" class="cta primary">Order again</button>
+    </div>
+
+
+
+
+  </div>

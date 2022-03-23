@@ -1,0 +1,51 @@
+<div class="banner" *ngIf="order && order.Customer && order.Driver && user">
+    <div class="backkk">
+
+        <div class="name menu-back" (click)="back()">
+            <h6>
+                <i class="fa-solid fa-arrow-left"></i> Order
+            </h6>
+        </div>
+
+        <div class="title" (click)="back()">
+            <h6>
+                Driver rating
+            </h6>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="chat-module" *ngIf="order && rating">
+
+
+    <div class="messages">
+        <div class="">
+            <div>
+                <div class="rates">
+                    <br>
+                    <label for="">How was your delivery experience?</label>
+                    <div class="rate">
+                        <i *ngFor="let rate of rates; let i = index" (click)="clickRate(i)" [ngClass]="rate"></i>
+                    </div>
+                    <br><br>
+                </div>
+
+
+
+            </div>
+            <div>
+                <textarea [disabled]="readOnly" type="text" class="form-control" [(ngModel)]="rating.Description"
+                    placeholder="Comments"></textarea>
+            </div>
+
+            <div>
+                <br><br>
+                <button [disabled]="readOnly" *ngIf="!readOnly" (click)="send()" class="btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

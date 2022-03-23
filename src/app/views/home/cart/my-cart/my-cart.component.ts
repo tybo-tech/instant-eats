@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, Orderproduct, Product, User } from 'src/models';
+import { SHIPPING_OPTIONS } from 'src/models/shipping.model';
 import { AccountService, OrderService } from 'src/services';
 import { HomeShopService } from 'src/services/home-shop.service';
 import { InteractionService } from 'src/services/Interaction.service';
@@ -15,7 +16,7 @@ export class MyCartComponent implements OnInit {
   order: Order;
   @Output() checkoutOrShopMoreEvent: EventEmitter<string> = new EventEmitter<string>();
   user: User;
-
+  shippings = SHIPPING_OPTIONS;
   constructor(
     private orderService: OrderService,
     private homeShopService: HomeShopService,

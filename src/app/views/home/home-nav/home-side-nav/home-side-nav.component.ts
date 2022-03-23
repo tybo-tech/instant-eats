@@ -32,9 +32,9 @@ export class HomeSideNavComponent implements OnInit {
 
 
   logout() {
-    this.user = null;
-    this.accountService.updateUserState(null);
+    this.showMobileMenuEvent.emit(false)
     this.uxService.hideHomeSideNav();
+    this.accountService.logout();
   }
   itemClicked(item: NavigationModel) {
     this.uxService.hideHomeSideNav();
@@ -44,7 +44,7 @@ export class HomeSideNavComponent implements OnInit {
   loadItems() {
     this.items = [];
 
-    if(this.user){
+    if (this.user) {
       this.items.push(
         {
           Label: 'Profile',
@@ -62,7 +62,7 @@ export class HomeSideNavComponent implements OnInit {
     //     Url: '/home/promotions'
     //   }
     // );
-    if(this.user && this.user.UserType ===  CUSTOMER){
+    if (this.user && this.user.UserType === CUSTOMER) {
       this.items.push(
         {
           Label: 'Order History',
@@ -73,7 +73,7 @@ export class HomeSideNavComponent implements OnInit {
     }
 
 
-    if(this.user && (this.user.UserType ===  SUPER || this.user.UserType ===  DRIVER || this.user.UserType ===  ADMIN)){
+    if (this.user && (this.user.UserType === SUPER || this.user.UserType === DRIVER || this.user.UserType === ADMIN)) {
       this.items.push(
         {
           Label: 'Dashboard',
@@ -83,7 +83,7 @@ export class HomeSideNavComponent implements OnInit {
       );
     }
 
-    if(!this.user){
+    if (!this.user) {
       this.items.push(
         {
           Label: 'Sign in',
@@ -117,7 +117,8 @@ export class HomeSideNavComponent implements OnInit {
     );
 
   }
-  toggleMenu(e){
+  toggleMenu(e) {
     this.uxService.hideHomeSideNav();
+    this.showMobileMenuEvent.emit(false)
   }
 }

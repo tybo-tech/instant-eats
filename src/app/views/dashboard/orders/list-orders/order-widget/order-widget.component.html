@@ -1,4 +1,4 @@
-<div class="main" *ngIf="orders">
+<div class="_order" *ngIf="orders">
 
   <div class="user-section" *ngFor="let order of orders; let i = index">
 
@@ -23,19 +23,19 @@
 
           Order No... #{{order.Id}} <br>
           Order Status... <span class="order-status">{{order.Status}}</span> <br>
-          Order Date... {{order.CreateDate | date: 'mediumDate'}} <br>
+          Order Date... {{order.CreateDate | dateformater}} {{order.CreateDate | dateformater: 'time'}} <br>
           <hr>
           <p *ngFor="let item of order.Orderproducts">
             {{item.Quantity}} x {{item.ProductName}}... {{item.SubTotal | currency:'R'}}
           </p>
-          Delivery Fee... {{order.ShippingPrice  | currency:'R'}} <br>
+          Delivery Fee... {{order.ShippingPrice | currency:'R'}} <br>
           <b>
-            Order Total... {{order.Total  | currency:'R'}} <br>
+            Order Total... {{order.Total | currency:'R'}} <br>
 
           </b>
           <hr>
-          Customer: {{order.Customer.Name}} <br>
-          Address: {{order.Customer.AddressLineHome}} <br>
+          Customer: {{order.CustomerName}} <br>
+          Address: {{order.FullAddress}} <br>
         </div>
 
         <div class=" driver">
@@ -47,6 +47,11 @@
             <h5>
               {{order.DriverName || 'No driver assigned'}}
             </h5>
+            <br>
+            <div *ngIf="order.DriverRating">
+              <app-showiratings [rate]="order.DriverRating" [DriverRatingNotes]="order.DriverRatingNotes">
+              </app-showiratings>
+            </div>
           </div>
 
           <div class="col" *ngIf="!order.DriverId">
@@ -61,19 +66,19 @@
 
           </a> -->
 
-          <a >
+          <a>
             <button class="tertiary" (click)="view(order)">Order details</button>
 
           </a>
-          <button *ngIf="order.StatusId == PENDINGORDERS" class="primary" (click)="orderAction('Accept', order)">Accept
+          <button *ngIf="order.StatusId == PENDINGORDERS" class="primary"
+            (click)="orderAction(ORDER_STATUSES[2], order)">Accept
             order</button>
-          <button *ngIf="order.Status == ORDER_STATUSES[1]" class="primary" (click)="orderAction(ORDER_STATUSES[2], order)">Mark As
-            Preparing</button>
           <button *ngIf="order.Status == ORDER_STATUSES[2]" class="primary"
             (click)="orderAction(ORDER_STATUSES[3], order)">{{ORDER_STATUSES[3]}}</button>
           <button *ngIf="order.Status == ORDER_STATUSES[3]" class="primary"
             (click)="orderAction(ORDER_STATUSES[4], order)">Mark as On the way</button>
-          <button *ngIf="order.Status == ORDER_STATUSES[4]" class="primary" (click)="orderAction(ORDER_STATUSES[5], order)">Mark as
+          <button *ngIf="order.Status == ORDER_STATUSES[4]" class="primary"
+            (click)="orderAction(ORDER_STATUSES[5], order)">Mark as
             Delivered</button>
         </div>
       </div>

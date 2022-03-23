@@ -60,6 +60,7 @@ export interface SliderWidgetModel {
   Description2?:string;
   Link:string;
   Icon?:string;
+  Style?:any;
   Selected?:boolean;
   Qty?: number;
   PaymentType?: string;

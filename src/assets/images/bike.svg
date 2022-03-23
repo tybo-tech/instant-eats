@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="187" height="228" viewBox="0 0 187 228">
+  <g id="bike" transform="translate(-15 -31)">
+    <g id="Group_2507" data-name="Group 2507">
+      <g id="Group_2506" data-name="Group 2506">
+        <g id="Group_2505" data-name="Group 2505">
+          <rect id="Rectangle_350" data-name="Rectangle 350" width="22" height="8" transform="translate(180 71)" fill="#cba538"/>
+          <rect id="Rectangle_352" data-name="Rectangle 352" width="22" height="8" transform="translate(15 71)" fill="#cba538"/>
+        </g>
+        <g id="Group_2504" data-name="Group 2504">
+          <g id="Group_2501" data-name="Group 2501" transform="translate(-1 -4)">
+            <circle id="Ellipse_70" data-name="Ellipse 70" cx="8" cy="8" r="8" transform="translate(38 35)" fill="#cba538"/>
+            <line id="Line_21" data-name="Line 21" x2="18" y2="16" transform="translate(48.5 47)" fill="none" stroke="#cba538" stroke-linecap="round" stroke-width="4"/>
+          </g>
+          <g id="Group_2503" data-name="Group 2503">
+            <g id="Group_2500" data-name="Group 2500">
+              <path id="Path_255" data-name="Path 255" d="M0,0,65.236-10.147,134,0V19L67.513,27.414,0,19Z" transform="translate(42 66.146)" fill="#cba538"/>
+              <g id="Ellipse_71" data-name="Ellipse 71" transform="translate(85 51)" fill="#cba538" stroke="#fff" stroke-width="5">
+                <circle cx="24" cy="24" r="24" stroke="none"/>
+                <circle cx="24" cy="24" r="21.5" fill="none"/>
+              </g>
+            </g>
+            <g id="Group_2502" data-name="Group 2502">
+              <circle id="Ellipse_72" data-name="Ellipse 72" cx="8" cy="8" r="8" transform="translate(166 31)" fill="#cba538"/>
+              <line id="Line_22" data-name="Line 22" x1="12" y2="16" transform="translate(159 43)" fill="none" stroke="#cba538" stroke-linecap="round" stroke-width="4"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="Group_2499" data-name="Group 2499">
+        <rect id="Rectangle_351" data-name="Rectangle 351" width="94" height="130" rx="47" transform="translate(62 104)" fill="#cba538"/>
+        <g id="Rectangle_353" data-name="Rectangle 353" transform="translate(94 200)" fill="#cba538" stroke="#fff" stroke-width="2">
+          <rect width="30" height="59" rx="15" stroke="none"/>
+          <rect x="1" y="1" width="28" height="57" rx="14" fill="none"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

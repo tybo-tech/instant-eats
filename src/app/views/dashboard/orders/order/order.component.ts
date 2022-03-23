@@ -134,7 +134,7 @@ export class OrderComponent implements OnInit {
       this.order.Status = ORDER_STATUSES[1];
       this.order.StatusId = ACTIVEORDERS;
 
-      this.companyService.getUsersNearBy(order.Company.Latitude, order.Company.Longitude, Number(order.Company.Radius || 10), DRIVER).subscribe(data => {
+      this.companyService.getUsersNearBy(order.Company.Latitude, order.Company.Longitude, Number(order.Company.Radius || 10), DRIVER, order.OrdersId).subscribe(data => {
         console.log(data);
         if (data) {
           this.drivers = data;
@@ -180,8 +180,8 @@ export class OrderComponent implements OnInit {
         We will send you the email as soon the seller confirms the shipment.
         
         `;
-        this.sendEmailLogToShop(body, this.order.Customer.Name, this.order.Customer.Email);
-        this.sendEmailLogToShop(body, this.order.Customer.Name, NOTIFY_EMAILS);
+        this.sendEmailLogToShop(body, this.order.CustomerName, this.order.CustomerEmail);
+        this.sendEmailLogToShop(body, this.order.CustomerName, NOTIFY_EMAILS);
         this.sendEmailRange(this.order.Company.Name, this.order.Company.AddressLine);
       }
     });
@@ -267,11 +267,11 @@ export class OrderComponent implements OnInit {
       LatitudeTo: this.order.Customer.Latitude || 0,
       LongitudeTo: this.order.Customer.Longitude || 0,
       DirectionFrom: this.order.Company.AddressLine,
-      DirectionTo: this.order.Customer.AddressLineHome,
+      DirectionTo: this.order.FullAddress,
       FromName: this.order.Company.Name,
-      ToName: this.order.Customer.Name,
+      ToName: this.order.CustomerName,
       FromAddress: this.order.Company.AddressLine,
-      ToAddress: this.order.Customer.AddressLineHome,
+      ToAddress: this.order.FullAddress,
       Sammary: 'Food order',
       TotalTime: '20',
       TotalCharge: '20',

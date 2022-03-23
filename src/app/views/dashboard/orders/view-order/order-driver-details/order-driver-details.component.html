@@ -1,0 +1,99 @@
+<div class="driver" *ngIf="order && order.Driver && user">
+
+
+    <div class="grid" *ngIf="user.UserType === 'Customer'">
+        <h6 class="name">
+            <b> {{order.DriverName}} </b> is in {{order.Driver.CarType}}
+            <span>
+                {{order.Driver.CarReg}}
+            </span>
+        </h6>
+
+        <div class="dpp">
+            <img *ngIf="!order.Driver.Dp" src="assets/images/def-user.svg" alt="">
+            <img *ngIf="order.Driver.Dp" [src]="order.Driver.Dp" alt="">
+        </div>
+    </div>
+
+
+
+    <div class="grid" *ngIf="user.UserType === 'Driver'">
+        <h6 class="name">
+            <b> Order #{{order.Id}} , </b> for <b>{{order.CustomerName}} </b>
+            <br>
+            <small>
+                {{order.FullAddress}}
+            </small>
+        </h6>
+
+        <div class="dpp">
+            <img *ngIf="!order.Customer.Dp" src="assets/images/def-user.svg" alt="">
+            <img *ngIf="order.Customer.Dp" [src]="order.Customer.Dp" alt="">
+        </div>
+    </div>
+
+    <div class="grid grid-2" *ngIf="order.Status != ORDER_STATUSES[5] && order.Status != ORDER_STATUSES[6]">
+        <div *ngIf="user.UserType === 'Customer'">
+            <a [href]="'tel:' + order.Driver.PhoneNumber">
+                <button [disabled]="!order.Driver.PhoneNumber" class="btn btn-primary phone-btn"><i
+                        class="fa-solid fa-phone"></i></button>
+            </a>
+        </div>
+        <div *ngIf="user.UserType === 'Driver'">
+            <a [href]="'tel:' + order.Customer.PhoneNumber">
+                <button [disabled]="!order.Customer.PhoneNumber" class="btn btn-primary phone-btn"><i
+                        class="fa-solid fa-phone"></i></button>
+            </a>
+        </div>
+        <div>
+            <button class="btn btn-primary  phone-btn position-relative" (click)="send()">Send a message
+
+                <span *ngIf="messegeCount"
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{messegeCount}}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="grid grid-2 grid-1" *ngIf="order.Status == ORDER_STATUSES[5] && user.UserType === 'Customer'">
+        <div *ngIf="!order.DriverRating">
+            <button class="btn btn-primary phone-btn" (click)="rate()">Rate delivery</button>
+        </div>
+        <div *ngIf="order.DriverRating" (click)="rate()">
+            <app-showiratings [rate]="order.DriverRating"></app-showiratings>
+        </div>
+    </div>
+    <div *ngIf="user.UserType === 'Driver'">
+        <hr>
+        <div class="grid">
+            <div>
+                <h6>
+                    <b>Ordered from:</b>
+                </h6>
+                <h6 class="name">
+                    <b> {{order.Company.Name}}</b>
+                    <br>
+                    <small>
+                        {{order.Company.AddressLine}}
+                    </small>
+                </h6>
+
+                <a [href]="'tel:' + order.Company.Phone" *ngIf="order.Company.Phone">
+                    <button [disabled]="!order.Company.Phone" class="btn btn-primary phone-btn">
+                        <i
+                        class="fa-solid fa-phone"></i>
+                    </button>
+                </a>
+            </div>
+
+            <div class="dpp">
+                <img *ngIf="!order.Company.Dp" src="assets/images/def-user.svg" alt="">
+                <img *ngIf="order.Company.Dp" [src]="order.Company.Dp" alt="">
+            </div>
+        </div>
+    </div>
+
+</div>

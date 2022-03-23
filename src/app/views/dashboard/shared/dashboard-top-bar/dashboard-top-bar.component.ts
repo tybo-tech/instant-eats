@@ -20,7 +20,7 @@ export class DashboardTopBarComponent implements OnInit {
     });
 
     this.uxService.uxHomeSideNavObservable.subscribe(data => {
-      debugger
+    
       this.showMenu = data;
     })
   }

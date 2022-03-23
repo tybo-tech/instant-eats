@@ -64,17 +64,17 @@
         <b>
           Delivery information <br>
         </b>
-        {{order.Customer.Name}} {{order.Customer.Surname}} <br>
-        {{order.Customer.PhoneNumber}} <br>
-        {{order.Customer.Email}} <br>
+        {{order.CustomerName}} {{order.CustomerSurname}} <br>
+        {{order.CustomerPhone}} <br>
+        {{order.CustomerEmail}} <br>
 
 
-        <p class="full-address" *ngIf="order.Customer.AddressLineHome">
+        <p class="full-address" *ngIf="order.FullAddress">
 
-          {{order.Customer.AddressLineHome}}
+          {{order.FullAddress}}
         </p>
 
-        <p *ngIf="!order.Customer.AddressLineHome" class="warn">
+        <p *ngIf="!order.FullAddress" class="warn">
           Please capture your delivery address
           <br>
         </p>

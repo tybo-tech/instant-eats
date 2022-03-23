@@ -58,8 +58,6 @@ import { Overviewv2Component } from './overview/overviewv2/overviewv2.component'
 import { StatisticsComponent } from './overview/overviewv2/statistics/statistics.component';
 import { ProductListCardsComponent } from './products/product-list-cards/product-list-cards.component';
 import { DashbreadComponent } from '../home/product-section/collections/bread/dashbread/dashbread.component';
-import { CardListWidgetComponent } from './shared/card-list-widget/card-list-widget.component';
-import { SearchSliderWidgetPipe } from 'src/app/_pipes/slider-widget.pipe';
 import { DashboardTopBarComponent } from './navigations/dashboard-top-bar/dashboard-top-bar.component';
 import { ImageWidgetComponent } from './shared/image-widget/image-widget.component';
 import { NodataWidgetComponent } from './shared/nodata-widget/nodata-widget.component';
@@ -75,6 +73,7 @@ import { CompanyUsersComponent } from './super/super-companies/restaurant/compan
 import { ImageBannerWidgetComponent } from './shared/image-widget/image-banner-widget/image-banner-widget.component';
 import { MylocationComponent } from '../home/general/address-widget/mylocation/mylocation.component';
 import { OperatinghoursComponent } from './super/super-companies/operatinghours/operatinghours.component';
+import { ItemComponent } from './item/item.component';
 
 const routes: Routes = [
   {
@@ -130,6 +129,7 @@ const routes: Routes = [
 ];
 export const declarations: Array<any> = [
   DashboardComponent,
+  ItemComponent,
   LoaderComponent,
   CustomerComponent,
   CustomersComponent,
@@ -197,8 +197,6 @@ export const declarations: Array<any> = [
   StatisticsComponent,
   ProductListCardsComponent,
   DashbreadComponent,
-  CardListWidgetComponent,
-  SearchSliderWidgetPipe,
   DashboardTopBarComponent,
   ImageWidgetComponent,
   NodataWidgetComponent,

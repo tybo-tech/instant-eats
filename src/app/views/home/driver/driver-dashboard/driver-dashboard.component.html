@@ -1,0 +1,80 @@
+<div class="driver">
+    <div class="banner" *ngIf="user">
+        <div class="backkk">
+
+            <div class="name menu-back" (click)="back()">
+                <h6>
+                    <i class="fa-solid fa-bars"></i>
+                </h6>
+            </div>
+
+            <div class="title" (click)="back()">
+                <h6>
+                    {{user.UserStatus}}
+                </h6>
+
+            </div>
+
+            <div class="name menu-back last-col" (click)="logOnOff()">
+                <h6 *ngIf="user.UserStatus === DRIVER_STATUSES.ONLINE.Name">
+                    <i class="fa-solid fa-power-off"></i>
+                </h6>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="offline" *ngIf="user.UserStatus === DRIVER_STATUSES.OFFLINE.Name">
+        <h2>
+            You are offline
+
+            <span>
+                Go online to start receiving delivery requests
+            </span>
+        </h2>
+        <button class="btn btn-primary"
+            (click)="logOnOff(); speak('Welcome, you will now receive delivery requests')">Go online</button>
+        <br>
+        <button class="link-danger" (click)="logOff(); speak('Your are logged out')">Logout</button>
+
+    </div>
+
+
+
+    <div class="body">
+        <app-markers *ngIf="user && user.Longitude && user.UserStatus === DRIVER_STATUSES.ONLINE.Name && !order"
+            [lat]="user.Latitude" [lng]="user.Longitude" [user]="user" (cordsEvent)="onCords($event)"></app-markers>
+
+        <app-order-driver [order]="order" [user]="user" [messegeCount]="messegeCount" [progress]="progress"
+            *ngIf="user && order && user.UserStatus !== DRIVER_STATUSES.OFFLINE.Name">
+        </app-order-driver>
+
+    </div>
+    <!-- <app-request *ngIf="request" (requestEvent)="onRequestEvent($event)" [request]="request"></app-request> -->
+
+</div>
+
+
+<div *ngIf="!order && !request && user.UserStatus !== DRIVER_STATUSES.OFFLINE.Name" class="checking">
+    <div class="col"> <img src="assets/images/loading.gif" alt=""></div>
+    <div class="col">
+        <p>
+            <b>Finding orders..</b>
+        </p>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<app-notifications></app-notifications>
+
+<app-request *ngIf="request && user" [user]="user" (requestEvent)="onRequestEvent($event)"
+    [order]="request"></app-request>
+

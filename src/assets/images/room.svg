@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="573" height="573" viewBox="0 0 573 573">
+  <g id="room" transform="translate(-13087 -3238)">
+    <rect id="Rectangle_346" data-name="Rectangle 346" width="573" height="573" rx="44" transform="translate(13087 3238)" fill="#f8e19f"/>
+    <g id="room_black_24dp" transform="translate(13178 3329)">
+      <path id="Path_249" data-name="Path 249" d="M0,0H391.78V391.78H0Z" fill="none"/>
+      <path id="Path_250" data-name="Path 250" d="M119.269,2A114.185,114.185,0,0,0,5,116.269c0,85.7,114.269,212.214,114.269,212.214S233.538,201.971,233.538,116.269A114.185,114.185,0,0,0,119.269,2ZM37.648,116.269a81.621,81.621,0,1,1,163.242,0c0,47.014-47.014,117.371-81.621,161.283C85.315,233.966,37.648,162.793,37.648,116.269Z" transform="translate(76.621 30.648)"/>
+      <circle id="Ellipse_67" data-name="Ellipse 67" cx="40.81" cy="40.81" r="40.81" transform="translate(155.079 106.107)"/>
+    </g>
+  </g>
+</svg>

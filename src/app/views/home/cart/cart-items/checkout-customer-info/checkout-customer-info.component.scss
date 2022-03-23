@@ -1,0 +1,69 @@
+@import "../../../../../../assets/styles/color";
+
+.card {
+    background: $white;
+    margin: 1em;
+    padding: 1em;
+    box-shadow: $box-shadow;
+    border-radius: 0.2em;
+}
+
+.edit-info {
+    margin-top: 1.8em;
+    font-size: 0.75em;
+    width: fit-content;
+    padding: 0.45em 1em !important;
+}
+.quick-add {
+    img {
+        display: block;
+        margin: 1em auto;
+        width: 10em;
+    }
+    p {
+        font-weight: 500;
+        max-width: 80%;
+        margin: 0 auto;
+        font-size: 1.2em;
+    }
+    .form {
+        background: $white;
+    }
+}
+
+p {
+    span {
+        display: block;
+    }
+    .hlabel {
+        padding-bottom: 0.6em;
+        color: $darker-grey;
+    }
+}
+
+.action {
+    display: grid;
+    grid-template-columns: 70% auto;
+    border-bottom: 2px solid $cloud;
+    padding-bottom: 0.6em;
+    margin-bottom: 0.6em;
+    button {
+        margin: 0.2em auto;
+    }
+}
+
+hr {
+    border-color: $cloud;
+    margin: 0.5em 0;
+    opacity: .5;
+}
+
+label{
+    text-align: left;
+}
+
+.card-label {
+    padding: 0.2em 1em;
+    margin-top: 1em;
+  }
+  

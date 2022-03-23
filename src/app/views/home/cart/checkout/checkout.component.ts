@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Email, Order, User } from 'src/models';
 import { Shipping, SHIPPING_OPTIONS } from 'src/models/shipping.model';
 import { LocationModel } from 'src/models/UxModel.model';
-import { AccountService, EmailService, OrderService } from 'src/services';
+import { AccountService, EmailService, OrderService, UserService } from 'src/services';
 import { CustomerService } from 'src/services/customer.service';
 import { InteractionService } from 'src/services/Interaction.service';
 import { ShippingService } from 'src/services/shipping.service';
 import { UxService } from 'src/services/ux.service';
-import { NOTIFY_EMAILS, ORDER_PAYMENT_STATUSES, PENDINGORDERS } from 'src/shared/constants';
+import { DRAFT_ORDERS, NOTIFY_EMAILS, ORDER_PAYMENT_STATUSES, PENDINGORDERS } from 'src/shared/constants';
 
 @Component({
   selector: 'app-checkout',
@@ -19,7 +19,7 @@ import { NOTIFY_EMAILS, ORDER_PAYMENT_STATUSES, PENDINGORDERS } from 'src/shared
 })
 export class CheckoutComponent implements OnInit {
   @Output() navAction: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Input() errorMessage: string;
   rForm: FormGroup;
   user: User;
   order: Order;
@@ -35,6 +35,7 @@ export class CheckoutComponent implements OnInit {
   shippings: Shipping[];
   showCashConfirm: boolean;
   locationData: LocationModel;
+  showOnlinePayment: boolean;
   constructor(
     private accountService: AccountService,
     // private shoppingService: ShoppingService,
@@ -43,17 +44,16 @@ export class CheckoutComponent implements OnInit {
     private uxService: UxService,
     private interactionService: InteractionService,
     private customerService: CustomerService,
-    private emailService: EmailService
-
-
-
-
+    private emailService: EmailService,
+    private userService: UserService
   ) {
 
   }
   ngOnInit(): void {
 
-
+    this.uxService.locationObservable.subscribe(data => {
+      this.locationData = data;
+    })
 
     this.order = this.orderService.currentOrderValue;
     if (!this.order) {
@@ -62,13 +62,42 @@ export class CheckoutComponent implements OnInit {
     }
     this.user = this.accountService.currentUserValue;
     this.interactionService.logHomePage(this.user, 'check out', JSON.stringify(this.order || ''), "ViewCheckoutPage");
-    this.uxService.locationObservable.subscribe(data => {
-      this.locationData = data;
 
-    })
-    if (this.user && !this.order.CustomerId) {
+    if (this.user && this.user.Latitude) {
       this.order.CustomerId = this.user.UserId;
+      this.order.CustomerName = this.user.Name;
+      this.order.CustomerSurname = this.user.Surname;
+      this.order.CustomerEmail = this.user.Email;
+      this.order.CustomerPhone = this.user.PhoneNumber;
+      this.order.Latitude = this.user.Latitude;
+      this.order.Longitude = this.user.Longitude;
+      this.order.FullAddress = this.user.AddressLineHome;
+      this.orderService.updateOrderState(this.order);
     }
+
+    if (this.locationData && this.user && this.user.Latitude !== this.locationData.lat) {
+      this.user.Latitude = this.locationData.lat;
+      this.user.Longitude = this.locationData.lng;
+      this.user.AddressLineHome = this.locationData.addressLine;
+      this.userService.updateUserSync(this.user).subscribe(data => {
+        if (data && data.UserId) {
+          this.user = data;
+          this.accountService.updateUserState(data);
+        }
+
+        this.order.CustomerId = this.user.UserId;
+        this.order.CustomerName = this.user.Name;
+        this.order.CustomerSurname = this.user.Surname;
+        this.order.CustomerEmail = this.user.Email;
+        this.order.CustomerPhone = this.user.PhoneNumber;
+        this.order.Latitude = this.user.Latitude;
+        this.order.Longitude = this.user.Longitude;
+        this.order.FullAddress = this.user.AddressLineHome;
+        this.orderService.updateOrderState(this.order);
+      })
+
+    }
+
     if (!this.order.CustomerId) {
       this.order.CustomerId = 'pending';
 
@@ -95,7 +124,7 @@ export class CheckoutComponent implements OnInit {
 
   back() {
     if (this.order && this.order.CompanyId) {
-      this.router.navigate([`restaurant/${this.order.CompanyId}`]);
+      this.router.navigate([`/shop/cart`]);
       return;
     }
     this.router.navigate(['']);
@@ -122,16 +151,57 @@ export class CheckoutComponent implements OnInit {
     //   }
     // })
   }
+  payOnline() {
+    this.order.OrderSource = 'Online shop';
+    this.order.EstimatedDeliveryDate = '';
+    this.order.MaxDeliveryTime = '';
+    this.order.PaymentMethod = 'Online';
+    this.order = this.orderService.calculateTotalOverdue(this.order);
 
+
+    if (this.order.CreateDate && this.order.OrdersId) {
+      this.orderService.update(this.order).subscribe(data => {
+        if (data && data.OrdersId) {
+          this.shopingSuccesfulUrl = `${environment.BASE_URL}/home/shopping-succesful/${data.OrdersId}`;
+          this.paymentCancelledUrl = `${environment.BASE_URL}/home/payment-cancelled/${data.OrdersId}`;
+
+          this.showOnlinePayment = true;
+          this.order = data;
+          this.orderService.updateOrderState(this.order)
+        }
+      })
+    } else {
+      this.order.Status = 'Draft';
+      this.order.FulfillmentStatus = 'Placing Order';
+      this.order.StatusId = DRAFT_ORDERS;
+
+      this.orderService.create(this.order).subscribe(data => {
+        if (data && data.OrdersId) {
+          this.shopingSuccesfulUrl = `${environment.BASE_URL}/home/shopping-succesful/${data.OrdersId}`;
+          this.paymentCancelledUrl = `${environment.BASE_URL}/home/payment-cancelled/${data.OrdersId}`;
+
+          this.showOnlinePayment = true;
+          this.order = data;
+          this.orderService.updateOrderState(this.order)
+        }
+      })
+    }
+
+
+  }
   payCash() {
     this.showCashConfirm = true;
   }
   onCashConfirm() {
     this.showCashConfirm = false;
+    this.order.OrderSource = 'Online shop';
+    this.order.PaymentMethod = 'Cash';
+    this.order.EstimatedDeliveryDate = '';
+    this.order.MaxDeliveryTime = '';
+    this.order = this.orderService.estimateDelivery(this.order);
     const emailbody = `New CASH ORDER order is in placed. <br>  <h3>R${this.order.Total}</h3>`;
     this.checkCustomerProfileForCompany(emailbody);
   }
-
 
 
   saveInvoice(emailbody: string) {
@@ -141,22 +211,39 @@ export class CheckoutComponent implements OnInit {
     if (!this.order.ShippingPrice) {
       this.order.ShippingPrice = 0;
     }
+
+    this.order = this.orderService.calculateTotalOverdue(this.order);
+
     this.updateOrderAddress();
     this.order.OrderSource = 'Online shop';
-    this.order.EstimatedDeliveryDate = '';
     this.order.StatusId = PENDINGORDERS;
-    this.order.Due = this.order.Total;
     this.order.Status = 'Pending';
-    this.order.FulfillmentStatus = ORDER_PAYMENT_STATUSES[0].Name;
+    this.order.FulfillmentStatus = 'Order Placed';
     this.orderService.create(this.order).subscribe(data => {
       if (data && data.OrdersId) {
         this.uxService.hideLoader();
         this.order = data;
         const company = this.order.Company;
         if (company) {
+
           this.sendEmailLogToShop(emailbody, company.Name || '', NOTIFY_EMAILS);
-          // this.sendEmailLogToShop(customerEMail, this.order.Customer.Name || '', this.order.Customer.Email);
-          // this.sendEmailLogToShop(body, company.Name || '', NOTIFY_EMAILS);
+          if (company.PushId)
+            this.userService.notify({
+              subscribtion: JSON.parse(company.PushId), payload: {
+                title: 'You received new order',
+                body: 'Total of R' + this.order.ItemsTotal || '0.00',
+                label1: 'View order',
+                label2: '',
+                image: this.orderService.getOneProductOrderImage(this.order),
+                icon: `https://instanteats.co.za/api//api/upload/uploads/1646145462iio.jpg`,
+                url1: `https://instanteats.co.za/admin/dashboard/invoices/3/${company.CompanyId}`,
+                url2: ''
+              }
+            }).subscribe(e => {
+              console.log(e);
+
+
+            });
         }
         // this.orderService.updateOrderState(data);
         this.orderService.updateOrderState(null);
@@ -207,7 +294,7 @@ export class CheckoutComponent implements OnInit {
       Subject: sub,
       Message: `${data}`,
       UserFullName: companyName,
-      Link: `${environment.BASE_URL}/private/order-details/${this.order.OrdersId}`,
+      Link: `${environment.BASE_URL}/admin/dashboard/invoices/3/${this.order.CompanyId}`,
       LinkLabel: 'View Order'
     };
     this.emailService.sendGeneralTextEmail(emailToSend)

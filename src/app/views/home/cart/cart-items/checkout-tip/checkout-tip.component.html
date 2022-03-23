@@ -1,0 +1,18 @@
+<h3 class="card-label">
+    Driver tip: {{order.DriverTip | currency :'R'}}
+</h3>
+
+<div class="card">
+
+    <div class="sammary" *ngIf="order">
+        <div class="name">
+
+            <div class="tips">
+                <div class="tip" *ngFor="let item of tips" (click)="select(item)"  [ngClass]="item.Class">
+                    {{item.Name}}{{item.Unit}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

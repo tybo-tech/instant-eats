@@ -1,37 +1,82 @@
+<div class="banner" *ngIf="order && order.Customer && order.Driver && user">
+    <div class="backkk">
 
-
-<div class="quick-add" *ngIf="showAdd && user">
-  <div class="form">
-    <h3 *ngIf="userTo">
-     {{userTo.Name}}
-    </h3>
-
-    <div class="form-item chats" *ngIf="chats">
-      <div  *ngFor="let chat of chats; let i = index">
-        <div class="chat" *ngIf="chat.InteractionSourceId != user.UserId">
-          <div class="chat-dp">
-            <img *ngIf="chat.SourceDp" [src]="chat.SourceDp" alt="">
-          </div>
-          <div class="message">
-            {{chat.InteractionBody}}
-          </div>
+        <div class="name menu-back" (click)="back()">
+            <h6>
+                <i class="fa-solid fa-arrow-left"></i> Order
+            </h6>
         </div>
-        <div class="chat-current-user" *ngIf="chat.InteractionSourceId == user.UserId">
-        <div class=""></div>
-          <div class="message">
-            {{chat.InteractionBody}}
-          </div>
+
+        <div class="title" (click)="back()">
+            <h6 *ngIf="user.UserType === 'Driver'">
+                {{order.Customer.Name}}
+            </h6>
+
+            <h6 *ngIf="user.UserType === 'Customer'">
+                {{order.Driver.Name}}
+            </h6>
         </div>
-      </div>
-    </div>
-    <div class="form-item">
-      <textarea [(ngModel)]="message" placeholder="Type your message here."></textarea>
     </div>
 
-    <div class="form-item">
-      <button (click)="chat()" [disabled]="!message">Send</button>
-      <div class="link" (click)="showAdd = false">Close chat</div>
+
+</div>
+
+<div class="chat-module" *ngIf="order">
+    <div class="empty" *ngIf="!messages || !messages.length">
+        <h5>
+            No message history yet.
+
+        </h5>
     </div>
 
-  </div>
+    <div class="messages">
+        <div class="" *ngFor="let message of messages">
+
+
+
+
+
+
+            <div class="grid-right" *ngIf="message.RelatedId === user.UserId">
+                <div></div>
+                <div class="sender">
+                    <p>
+                        {{message.Description}}
+                        <span>
+                             {{message.CreateDate |dateformater: 'time'}} 
+                             <a *ngIf="message.ItemStatus === 'Read'"><i class="fas fa-eye"></i></a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-right-2" *ngIf="message.RelatedId !== user.UserId">
+                <div class="receiver" >
+                    <div class="_dp">
+                        <!-- <img *ngIf="!message.ImageUrl" src="assets/images/def-user.svg" alt=""> -->
+                        <img *ngIf="user.UserType === 'Customer'" [src]="order.Driver.Dp || 'assets/images/def-user.svg'" alt="">
+                        <img *ngIf="user.UserType === 'Driver'" [src]="order.Customer.Dp || 'assets/images/def-user.svg'" alt="">
+                    </div> 
+                    <p>
+                        {{message.Description}}
+                        <span>
+                            {{message.CreateDate |dateformater: 'time'}}  
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="chat-text-box" *ngIf="item">
+    <div class="grid">
+        <div>
+            <input type="text" class="form-control" [(ngModel)]="item.Description" placeholder="Type message">
+        </div>
+
+        <div>
+            <button (click)="send()" class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+        </div>
+    </div>
 </div>

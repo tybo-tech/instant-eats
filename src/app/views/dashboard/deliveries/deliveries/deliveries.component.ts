@@ -219,8 +219,8 @@ export class DeliveriesComponent implements OnInit {
           const body = `Your order <b>${order.OrderNo}</b> is on its way. Click here to track the driver.`;
           this.sendEMail(
             body,
-            order.Customer.Name,
-            order.Customer.Email,
+            order.CustomerName,
+            order.CustomerEmail,
             order, 'Driver picked up the order from restaurant',
             `${environment.BASE_URL}/home/view-my-order/${order.OrdersId}`,
             'Track driver'

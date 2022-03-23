@@ -1,0 +1,80 @@
+@import "../../../../../assets/styles/color";
+
+.banner {
+    margin-top: 0;
+    .backkk {
+        grid-template-columns: repeat(3, 33%);
+        width: 100%;
+    }
+
+    .last-col {
+        text-align: right;
+        color: $danger;
+    }
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .title {
+        text-align: center;
+        span {
+            display: block;
+            font-size: 0.7em;
+            left: 1.5em;
+        }
+    }
+}
+
+.offline {
+    text-align: center;
+    position: relative;
+    top: 15em;
+    span {
+        display: block;
+        padding: 1em;
+        font-size: 0.55em;
+    }
+
+    .btn {
+        width: fit-content;
+        margin: 1em auto;
+        padding: 0.85em 3em;
+    }
+}
+
+.drver {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}
+
+.checking {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: $white;
+    padding: 1em;
+
+    display: grid;
+    grid-template-columns: 50% auto;
+
+    img {
+        width: 90%;
+        margin: 0.5em;
+    }
+
+    p {
+        text-align: center;
+        padding: 0.5em;
+    }
+}
+
+.accepts-link{
+display: block;
+padding: 1em;
+text-align: center;
+}

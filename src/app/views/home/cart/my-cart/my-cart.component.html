@@ -19,7 +19,7 @@
   </div>
 
   <div class="list" *ngIf="order">
-    <app-cart-items [order]="order"></app-cart-items>
+    <app-cart-items [order]="order" [shippings]="shippings" [page]="'cart'"></app-cart-items>
     <div class="buttons">
 
       <div class="">

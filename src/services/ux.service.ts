@@ -141,6 +141,10 @@ export class UxService {
       localStorage.setItem('location', JSON.stringify(state));
     }
   }
+  clearLocationState() {
+    this.locationBehaviorSubject.next(null);
+    localStorage.setItem('location', null);
+  }
   updateLoadingState(state: LoaderUx) {
     if (state) {
       this.uxLoadingBehaviorSubject.next(state);
@@ -199,6 +203,20 @@ export class UxService {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
     return d / 1000;
+  }
+
+  beep() {
+
+
+    try {
+      // var snd = new Audio("assets/sound.mp3");
+      var snd = new Audio("assets/bell.wav");
+      snd.play();
+    }
+    catch (err) {
+      console.log(err);
+
+    }
   }
 }
 

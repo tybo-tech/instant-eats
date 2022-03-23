@@ -35,10 +35,10 @@
         To create an order you need to have products in the system. Click the button below to create a new product
       </p>
 
-      <button class="more" (click)="add()">Add product</button>
+      <button class="btn btn-primary" (click)="add()">Add product</button>
     </div>
   </div>
-  <button class="more" *ngIf="items && items.length" (click)="add()">
+  <button class="btn btn-primary" *ngIf="items && items.length" (click)="add()">
     quick add product
   </button>
 

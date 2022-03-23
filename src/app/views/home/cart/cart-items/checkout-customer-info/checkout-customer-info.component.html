@@ -1,0 +1,88 @@
+<h3 class="card-label">
+  Delivery information
+</h3>
+
+<div class="card" >
+
+<div class="sammary" *ngIf="order">
+  <div class="name">
+
+    <div class="action">
+      <div></div>
+      <button class="tertiary edit-info" (click)="profile()">Edit profile</button>
+    </div>
+
+    <p class="full-address" *ngIf="order.Latitude">
+      <span class="hlabel">
+        <b>Delivering to</b>
+      </span>
+      {{order.FullAddress}}
+    </p>
+    <hr>
+    <p *ngIf="order.CustomerName">
+      <span class="hlabel">
+        <br>
+        <b>Contact details</b>
+   
+      </span><b>
+        {{order.CustomerName}} {{order.CustomerSurname}}
+      </b>
+      
+    </p>
+
+    <p *ngIf="order.CustomerPhone || order.CustomerEmail">
+      <span>
+       <b> {{order.CustomerPhone}}</b>
+      </span>
+      <span>
+       <b> {{order.CustomerEmail}}</b>
+      </span>
+
+     
+    </p>
+
+
+    <p *ngIf="!order.Latitude" class="warn">
+      Please capture your delivery address
+      <br>
+    </p>
+  </div>
+
+</div>
+</div>
+
+
+
+
+
+
+<div class="quick-add" *ngIf="user && edit">
+
+  <div class="form">
+
+
+
+    <div class="form-item">
+      <label for="name">My Name *</label>
+      <input type="text" [(ngModel)]="user.Name" placeholder="e.g. John">
+    </div>
+
+    <div class="form-item">
+      <label for="name">My Email</label>
+      <input type="text" [(ngModel)]="user.Email" placeholder="e.g. john.mnisi@gmail.com">
+    </div>
+
+    <div class="form-item">
+      <label for="name">My Phone Number</label>
+      <input type="text" [(ngModel)]="user.PhoneNumber" placeholder="e.g. 084 001 0100">
+    </div>
+
+
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!user.Name">Save profile</button>
+    </div>
+  </div>
+
+</div>

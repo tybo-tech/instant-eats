@@ -1,7 +1,6 @@
-@import '../../../../assets/styles/color';
+@import "../../../../assets/styles/color";
 
 .main {
-
   .bg-image,
   .form {
     position: fixed;
@@ -9,8 +8,6 @@
     left: 0;
     top: 0;
     width: 100%;
-
-
   }
 
   .form {
@@ -22,7 +19,7 @@
     padding: 0;
     max-width: 33em;
     left: 50%;
-    top: 5.2em;
+    top: 0;
     height: 86vh;
     border-radius: 0.5em;
     transform: translate(-49.555555%, 0);
@@ -39,9 +36,8 @@
   }
 }
 
-
 .col {
-  padding: .5em;
+  padding: 0.5em;
   text-align: right;
 
   img {
@@ -50,3 +46,4 @@
     top: 1em;
   }
 }
+

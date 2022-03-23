@@ -36,7 +36,7 @@
         <div class="bot">
           Order No... #{{order.Id}} <br>
           Order Status... <span class="order-status"> {{order.Status}}</span> <br>
-          Order Date... {{order.CreateDate | date: 'mediumDate'}} <br>
+          Order Date...{{order.CreateDate | dateformater}}  {{order.CreateDate | dateformater: 'time'}}  <br>
           Order Total... {{order.Total  | currency:'R'}}
         </div>
       </div>

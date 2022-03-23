@@ -2,11 +2,10 @@ button {
   border-radius: none;
   border: none;
   width: 100%;
-  padding: 1.5em 1em !important;
+  padding: 0.85em 1em;
   font-weight: 600;
-  border-radius: .5em;
-  transition: .4s ease-in-out;
-
+  border-radius: 0;
+  transition: 0.4s ease-in-out;
 
   &:disabled {
     background: $cloud !important;
@@ -17,8 +16,6 @@ button {
 
   cursor: pointer;
   text-transform: uppercase;
-
-
 
   &.mat-flat-button.mat-primary[disabled] {
     background-color: $grey;
@@ -46,80 +43,33 @@ button {
 .secondary {
   background: $black !important;
   color: $white !important;
-  border:2px solid $black !important;
-
+  border: 2px solid $black !important;
 }
 .tertiary {
-  border:2px solid $black !important;
+  border: 2px solid $black !important;
   color: $black !important;
   background: $white !important;
-
 }
-
-button {
-  &.mat-primary {
-    color: $black;
-
-    &:disabled {
-      background: $darker-grey;
-      cursor: no-drop;
-      color: $black
-    }
-  }
-}
-
-
-
-.sec {
-  background: $secondary !important;
-}
-
-.tertiary {
-  background: $white !important;
-  color: $black !important;
-  border: 2px solid $black;
-
-}
-
-
-.save-all {
-  position: fixed;
-  padding: 1rem;
-  color: $white;
-  bottom: 11rem;
-  right: 19rem;
-  height: 2rem;
-}
-
-button.danger {
-  background: $danger;
-}
-
 
 .btn-uplaod {
   width: 15em;
-  ;
-  padding: .6em 1em;
+  padding: 0.6em 1em;
   background: $white;
-  margin: .5em 0;
+  margin: 0.5em 0;
   box-shadow: $box-shadow;
   position: relative;
   left: 0;
-  transition: .4s ease-in-out;
+  transition: 0.4s ease-in-out;
 
   &:hover {
     box-shadow: $box-shadow-hover;
   }
 
   .material-icons {
-
-    top: .2em;
+    top: 0.2em;
     margin: 0;
   }
 }
-
-
-
 
 .back,
 .bookmark,
@@ -151,37 +101,12 @@ button.danger {
   z-index: 10000;
 }
 
-.more {
-  background: $pop;
-  // position: absolute;
-  width: 100%;
-  text-align: center;
-  bottom: 0;
-  left: 0;
-  padding: 1em;
-  color: $black;
-  font-weight: 600;
-  border-radius: .5em;
-  margin: 1em 0;
-
-  &:disabled {
-    background: $darker-grey;
-    cursor: no-drop;
-    color: $black
-  }
-
-}
-
 .btn-pop {
   background: $pop !important;
   color: $black !important;
 }
 
-
-
-// checkout & cart  modal buttons 
-
-
+// checkout & cart  modal buttons
 
 .buttons {
   position: fixed;
@@ -196,7 +121,7 @@ button.danger {
 
   div {
     text-align: center;
-    padding: .5em 0;
+    padding: 0.5em 0;
   }
 
   button {
@@ -204,59 +129,51 @@ button.danger {
     width: 100%;
     margin: 0;
     left: 0;
-    bottom: .2em;
+    bottom: 0.2em;
     padding: 1em;
   }
-
 }
 
-
-
 .btn-color {
-
-  padding: .5em;
+  padding: 0.5em;
   text-align: center;
-  border-radius: .5em;
-  margin: .4em;
+  border-radius: 0.5em;
+  margin: 0.4em;
   color: $black;
   float: auto;
   width: 3em;
   height: 3em;
-  padding: .2em;
+  padding: 0.2em;
   position: relative;
   border: 3px solid $cloud;
   background-size: contain;
 
   .material-icons {
-    top: .3em;
-    left: .4em;
+    top: 0.3em;
+    left: 0.4em;
     font-size: 1.4em;
     position: absolute;
   }
-
 }
 
 .active-color {
   border: 3px solid $pop;
   box-shadow: $box-shadow;
-
 }
-
 
 .btn-google {
   background: $google !important;
   color: $white !important;
   font-weight: 700;
-  margin: .5em auto;
-
+  margin: 0.5em auto;
 
   @media only screen and (max-width: 600px) {
-    margin: .5em auto;
+    margin: 0.5em auto;
     margin-top: 3em;
   }
 }
 
-.btn-facebook{
+.btn-facebook {
   background: $facebook !important;
   color: $white !important;
 }
@@ -267,9 +184,19 @@ button.danger {
   font-weight: 700;
 }
 
-
-.load-more{
+.load-more {
   display: block;
   max-width: 12em !important;
   margin: 4em auto !important;
+}
+
+.btn-primary {
+  background: $pop;
+  border: none;
+  color: $black;
+  &:hover,
+  &:active {
+    background: $pop;
+    color: $black;
+  }
 }

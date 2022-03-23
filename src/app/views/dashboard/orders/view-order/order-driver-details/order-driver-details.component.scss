@@ -1,0 +1,43 @@
+@import "../../../../../../assets/styles/color";
+
+.driver {
+    background: $white;
+    padding: 3em 1em;
+
+    .name {
+        span {
+            display: block;
+            font-weight: 800;
+        }
+    }
+
+    img {
+        width: 100%;
+        display: block;
+        margin: 0.2em auto;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 85% auto;
+}
+
+.grid-2{
+    grid-template-columns: 5em  auto;
+    padding: .5em 0;
+
+
+}
+
+.grid-1{
+ grid-template-columns: 100%;   
+}
+
+.phone-btn {
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 20em !important;
+    padding: .5em 1em  !important;
+    font-size: .85em !important;
+}

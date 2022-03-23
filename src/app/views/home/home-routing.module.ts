@@ -18,6 +18,10 @@ import { SearchProductHomePipe } from 'src/app/_pipes/search-product-home.pipe';
 import { TextarealinebreakpipePipe } from 'src/app/_pipes/textarealinebreakpipe.pipe';
 import { HomeTopNavBarComponent } from '../dashboard/navigations/home-top-nav-bar/home-top-nav-bar.component';
 import { MyOrdersComponent } from '../dashboard/orders/my-orders/my-orders.component';
+import { CurrentOrderComponent } from '../dashboard/orders/view-order/current-order/current-order.component';
+import { ProgressBarComponent } from '../dashboard/orders/view-order/current-order/progress-bar/progress-bar.component';
+import { HistoryOrderComponent } from '../dashboard/orders/view-order/history-order/history-order.component';
+import { OrderDriverDetailsComponent } from '../dashboard/orders/view-order/order-driver-details/order-driver-details.component';
 import { ViewMyOrderComponent } from '../dashboard/orders/view-order/view-my-order/view-my-order.component';
 import { ViewOrderComponent } from '../dashboard/orders/view-order/view-order.component';
 import { AllShopsComponent } from './all-shops/all-shops.component';
@@ -29,6 +33,8 @@ import { PaymentCancelledComponent } from './cart/payment-cancelled/payment-canc
 import { ShopingSuccesfulComponent } from './cart/shoping-succesful/shoping-succesful.component';
 import { WishListComponent } from './cart/wish-list/wish-list.component';
 import { CustomerFeedbackComponent } from './customer-feedback/customer-feedback.component';
+import { DriverDashboardComponent } from './driver/driver-dashboard/driver-dashboard.component';
+import { RateDriverComponent } from './driver/rate-driver/rate-driver.component';
 import { FiitingRoomComponent } from './fiiting-room/fiiting-room.component';
 import { AboutComponent } from './general/about/about.component';
 import { AddressWidgetComponent } from './general/address-widget/address-widget.component';
@@ -111,7 +117,7 @@ const routes: Routes = [
       { path: 'home/shops', component: ListShopsComponent },
       { path: 'home/payment-cancelled/:id', component: PaymentCancelledComponent },
       // { path: 'home/payment-cancelled/:id', component: ShopingSuccesfulComponent },  //    for testing only,
-      { path: 'home/shopping-succesful/:id', component: ShopingSuccesfulComponent },
+      { path: 'home/shopping-succesful/:id', component: ShopingSuccesfulComponent },  // form prod
       { path: 'home/profile', component: MyProfileComponent },
       { path: 'home/edit-myprofile', component: EditMyProfileComponent },
       { path: 'home/my-orders', component: MyOrdersComponent },
@@ -135,6 +141,10 @@ const routes: Routes = [
       { path: 'home/search', component: SearchShopComponent },
       { path: 'home/my-refferals', component: MyRefferalsComponent },
       { path: 'home/invite/:id', component: InviteComponent },
+      { path: 'home/chat/:id', component: ChatComponent },
+      { path: 'home/rate/:id', component: RateDriverComponent },
+      { path: 'driver/dashboard', component: DriverDashboardComponent },
+      { path: 'driver/dashboard/:id', component: DriverDashboardComponent },
       
 
     ]
@@ -225,7 +235,11 @@ export const declarations = [
   OrderDoneComponent,
   HomeLoaderComponent,
   HomeFullScreenLoadingComponent,
-  ChangePasswordComponent
+  ChangePasswordComponent,
+  CurrentOrderComponent,
+  HistoryOrderComponent,
+  ProgressBarComponent,
+  OrderDriverDetailsComponent
   
 
 ];

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="573" height="573" viewBox="0 0 573 573">
+  <g id="roomplus" transform="translate(-12645 -3424)">
+    <g id="room" transform="translate(-442 186)">
+      <rect id="Rectangle_346" data-name="Rectangle 346" width="573" height="573" rx="44" transform="translate(13087 3238)" fill="#bff9d8"/>
+    </g>
+    <g id="add_location_black_24dp" transform="translate(12736.846 3504)">
+      <g id="Group_2493" data-name="Group 2493" transform="translate(0.154)">
+        <rect id="Rectangle_347" data-name="Rectangle 347" width="389" height="413" fill="none"/>
+      </g>
+      <g id="Group_2497" data-name="Group 2497" transform="translate(64.865 34.417)">
+        <g id="Group_2496" data-name="Group 2496">
+          <g id="Group_2495" data-name="Group 2495">
+            <g id="Group_2494" data-name="Group 2494">
+              <path id="Path_251" data-name="Path 251" d="M149.877,70.834v51.625H198.5v34.417H149.877V208.5H117.46V156.876H68.834V122.459H117.46V70.834Zm81.043,72.275c0-62.467-42.953-106.692-97.251-106.692S36.417,80.643,36.417,143.109c0,40.268,31.607,93.614,97.251,157.285C199.312,236.723,230.919,183.377,230.919,143.109ZM133.668,2c68.076,0,129.668,55.411,129.668,141.109q0,85.7-129.668,203.06Q4.081,228.721,4,143.109C4,57.411,65.592,2,133.668,2Z" transform="translate(-4 -2)"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

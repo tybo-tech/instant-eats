@@ -1,4 +1,11 @@
-<div class="main">
+<div class="_topnnav">
+  <img src="assets/images/menuu.svg"  *ngIf="!showMenu" (click)="menu()" alt="">
+  <img src="assets/images/close-menuu.svg"  *ngIf="showMenu" (click)="menu()" alt="">
+</div>
+<app-home-side-nav *ngIf="showMenu" (showMobileMenuEvent)="onToggleMenu($event)"></app-home-side-nav>
+
+
+<div class="main" *ngIf="!user || user.UserType != 'Customer'">
   <div class="bg-image">
     <img src="assets/images/phone-logo.png" alt="">
   </div>
@@ -10,13 +17,55 @@
     </h1>
     <p>
       <b> Instant eats</b> is the best way to get food from your favorite local restaurants. Get it delivered to you
-      warm  & fresh.
+      warm & fresh.
     </p>
     <br><br>
     <button class="primary" (click)="goto('home/select-location')">set up your location</button>
     <br><br> <br>
     <p (click)="goto('/home/sign-in')">
       Already have an account? <b style="color: #a27417;">Login</b>
+    </p>
+  </div>
+</div>
+
+
+<div class="main" *ngIf="user && user.UserType == 'Customer'">
+  <div class="bg-image">
+    <img src="assets/images/phone-logologged-in.png" alt="">
+  </div>
+
+
+  <div class="intro">
+    <h2>
+      Hello {{user.Name}} 👋
+    </h2>
+    <br>
+
+    <h1>
+      Deliver at:
+    </h1>
+
+  </div>
+
+  <div class="addresses">
+    <app-card-list-widget *ngIf="adresses" (itemSelectedEvent)="OnItemSelected($event)" [items]="adresses">
+    </app-card-list-widget>
+  </div>
+
+  <div class="intro">
+    <hr>
+    <div class="or">
+      Or
+    </div>
+    <p>
+      <br>
+
+    <p (click)="goto('/home/sign-in')">
+      <b style="color: #a27417;">Login</b> with a different account.
+
+      <br>
+      <app-notifications></app-notifications>
+
     </p>
   </div>
 </div>

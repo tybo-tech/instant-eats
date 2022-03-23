@@ -1,9 +1,10 @@
+export const BASE = 'instanteats.co.za';
 export const environment = {
   production: false,
   API_URL: 'https://instanteats.co.za/api/',
-  BASE_URL: 'https://instanteats.co.za',
+  // BASE_URL: 'https://instanteats.co.za',
   // API_URL: 'http://localhost:8200/api-instant-eats',
-  // BASE_URL: 'http://localhost:4200',
+  BASE_URL: 'http://localhost:4200',
   ACCOUNT_TEST_EMAIL: undefined,
   ACCOUNT_TEST_PASSWORD: undefined,
   TEST_EMAIL_ACCOUNT: undefined,

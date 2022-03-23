@@ -36,7 +36,7 @@
   
   
   
-  <button mat-button class="more" [disabled]="!user.Name" type="button" (click)="save()">
+  <button mat-button class="btn btn-primary" [disabled]="!user.Name" type="button" (click)="save()">
     🏡 Create your shop
   </button>
   <app-customer-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-customer-feedback>

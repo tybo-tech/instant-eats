@@ -1,6 +1,10 @@
 import { Company } from "./company.model";
+import { Item } from "./item.model";
+import { Order } from "./order.model";
 
 export interface User {
+  Id?: number;
+  UserStatus?: any;
   UserId?: string;
   Email: string;
   Name: string;
@@ -38,7 +42,19 @@ export interface User {
   Longitude?: number;
   CarReg?: string;
   CarType?: string;
+  QueNumber?: number;
+  DailyOrders?: number;
+  TotalOrders?: number;
+  LastDeliveryTime?: string;
+  LastDeliveryCount?: number;
+  DriverStatus?: string;
   Gender?: string;
+  Items?: Item[];
+  RelatedItems?: Item[];
+  AcceptedOrders?: Order[];
+  Requests?: Order[];
+  Timeouts?: Item[];
+  Declines?: Item[];
 }
 
 

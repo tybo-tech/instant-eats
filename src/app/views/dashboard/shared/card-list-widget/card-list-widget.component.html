@@ -3,7 +3,7 @@
     <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
     <button class="primary" *ngIf="primaryAction"  (click)="primaryActionClicked()"> {{primaryAction}} </button>
   </div>
-  <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString;" >
+  <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString;" [ngStyle]="item.Style" >
     <div class="card-grid" style="cursor: pointer;" (click)="goto(item.Link, item)">
       <div class="col">
         <img [src]="item.Icon" alt="">

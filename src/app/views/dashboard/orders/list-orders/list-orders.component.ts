@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { Order } from 'src/models/order.model';
 import { User } from 'src/models/user.model';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
@@ -14,7 +14,7 @@ import { ORDER_TABS, ORDER_TYPE_SALES } from 'src/shared/constants';
   templateUrl: './list-orders.component.html',
   styleUrls: ['./list-orders.component.scss']
 })
-export class ListOrdersComponent implements OnInit {
+export class ListOrdersComponent implements OnInit, OnDestroy {
   orders: Order[];
   allOrders: Order[];
   user: User;
@@ -28,6 +28,8 @@ export class ListOrdersComponent implements OnInit {
   backto = 'Restaurant dashboard'
   companyId: string;
   ORDER_TABS = ORDER_TABS;
+  requestInterval: Observable<number>;
+  requestSubscription: Subscription;
   constructor(
     private orderService: OrderService,
     private accountService: AccountService,
@@ -43,13 +45,16 @@ export class ListOrdersComponent implements OnInit {
         currentTab.Class = ['active']
       }
       this.companyId = r.id;
-      if(this.companyId === 'super'){
-      this.backto = 'Dashboard'
+      if (this.companyId === 'super') {
+        this.backto = 'Dashboard'
       }
       this.user = this.accountService.currentUserValue;
       this.orderService.getOrders(this.companyId, this.orderStatus);
 
     });
+  }
+  ngOnDestroy(): void {
+    this.requestSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -75,6 +80,11 @@ export class ListOrdersComponent implements OnInit {
         })
       }
     });
+
+    this.requestInterval = interval(10000);
+    this.requestSubscription = this.requestInterval.subscribe(() => {
+      this.orderService.getOrders(this.companyId, this.orderStatus);
+    })
   }
 
   goto(currentTab) {
@@ -117,7 +127,7 @@ export class ListOrdersComponent implements OnInit {
     this.router.navigate(['admin/dashboard/create-order']);
   }
   back() {
-    if(this.companyId === 'super'){
+    if (this.companyId === 'super') {
       this.router.navigate(['admin/dashboard']);
       return;
     }

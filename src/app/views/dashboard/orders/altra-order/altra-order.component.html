@@ -1,0 +1,89 @@
+<div class="_main" *ngIf="order && !newOrderClicked" (click)="orderClicked()">
+  <div class="details">
+
+    <h1 class="number">
+      1
+    </h1>
+    <h1>
+      New order
+    </h1>
+
+    <p>
+      Tap any where to view order details
+    </p>
+  </div>
+</div>
+
+
+<div class="_main no-animation" *ngIf="order && newOrderClicked && order.Customer">
+  <div class="card">
+    <!-- <img [src]="image" *ngIf="image" class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h6>
+          {{order.CustomerName || order.Customer.Name}}
+          <span>
+            #{{order.Id}}
+          </span>
+        </h6>
+        <div>
+          <div class="d-flex justify-content-between">
+            <h6>
+              Due {{order.EstimatedDeliveryDate |dateformater: 'time'}}
+              <span>{{order.DeliveryMins || order.Company.DeliveryTime}} min</span>
+            </h6>
+          </div>
+
+        </div>
+      </div>
+      <hr>
+
+
+      <div class="d-flex justify-content-between" *ngFor="let item of order.Orderproducts">
+        <p>
+          {{item.Quantity}} x {{item.ProductName}}
+        </p>
+
+        <p>
+          {{item.SubTotal | currency:'R'}}
+        </p>
+      </div>
+
+
+
+      <hr>
+
+      <div class="d-flex justify-content-between">
+        <div></div>
+        <div>
+
+          <h6>
+            Total {{order.ItemsTotal | currency: 'R'}}
+          </h6>
+        </div>
+      </div>
+
+      <hr *ngIf="order.Notes" >
+
+
+      <div *ngIf="order.Notes" class="alert alert-info" role="alert">
+      {{order.Notes}}
+      </div>
+
+
+
+      <div class="actions">
+        <button *ngIf="order.Status == ORDER_STATUSES[0]" class="btn btn-primary"
+          (click)="orderAction(ORDER_STATUSES[2], order)">Accept
+          order</button>
+        <button *ngIf="order.Status == ORDER_STATUSES[2]" class="btn btn-primary"
+          (click)="orderAction(ORDER_STATUSES[3], order)">{{ORDER_STATUSES[3]}}</button>
+        <button *ngIf="order.Status == ORDER_STATUSES[3]" class="btn btn-primary"
+          (click)="orderAction(ORDER_STATUSES[4], order)">Mark as On the way</button>
+        <button *ngIf="order.Status == ORDER_STATUSES[4]" class="btn btn-primary"
+          (click)="orderAction(ORDER_STATUSES[5], order)">Mark as
+          Delivered</button>
+      </div>
+    </div>
+  </div>
+</div>

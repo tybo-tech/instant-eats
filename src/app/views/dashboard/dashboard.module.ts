@@ -22,6 +22,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AgmCoreModule } from '@agm/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AltraOrderComponent } from './orders/altra-order/altra-order.component';
+// import {ToastModule} from 'primeng/toast';
 
 
 
@@ -32,6 +35,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     CommonModule,
     MatNativeDateModule,
     DashboardRoutingModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     MatTabsModule,
@@ -52,9 +56,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     MatSlideToggleModule,
     ImageCropperModule,
     AgmCoreModule,
+    // ToastModule,
     QuillModule.forRoot()
 
   ],
-  declarations: [...declarations]
+  declarations: [...declarations, AltraOrderComponent]
 })
 export class DashboardModule { }

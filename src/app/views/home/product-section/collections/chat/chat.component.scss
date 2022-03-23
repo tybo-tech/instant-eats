@@ -1,35 +1,106 @@
-@import '../../../../../../assets/styles/color';
+@import "../../../../../../assets/styles/color";
 
-.chat, .chat-current-user {
-  margin: 1em;
-
-  display: grid;
-  grid-template-columns: 4em auto;
-  .message{
-    background: rgba(0, 140, 255, 0.349);
-    padding: 1em;
-    border-radius: 2em;
-  }
-
-  .chat-dp{
-    width: 2.8em;
-    height: 2.8em;
-    border-radius: 2.8em;
-    overflow: hidden;
-    border: 2px solid $cloud;
-    img{
-      width: 3em;
-      margin: auto;
+.banner {
+    margin-top: 0;
+    .backkk {
+        grid-template-columns: 40% auto;
+        width: 100%;
     }
-  }
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .title {
+        span {
+            display: block;
+            font-size: 0.7em;
+            left: 1.5em;
+        }
+    }
 }
 
-.chat-current-user{
-  grid-template-columns:  30% auto;
-  .message{
+.chat-module {
+    height: 75%;
+    background: $white;
+    overflow-y: scroll;
+}
+.chat-text-box {
+    min-height: 4vh;
     background: $cloud;
     padding: 1em;
-    border-radius: 2em;
-    text-align: right;
-  }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 80% auto;
+        input {
+            background: $white;
+        }
+        button {
+            padding: 1.1em 1em !important;
+            display: block;
+            margin: 0.3555em;
+        }
+    }
+}
+
+.empty {
+    padding: 1em;
+    text-align: center;
+    margin-top: 15%;
+    width: fit-content;
+    margin: 20% auto;
+    color: $grey;
+}
+
+.messages {
+    padding: 2em;
+
+    .sender,
+    .receiver {
+        padding: 0.5em 1em;
+        background: $cloud;
+        margin: 0.4em 0;
+        border-radius: 1em 0 1em 0;
+        // width: fit-content;
+        display: block;
+
+        p {
+            padding: 0;
+            margin: 0;
+        }
+        span {
+            display: block;
+            font-size: 0.75em;
+        }
+    }
+    .sender {
+    }
+
+    .receiver {
+        background: rgb(253, 255, 213);
+        display: grid;
+        grid-template-columns: 3.5em auto;
+        ._dp {
+            padding: 0;
+            margin: 0;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 2.5em;
+            overflow: hidden;
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.grid-right {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.grid-right-2 {
+    display: grid;
+    grid-template-columns: 80% auto;
 }

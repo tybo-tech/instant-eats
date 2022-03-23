@@ -41,7 +41,7 @@ export class HomeTopNavBarComponent implements OnInit {
       if (data && data.BackTo) {
         this.router.navigate([data.BackTo]);
       } else {
-        this.router.navigate(['home/select-location']);
+        this.router.navigate(['home/welcome']);
       }
     })
     this.showMenu = !this.showMenu;

@@ -1,0 +1,20 @@
+
+<div class="_main" *ngIf="order  && user && (MAX_WAIT - order.DriverCount)>0">
+    <div class="_modal">
+
+        <div class="actions">
+            <h3>
+                Accept new delivery?
+                <span>
+                    <i class="fas fa-clock"></i> {{MAX_WAIT - order.DriverCount}}
+                </span>
+            </h3>
+
+
+            <button class="btn btn-primary" (click)="accept()">Accept</button>
+
+            <button (click)="decline()" class="link-danger">Decline</button>
+        </div>
+
+    </div>
+</div>

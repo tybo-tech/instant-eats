@@ -50,6 +50,7 @@ export class AddViewCompanyWidgetComponent implements OnInit {
           Email: '',
           DeliveryMode: DELIVERY_MODES[0],
           DeliveryTime: '30',
+          MaxDeliveryTime: '60',
           MinimumOrder: '30',
           BaseDeliveryCharge: 20,
           DeliveryChargePerKM: 1.5,

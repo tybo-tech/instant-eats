@@ -18,10 +18,14 @@ import {
   FacebookLoginProvider
 } from 'angularx-social-login';
 import { AgmCoreModule } from '@agm/core';
+import { SchedulerComponent } from './scheduler/scheduler.component';
+// import { RequestComponent } from './views/home/driver/request/request.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SchedulerComponent,
+    // RequestComponent
   ],
   imports: [
     BrowserModule,

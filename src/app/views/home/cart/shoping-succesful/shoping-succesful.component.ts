@@ -20,6 +20,8 @@ export class ShopingSuccesfulComponent implements OnInit {
   user: User;
   products: Product[];
   OrdersId: string;
+  orderId: any;
+  canUpdate = true;
 
   constructor(
     private orderService: OrderService,
@@ -30,35 +32,54 @@ export class ShopingSuccesfulComponent implements OnInit {
     private accountService: AccountService,
     private productService: ProductService,
     private uxService: UxService,
+    private activatedRoute: ActivatedRoute
 
-  ) { }
+  ) {
+    this.activatedRoute.params.subscribe(r => {
+      this.orderId = r.id;
+      if (this.orderId) {
+        orderService.getOrderSync(this.orderId).subscribe(data => {
+          if (data && data.OrdersId) {
+            this.order = data;
+            this.canUpdate = true;
+            this.order.Status = 'Pending';
+            // this.order.FulfillmentStatus = 'CASH ORDER PENDING';
+            this.order.Paid = this.order.Total;
+            this.order.Due = 0;
+            this.order.StatusId = PENDINGORDERS;
+            this.saveInvoice();
+          }
+        })
+      }
+    });
+  }
 
   ngOnInit() {
     this.user = this.accountService.currentUserValue;
-    this.order = this.orderService.currentOrderValue;
+    // this.order = this.orderService.currentOrderValue;
 
-    if (this.order) {
-      this.uxService.showLoader();
-      this.order.Status = 'Pending';
-      this.order.FulfillmentStatus = 'CASH ORDER PENDING';
-      this.order.Paid = this.order.Total;
-      this.order.Due = 0;
+    // if (this.order) {
+    //   this.uxService.showLoader();
+    //   this.order.Status = 'Pending';
+    //   this.order.FulfillmentStatus = 'CASH ORDER PENDING';
+    //   this.order.Paid = this.order.Total;
+    //   this.order.Due = 0;
 
-      this.productService.getProductsSync(this.order.CompanyId).subscribe(products => {
-        this.products = products
-      });
-      if (this.order.Company && !this.order.Company.Email) {
-        this.userService.getUsersStync(this.order.CompanyId, ADMIN).subscribe(users => {
-          if (users && users.length) {
-            this.order.Company.Email = users[0].Email;
-            this.getOrders();
-          }
-        })
-      } else {
-        this.getOrders();
-      }
+    //   this.productService.getProductsSync(this.order.CompanyId).subscribe(products => {
+    //     this.products = products
+    //   });
+    //   if (this.order.Company && !this.order.Company.Email) {
+    //     this.userService.getUsersStync(this.order.CompanyId, ADMIN).subscribe(users => {
+    //       if (users && users.length) {
+    //         this.order.Company.Email = users[0].Email;
+    //         this.getOrders();
+    //       }
+    //     })
+    //   } else {
+    //     this.getOrders();
+    //   }
 
-    }
+    // }
   }
 
   getOrders() {
@@ -119,33 +140,8 @@ export class ShopingSuccesfulComponent implements OnInit {
       this.order.ShippingPrice = 0;
     }
     this.order.OrderSource = 'Online shop';
-    this.order.EstimatedDeliveryDate = '';
-    this.order.StatusId = PENDINGORDERS;
-    this.orderService.create(this.order).subscribe(data => {
-      if (data && data.OrdersId) {
-        this.uxService.hideLoader();
-        this.order = data;
-        this.OrdersId = data.OrdersId
-        this.showDone = true;
-        this.orderNo = this.order.OrderNo;
-        this.productService.adjustStockAfterSale(this.products, this.order);
-        const body = `Congratulations you have received an order of R${this.order.Total}`;
-        const customerEMail = `  Your order, is being processed.
-                        Once your order is ready to be delivered, you'll receive 
-                        an Email notification confirming your scheduled delivery
-                         date.`;
-        const company = this.order.Company;
-        if (company && company.Email) {
-          this.sendEmailLogToShop(body, company.Name || '', company.Email);
-          // this.sendEmailLogToShop(customerEMail, this.order.Customer.Name || '', this.order.Customer.Email);
-          this.sendEmailLogToShop(body, company.Name || '', NOTIFY_EMAILS);
-        }
-        this.orderService.updateOrderState(null);
-        this.router.navigate(['home/order-done', this.order.OrdersId]);
-
-      }
-    });
-
+    this.order = this.orderService.estimateDelivery(this.order);
+    this.save();
   }
 
 
@@ -172,4 +168,46 @@ export class ShopingSuccesfulComponent implements OnInit {
       });
   }
 
+  onTravelTimeEvent(time: number) {
+    if (!this.canUpdate)
+      return;
+    if (this.order.Shipping === 'Delivery') {
+      if (this.order.EstimatedDeliveryDate) {
+        const date = new Date(this.order.EstimatedDeliveryDate);
+        const max = new Date(this.order.MaxDeliveryTime);
+
+        this.order.EstimatedDeliveryDate = this.orderService.addMinutes(date, time);
+        this.order.MaxDeliveryTime = this.orderService.addMinutes(max, time);
+        this.save();
+        this.canUpdate = false;
+      }
+    }
+  }
+  save() {
+    this.orderService.update(this.order).subscribe(data => {
+      if (data && data.OrdersId) {
+        this.uxService.hideLoader();
+        this.order = data;
+        this.OrdersId = data.OrdersId
+        this.showDone = true;
+        this.orderNo = this.order.OrderNo;
+        this.productService.adjustStockAfterSale(this.products, this.order);
+        const body = `Congratulations you have received an order of R${this.order.Total}`;
+        const customerEMail = `  Your order, is being processed.
+                      Once your order is ready to be delivered, you'll receive 
+                      an Email notification confirming your scheduled delivery
+                       date.`;
+        const company = this.order.Company;
+        if (company && company.Email) {
+          this.sendEmailLogToShop(body, company.Name || '', company.Email);
+          // this.sendEmailLogToShop(customerEMail, this.order.CustomerName || '', this.order.CustomerEmail);
+          this.sendEmailLogToShop(body, company.Name || '', NOTIFY_EMAILS);
+        }
+        this.orderService.updateOrderState(null);
+        // this.router.navigate(['home/order-done', this.order.OrdersId]);
+        this.showDone = true;
+
+      }
+    });
+  }
 }

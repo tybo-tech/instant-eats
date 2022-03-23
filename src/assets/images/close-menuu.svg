@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="133" height="133" viewBox="0 0 133 133">
+  <defs>
+    <filter id="Ellipse_68" x="0" y="0" width="133" height="133" filterUnits="userSpaceOnUse">
+      <feOffset dx="7" dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="12.5" result="blur"/>
+      <feFlood flood-opacity="0.51"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="close-menuu" transform="translate(-14007.5 -4040.5)">
+    <g transform="matrix(1, 0, 0, 1, 14007.5, 4040.5)" filter="url(#Ellipse_68)">
+      <g id="Ellipse_68-2" data-name="Ellipse 68" transform="translate(30.5 27.5)" stroke="#fff" stroke-width="3">
+        <circle cx="29" cy="29" r="29" stroke="none"/>
+        <circle cx="29" cy="29" r="27.5" fill="none"/>
+      </g>
+    </g>
+    <g id="Group_2498" data-name="Group 2498" transform="translate(6138.041 -8224.822) rotate(41)">
+      <line id="Line_18" data-name="Line 18" x2="28" transform="translate(14053.5 4097.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="6"/>
+      <line id="Line_20" data-name="Line 20" x2="28" transform="matrix(-0.087, 0.996, -0.996, -0.087, 14068.72, 4083.553)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="6"/>
+    </g>
+  </g>
+</svg>

@@ -1,7 +1,6 @@
-@import '../../../../../assets/styles/color';
+@import "../../../../../assets/styles/color";
 
 .main {
-
   .bg-image,
   .form {
     left: -1em;
@@ -14,7 +13,23 @@
     bottom: 10%;
     width: 100%;
     padding: 4em;
+    padding-bottom: 1.5em;
     text-align: center;
   }
+}
 
+.addresses {
+  padding: 0 1em;
+}
+
+._topnnav {
+  position: fixed;
+  top: 0em;
+  right: 0em;
+  width: 6em;
+  height: 8em;
+  z-index: 100000;
+  img {
+    width: 6em;
+  }
 }

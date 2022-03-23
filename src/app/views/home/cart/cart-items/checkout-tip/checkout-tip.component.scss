@@ -1,0 +1,32 @@
+@import "../../../../../../assets/styles/color";
+
+.card {
+    background: $white;
+    margin: 1em;
+    padding: 1em;
+    box-shadow: $box-shadow;
+    border-radius: 0.2em;
+}
+
+.tips{
+    display: grid;
+    grid-template-columns: repeat(5,20%);
+    .tip{
+        text-align: center;
+        background: $cloud;
+        width: fit-content;
+        margin: 0 auto;
+        padding: 0.5em .75em;
+        border-radius: .25em;
+        font-weight: 600;
+    }
+    .active{
+        background: $pop;
+    }
+}
+
+.card-label {
+    padding: 0.2em 1em;
+    margin-top: 2em;
+  }
+  

@@ -113,7 +113,6 @@ export class ImagesComponent implements OnInit {
         const theFile: any = file;
         fileReader.readAsDataURL(theFile);
         fileReader.onload = (event: any) => {
-          // debugger
           const url = event.target.result;
           const image = new Image();
           image.src = url;
@@ -121,7 +120,6 @@ export class ImagesComponent implements OnInit {
 
             const canvas = document.createElement('canvas');
             const maxSize = IMAGE_CROP_SIZE;
-            // debugger
             let width = image.width;
             let height = image.height;
             if (width > height) {

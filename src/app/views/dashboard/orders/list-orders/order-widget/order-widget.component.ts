@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Email, Order, User } from 'src/models';
 import { Delivery } from 'src/models/delivery.model';
+import { SHIPPING_OPTIONS } from 'src/models/shipping.model';
 import { EmailService, OrderService, UserService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { DeliveryService } from 'src/services/delivery.service';
+import { ItemService } from 'src/services/item.service';
 import { UxService } from 'src/services/ux.service';
 import { ACTIVEORDERS, DRIVER, HISTORYORDERS, NOTIFY_EMAILS, ORDER_STATUSES, PENDINGORDERS } from 'src/shared/constants';
 
@@ -37,6 +39,7 @@ export class OrderWidgetComponent implements OnInit {
     private deliveryService: DeliveryService,
     private emailService: EmailService,
     private router: Router,
+    private itemService: ItemService,
   ) { }
 
   ngOnInit() {
@@ -49,8 +52,7 @@ export class OrderWidgetComponent implements OnInit {
   }
   calTime() {
     if (this.order) {
-      const date = new Date();
-      this.order.EstimatedDeliveryDate = `${new Date(date.getTime() + Number(this.order.DeliveryMins) * 60000)}`;
+      this.order = this.orderService.estimateDelivery(this.order, this.order.DeliveryMins);
     }
 
   }
@@ -61,24 +63,18 @@ export class OrderWidgetComponent implements OnInit {
     if (action === 'Cancel') {
       this.showAddCancel = true;
     }
-    if (action === 'Accept') {
-      this.showAdd = true;
-      this.order.Status = ORDER_STATUSES[1];
-      this.order.StatusId = ACTIVEORDERS;
 
-      this.companyService.getUsersNearBy(order.Company.Latitude, order.Company.Longitude, Number(order.Company.Radius || 10), DRIVER).subscribe(data => {
-        console.log(data);
-        if (data) {
-          this.drivers = data;
-        }
-
-      })
-
-    }
     if (action === ORDER_STATUSES[2]) {
+      this.showAdd = true;
       this.order.Status = ORDER_STATUSES[2];
       this.order.StatusId = ACTIVEORDERS;
-      this.updateOrder();
+      this.order.DeliveryMins = Number(this.order.Company.DeliveryTime || '15');
+      if (this.order.DeliveryMins)
+        this.calTime();
+
+      this.order.StatusId = ACTIVEORDERS;
+
+      // this.updateOrder();
     }
     if (action === ORDER_STATUSES[3]) {
       this.order.Status = ORDER_STATUSES[3];
@@ -101,26 +97,80 @@ export class OrderWidgetComponent implements OnInit {
       this.updateOrder();
     }
   }
+
+  getUsersNearByDrivers() {
+    this.companyService.getUsersNearBy(this.order.Company.Latitude, this.order.Company.Longitude, Number(this.order.Company.Radius || 10), DRIVER, this.order.OrdersId).subscribe(data => {
+      console.log(data);
+      if (data) {
+        this.drivers = data;
+        this.orderService.assignDrivers(this.drivers, this.order);
+      }
+
+    })
+  }
   updateOrder() {
     this.showAdd = false;
     this.showAddCancel = false;
+
+    if (this.order.Status === ORDER_STATUSES[2]) {
+      this.order.AccetpTime = `${new Date()}`;
+    }
+
+
+    if (this.order.Status === ORDER_STATUSES[3]) {
+      this.order.FinishTime = `${new Date()}`;
+    }
+
+    if (this.order.Status === ORDER_STATUSES[4]) {
+      this.order.PickUpTime = `${new Date()}`;
+    }
+
+
+    if (this.order.Status === ORDER_STATUSES[5]) {
+      this.order.DropOffTime = `${new Date()}`;
+    }
     this.orderService.update(this.order).subscribe(data => {
       if (data && data.OrdersId) {
-
-        if(this.order.Status === ORDER_STATUSES[1]){
-          
-        const body = `Congratulations, your order has been accepted by the seller and it is in progress.
-        The estimated shipping date is : ${this.order.EstimatedDeliveryDate}.
-        We will send you the email as soon the seller confirms the shipment.
-        
-        `;
-        this.sendEmailLogToShop(body, this.order.Customer.Name, this.order.Customer.Email);
-        this.sendEmailLogToShop(body, this.order.Customer.Name, NOTIFY_EMAILS);
-        this.sendEmailRange(this.order.Company.Name, this.order.Company.AddressLine);
-        }
+        this.notify();
 
       }
     });
+  }
+  notify() {
+    if (this.order.Status === ORDER_STATUSES[2]) {
+      if (this.order.Customer.AddressUrlWork)
+        this.pushNotify(this.order.Customer.AddressUrlWork, ` Order accepted`, `Congratulations, your order has been accepted by ${this.order.Company.Name}`,
+          `${environment.BASE_URL}/home/view-my-order/${this.order.OrdersId}`, this.orderService.getOneProductOrderImage(this.order));
+
+      const body = `Congratulations, your order has been accepted by ${this.order.Company.Name} and it is in progress.
+    The estimated shipping date is : ${this.order.EstimatedDeliveryDate}.
+    We will send you the email as soon the seller confirms the shipment.
+    
+    `;
+      this.sendEmailLogToShop(body, this.order.CustomerName, this.order.CustomerEmail);
+      this.sendEmailLogToShop(body, this.order.CustomerName, NOTIFY_EMAILS);
+      this.sendEmailRange(this.order.Company.Name, this.order.Company.AddressLine);
+      this.getUsersNearByDrivers();
+    }
+
+
+    if (this.order.Status === ORDER_STATUSES[3]) {
+      if (this.order.Customer.AddressUrlWork)
+        this.pushNotify(this.order.Customer.AddressUrlWork, `Food is ready to be picked`, `The restaurant just finished`,
+          `${environment.BASE_URL}/home/view-my-order/${this.order.OrdersId}`, this.orderService.getOneProductOrderImage(this.order));
+    }
+
+    if (this.order.Status === ORDER_STATUSES[4] && this.order.Shipping === SHIPPING_OPTIONS[1].Name) {
+      if (this.order.Customer.AddressUrlWork)
+        this.pushNotify(this.order.Customer.AddressUrlWork, `On the way`, `The driver is heading your way`,
+          `${environment.BASE_URL}/home/view-my-order/${this.order.OrdersId}`, this.orderService.getOneProductOrderImage(this.order));
+    }
+
+    if (this.order.Status === ORDER_STATUSES[5] && this.order.Shipping === SHIPPING_OPTIONS[1].Name) {
+      if (this.order.Customer.AddressUrlWork)
+        this.pushNotify(this.order.Customer.AddressUrlWork, `Your food arrived`, `The driver is here, Enjoy!`,
+          `${environment.BASE_URL}/home/view-my-order/${this.order.OrdersId}`, this.orderService.getOneProductOrderImage(this.order));
+    }
   }
 
 
@@ -212,11 +262,11 @@ export class OrderWidgetComponent implements OnInit {
       LatitudeTo: this.order.Customer.Latitude || 0,
       LongitudeTo: this.order.Customer.Longitude || 0,
       DirectionFrom: this.order.Company.AddressLine,
-      DirectionTo: this.order.Customer.AddressLineHome,
+      DirectionTo: this.order.FullAddress,
       FromName: this.order.Company.Name,
-      ToName: this.order.Customer.Name,
+      ToName: this.order.CustomerName,
       FromAddress: this.order.Company.AddressLine,
-      ToAddress: this.order.Customer.AddressLineHome,
+      ToAddress: this.order.FullAddress,
       Sammary: 'Food order',
       TotalTime: '20',
       TotalCharge: '20',
@@ -236,5 +286,24 @@ export class OrderWidgetComponent implements OnInit {
     this.deliveryService.add(delivery).subscribe(data => {
 
     })
+  }
+
+  pushNotify(sub, title: string, body: string, url: string, image: string = '') {
+    this.userService.notify({
+      subscribtion: JSON.parse(sub), payload: {
+        title: title,
+        body: body,
+        label1: '',
+        label2: '',
+        image: image,
+        icon: `https://instanteats.co.za/api//api/upload/uploads/1646145462iio.jpg`,
+        url1: url,
+        url2: ''
+      }
+    }).subscribe(e => {
+      console.log(e);
+
+
+    });
   }
 }

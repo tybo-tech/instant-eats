@@ -1,0 +1,171 @@
+<!-- <app-navigate></app-navigate> -->
+<div class="current-order" *ngIf="order">
+    <div class="p1">
+        <!-- <div class="time"
+            *ngIf="progress  && (order.Status === 'Pending' || order.Status === 'Preparing' || order.Status === 'On the way' || order.Status === 'Ready to be picked')">
+            <h2>
+                {{order.EstimatedDeliveryDate |dateformater: 'time'}}
+            </h2>
+
+            <p class="text-muted">
+                Estimated arrival
+            </p>
+        </div> -->
+
+
+
+        <h1 *ngIf="order && order.Status === 'Delivered'">
+            Order {{order.Status }}
+        </h1>
+
+        <!-- 
+        <app-progress-bar
+            *ngIf="progress  && (order.Status === 'Pending' || order.Status === 'Preparing' || order.Status === 'On the way' || order.Status === 'Ready to be picked')"
+            [width]="progress"></app-progress-bar> -->
+        <br>
+        <h3 *ngIf="order.Status === 'Pending'">
+            Waiting for restaurant to accept the order
+        </h3>
+        <h3 *ngIf="order.Status === 'Preparing'">
+            Restaurant is busy preparing the food
+        </h3>
+        <h3 *ngIf="order.Status === 'Ready to be picked'">
+            The food is ready to be picked.
+        </h3>
+        <h3 *ngIf="order.Status === 'On the way'">
+            You on the way.
+        </h3>
+        <br>
+
+
+        <app-order-driver-details [order]="order" [messegeCount]="messegeCount" [user]="user">
+        </app-order-driver-details>
+
+        <a class="btn btn-primary btn90" *ngIf="actionText" style="display: block; margin: 1em auto;"
+            (click)="onAction()">{{actionText}}</a>
+
+        <a class="link link-success" style="display: block; margin: 1em auto;" *ngIf="destLat && navText"
+            [href]="'https://www.google.com/maps/search/?api=1&query='+destLat+','+destLng"><i class="fas fa-route"></i>
+            {{navText}}</a>
+
+
+
+
+
+
+        <br>
+        <h4 class="text-muted"
+            *ngIf="time && progress  && (order.Status === 'Pending' || order.Status === 'Preparing' || order.Status === 'On the way' || order.Status === 'Ready to be picked')">
+            You are {{time}} munites away.
+        </h4>
+    </div>
+    <br>
+
+
+    <div class="image">
+        <app-distance-widget
+            *ngIf="order && destLng &&  order.Driver && (order.Status === 'Ready to be picked' || order.Status === 'On the way' )"
+            [originLat]="order.Driver.Latitude" [originLng]="order.Driver.Longitude" [destinationLat]="destLat"
+            [destinationLng]="destLng" [company]="order.Company" [mapId]="mapId" [user]="user"
+            (userEvent)="onUserEvent($event)" (travelTimeEvent)="onTravelTimeEvent($event)">
+        </app-distance-widget>
+
+        <div class="images-holder">
+            <img *ngIf="order.Status === 'Pending'" src="assets/images/ringing.gif" alt="">
+            <img *ngIf="order.Status === 'Preparing'" src="assets/images/chef-cooking.gif" alt="">
+        </div>
+    </div>
+    <div class="p1">
+        <h4>
+            Delivery Details
+        </h4>
+        <br>
+        <p>
+            <b>Address</b><br>
+            {{order.FullAddress}}
+        </p>
+
+        <p>
+            <b>Type</b><br>
+            {{order.Shipping}}
+        </p>
+
+        <br>
+        <hr>
+        <br>
+        <h3>
+            Order Summary
+        </h3>
+
+        <div class="bag" *ngIf="order.Orderproducts && order.Orderproducts.length">
+            <div class="cart-item" *ngFor="let item of order.Orderproducts; let i = index">
+
+                <div class="item">
+                    <h4 class="order-product-name" style="top: .4em;">
+                        {{item.Quantity}} x {{item.ProductName}}
+                        <span *ngFor="let option of item.OrderOptions">
+                            {{option.OptionName}} - {{option.Price | currency :'R ' }}
+                        </span>
+                    </h4>
+
+                </div>
+
+                <div class="item">
+                    <div class="icon" *ngIf="item.FeaturedImageUrl">
+                        <div class="user-dp-image">
+                            <img [src]="item.FeaturedImageUrl" alt="">
+                        </div>
+                    </div>
+
+                    <div class="icon" *ngIf="!item.FeaturedImageUrl">
+                        <div class="user-dp-image">
+                            <img src="assets/images/icons/add.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="shipping-method">
+            <div class="name text-muted">
+                <b>
+                    Notes <br>
+                </b>
+
+            </div>
+            <p>
+                {{order.Notes || 'No notes'}}
+            </p>
+            <hr>
+
+            <!-- <h6>
+                Total .... {{order.Total | currency:'R'}}
+            </h6> -->
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<div class="quick-add" *ngIf="showCollectCash">
+    <div class="form">
+        <img src="assets/images/card-payment.png" alt="">
+
+        <h1>Cash collection {{order.Total | currency:'R'}}
+        </h1>
+        <br>
+        <p>
+            Please make sure that the amount collected is correct
+        </p>
+
+        <div class="form-item">
+            <button (click)="onCashConfirm()">Confirm Cash Order</button>
+            <div class="link" (click)="showCollectCash = false">Cancel</div>
+        </div>
+    </div>
+</div>

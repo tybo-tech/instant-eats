@@ -1,7 +1,12 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SwPush, SwUpdate } from '@angular/service-worker';
+import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { User } from 'src/models';
+import { AccountService, UserService } from 'src/services';
+import { VAPID_PUBLIC_KEY } from 'src/shared/constants';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +14,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  readonly VAPID_PUBLIC_KEY =
-    {
-      publicKey: "BHZEk4ExK7fDSgBTHwnFymbxBFOn0qgRShUYEHVoEvpxC-ZKKkjYZ8ZtKqiY5y_Ei5RTTBLoc0nXIyMH2f_wIeg",
-      privateKey: "SFsZkWDHVDCfpeT8ojXim0m477br-w9T0bEs0YUCsLI"
-    }
-
-  constructor(private swPush: SwPush, private swUpdate: SwUpdate) {
+  user: User;
+  constructor(private swUpdate: SwUpdate, private swPush: SwPush, private accountService: AccountService, private router: Router, private userService: UserService) {
     this.updateClientapp();
+    this.swPush.notificationClicks.subscribe(event => {
+      console.log('Received notification: ', event);
+      const url = event.notification.data.url;
+      window.open(url, '_blank');
+    });
   }
   ngOnInit(): void {
     if (environment.production) {
@@ -24,19 +29,17 @@ export class AppComponent implements OnInit {
         window.location.href = location.href.replace('http', 'https');
       }
     }
-    // this.subscribeToNotifications();
+    this.accountService.user.subscribe(data => {
+      if (data && data.UserId) {
+        this.user = data;
+      }
+    });
+
+
+
   }
 
-  subscribeToNotifications() {
 
-    this.swPush.requestSubscription({
-      serverPublicKey: this.VAPID_PUBLIC_KEY.publicKey
-    })
-      .then(sub => {
-        console.log(sub);
-      })
-      .catch(err => console.error("Could not subscribe to notifications", err));
-  }
 
   updateClientapp() {
     if (!this.swUpdate.isEnabled) {
@@ -57,4 +60,8 @@ export class AppComponent implements OnInit {
 
     });
   }
+
 }
+
+
+//https://stackoverflow.com/questions/54138763/open-pwa-when-clicking-on-push-notification-handled-by-service-worker-ng7-andr

@@ -1,0 +1,7 @@
+<div class="rate">
+    <i *ngFor="let rate of rates; let i = index"  [ngClass]="rate"></i>
+</div>
+
+<div class="rate" *ngIf="DriverRatingNotes">
+    {{DriverRatingNotes}}
+</div>

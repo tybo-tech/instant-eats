@@ -18,6 +18,7 @@ import { DISCOUNT_TYPES } from 'src/shared/constants';
 export class CartItemsComponent implements OnInit {
   @Input() order: Order;
   @Input() hideDelete;
+  @Input() page;
   @Input() shippings: Shipping[];
   @Input() Class: string[];
   user: User;
@@ -74,7 +75,7 @@ export class CartItemsComponent implements OnInit {
       this.order.Shipping = undefined;
       this.order.ShippingPrice = undefined;
     }
-    this.calculateTotalOverdue();
+    this.order = this.orderService.calculateTotalOverdue(this.order);
     this.orderService.updateOrderState(this.order);
   }
   selectShipping(shipping: Shipping) {
@@ -83,31 +84,13 @@ export class CartItemsComponent implements OnInit {
       shipping.Selected = true;
       this.order.ShippingPrice = shipping.Price;
       this.order.Shipping = shipping.Name;
-      this.calculateTotalOverdue();
-      this.order.Total = Number(this.order.Total) + Number(shipping.Price);
+      this.order = this.orderService.calculateTotalOverdue(this.order);
       this.orderService.updateOrderState(this.order);
       this.showAdd = false;
     }
   }
 
-  calculateTotalOverdue() {
-    this.order.Total = 0;
-    this.discountAmount = 0;
-    this.order.Orderproducts.forEach(line => {
-      if (line.DiscountPrice && this.order.Discount) {
-        this.order.Total += (Number(line.DiscountPrice) * Number(line.Quantity));
-        this.discountAmount +=
-          (
-            (Number(line.UnitPrice) * Number(line.Quantity)) - (Number(line.DiscountPrice) * Number(line.Quantity))
-          );
-        this.order.PromoCode = this.order.Discount.PromoCode
-      } else {
 
-        this.order.Total += (Number(line.UnitPrice) * Number(line.Quantity));
-      }
-    });
-
-  }
   profile() {
     this.uxService.keepNavHistory({
       BackToAfterLogin: '/shop/checkout',
@@ -128,7 +111,7 @@ export class CartItemsComponent implements OnInit {
       this.selectShipping(this.SHIPPING_OPTIONS[0]);
 
     }
-    if (mode == this.SHIPPING_OPTIONS[1].ShippingId) { // del
+    if (mode == this.SHIPPING_OPTIONS[1].ShippingId) { // delivery
       this.pickup = 'secondary';
       this.delivery = 'primary';
       const shipping = this.SHIPPING_OPTIONS[1];
@@ -136,7 +119,7 @@ export class CartItemsComponent implements OnInit {
       this.selectShipping(shipping);
 
     }
-    if (mode == this.SHIPPING_OPTIONS[2].ShippingId) { // del
+    if (mode == this.SHIPPING_OPTIONS[2].ShippingId) { // delivery
       this.pickup = 'secondary';
       this.delivery = 'primary';
       const shipping = this.SHIPPING_OPTIONS[2];
@@ -156,15 +139,19 @@ export class CartItemsComponent implements OnInit {
 
 
 
-    const distance = this.uxService.calcCrow(cord1, this.locationData);
-    const shipping = (Math.ceil(distance) * 5) + 1.5;
+    // const distance = this.uxService.calcCrow(cord1, this.locationData);
 
-    return shipping;
+    var p1 = new google.maps.LatLng(Number(this.user.Latitude), Number(this.user.Longitude));
+    var p2 = new google.maps.LatLng(Number(this.order.Company.Latitude), Number(this.order.Company.Longitude));
+    const distance = this.orderService.calcDistance(p1, p2);
+    const shipping = (Math.ceil(Number(distance)) * 5) + 1.5;
+
+    return Math.floor(shipping);
   }
   qtyChanged(qty, product: Orderproduct) {
     product.Quantity = qty;
     product.SubTotal = product.Quantity * Number(product.UnitPrice)
-    this.calculateTotalOverdue();
+    this.order = this.orderService.calculateTotalOverdue(this.order);
     this.orderService.updateOrderState(this.order);
 
   }
@@ -183,7 +170,7 @@ export class CartItemsComponent implements OnInit {
               line.DiscountPrice = Number(line.UnitPrice) - (line.UnitPrice * (Number(data.DiscountValue) / 100));
             });
             this.order.Discount = data;
-            this.calculateTotalOverdue();
+            this.order = this.orderService.calculateTotalOverdue(this.order);
           }
           if (data.PromoType === DISCOUNT_TYPES[1]) {
             this.order.Orderproducts.forEach(line => {
@@ -191,7 +178,7 @@ export class CartItemsComponent implements OnInit {
               line.DiscountPrice = Number(line.UnitPrice) - Number(data.DiscountValue);
             });
             this.order.Discount = data;
-            this.calculateTotalOverdue();
+            this.order = this.orderService.calculateTotalOverdue(this.order);
 
           }
 
@@ -217,7 +204,7 @@ export class CartItemsComponent implements OnInit {
       this.switchPickUpMode(SHIPPING_OPTIONS[1].ShippingId);
     }
 
-    this.calculateTotalOverdue();
+    this.order = this.orderService.calculateTotalOverdue(this.order);
   }
 
 

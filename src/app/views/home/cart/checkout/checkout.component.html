@@ -12,7 +12,7 @@
       </div>
 
       <div class="name">
-        Order Summary.
+        Order Review.
       </div>
 
       <div class="btn-menu">
@@ -24,7 +24,13 @@
   </div>
 
   <div class="cart-items">
-    <app-cart-items [order]="order" [hideDelete]="true" [shippings]="shippings" [Class]="'grid'"></app-cart-items>
+    <div class="errors" *ngIf="errorMessage">
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+    </div>
+    <app-cart-items [order]="order" [hideDelete]="true" [shippings]="shippings" [page]="'checkout'" [Class]="'grid'">
+    </app-cart-items>
   </div>
 
   <div class="payfast-form">
@@ -52,13 +58,35 @@
       </span>
 
       <div class="actions">
-        <button type="submit" *ngIf="user && order && order.Orderproducts.length" class="cta">Proceed to online
+        <button type="button" (click)="payOnline()" *ngIf="user && order && order.Orderproducts.length"
+          class="cta">Proceed to online
           payments</button>
         <button type="button" *ngIf="user" (click)="payCash()" class="cta shop-more secondary">Pay with cash on
           delivery</button>
         <button type="button" *ngIf="!user" (click)="goto('home/sign-in')" class="cta">Login & checkout</button>
         <button type="button" *ngIf="!user" (click)="goto('home/sign-up')" class="cta shop-more secondary">Register &
           checkout</button>
+
+
+        <div class="quick-add" *ngIf="showOnlinePayment">
+          <div class="form">
+            <img src="assets/images/payfast-icon.png" alt="">
+
+            <h1>Total payment {{order.Total | currency:'R'}}
+            </h1>
+            <br>
+            <p>
+              You will be redirected to payfast to finish your secured payment
+
+            </p>
+
+            <div class="form-item">
+              <button type="submit" class="cta">Proceed to
+                payfast</button>
+              <div class="link" (click)="showCashConfirm = false">Cancel</div>
+            </div>
+          </div>
+        </div>
       </div>
     </form>
   </div>
@@ -70,7 +98,7 @@
   <div class="form">
     <img src="assets/images/card-payment.png" alt="">
 
-    <h1>Cash required {{order.Total  | currency:'R'}}
+    <h1>Cash required {{order.Total | currency:'R'}}
     </h1>
     <br>
     <p>
@@ -85,3 +113,4 @@
     </div>
   </div>
 </div>
+<app-notifications></app-notifications>

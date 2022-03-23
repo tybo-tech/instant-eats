@@ -6,9 +6,8 @@ import { map } from 'rxjs/operators';
 import { CompanyCategory } from 'src/models/company.category.model';
 import { Category } from 'src/models/category.model';
 import { Company } from 'src/models/company.model';
-import { Product } from '../../../tybo-invoice/src/models/product.model';
 import { AdminStatModel } from 'src/models/UxModel.model';
-import { User } from 'src/models';
+import { Product, User } from 'src/models';
 import { OPEN_CLOSE, YOUR_API_KEY } from 'src/shared/constants';
 
 
@@ -225,9 +224,9 @@ export class CompanyService {
 
 
 
-  getUsersNearBy(latitude: number, longitude: number, radius: number, userType: string) {
+  getUsersNearBy(latitude: number, longitude: number, radius: number, userType: string, OrdersId) {
     return this.http.get<User[]>(
-      `${this.url}/api/company/get-near-by-users.php?Radius=${radius}&Latitude=${latitude}&Longitude=${longitude}&UserType=${userType}`
+      `${this.url}/api/company/get-near-by-users.php?Radius=${radius}&Latitude=${latitude}&Longitude=${longitude}&UserType=${userType}&OrdersId=${OrdersId}`
     );
   }
 

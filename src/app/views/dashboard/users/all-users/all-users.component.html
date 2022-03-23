@@ -1,14 +1,14 @@
-<div class="banner" >
+<div class="banner">
   <div class="backkk">
     <div class="menu-back">
       <span class="material-icons" (click)="back()">
         arrow_back
       </span>
     </div>
-  
-  
+
+
     <div class="name menu-back" (click)="back()">
-    Dashboard
+      Dashboard
     </div>
   </div>
 
@@ -33,11 +33,11 @@
 <div class="quick-add" *ngIf="user">
   <div class="form">
     <h3>
-     {{heading}}
+      {{heading}}
     </h3>
 
     <div class="form-item">
-     <app-image-widget [image]="user.Dp" (imageChangedEvent)="onImageChangedEvent($event)"></app-image-widget>
+      <app-image-widget [image]="user.Dp" (imageChangedEvent)="onImageChangedEvent($event)"></app-image-widget>
     </div>
 
     <div class="form-item">
@@ -56,15 +56,33 @@
       <label for="">Email</label>
       <input type="email" name="" id="" [(ngModel)]="user.Email">
     </div>
+    <div class="form-item">
+      <label for="">Password</label>
+      <input type="password" name="" id="" [(ngModel)]="user.Password">
+    </div>
+
+    <div class="form-item">
+      <label for="">Phone Number</label>
+      <input type="email" name="" id="" [(ngModel)]="user.PhoneNumber">
+    </div>
+    <div class="form-item">
+      <label for="">Status</label>
+      <select [(ngModel)]="user.UserStatus">
+        <option value="Online">Online</option>
+        <option value="Offline">offline</option>
+        <option value="Busy">Busy</option>
+      </select>
+    </div>
 
 
     <div class="form-item">
       <label for="">Address *</label>
-      <app-address-widget-dashboard [addressLineHome]="user.AddressLineHome " (adressChangedEvent)="onAdressEvent($event)">
+      <app-address-widget-dashboard [addressLineHome]="user.AddressLineHome "
+        (adressChangedEvent)="onAdressEvent($event)">
       </app-address-widget-dashboard>
     </div>
 
-    
+
     <div class="form-item" *ngIf="user.UserType == DRIVER">
       <label for="">Vehicle Type*</label>
       <select [(ngModel)]="user.CarType">
@@ -72,7 +90,7 @@
       </select>
     </div>
 
-       
+
     <div class="form-item" *ngIf="user.UserType == DRIVER">
       <label for="">Vehicle Reg*</label>
       <input type="text" name="" id="" [(ngModel)]="user.CarReg">
@@ -94,8 +112,8 @@
     <p>
       {{error}}
     </p>
-  
+
     <button class="secondary" (click)="error=null">I get it</button>
   </div>
- 
+
 </div>

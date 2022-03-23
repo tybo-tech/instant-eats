@@ -96,5 +96,12 @@ export class UserService {
       }
     }));
   }
+  notify(model) {
+    return this.http.post<UserModel>(`https://notification-app-hero-2.herokuapp.com/subscribe`, model).pipe(map(user => {
+      if (user) {
+        return user;
+      }
+    }));
+  }
 
 }

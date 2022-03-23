@@ -1,119 +1,39 @@
-<div class="private">
-  <div class="main" *ngIf="order">
-    <h3>
-      New order : {{order.OrderNo}}
-      <span>
-        {{order.CreateDate | date: 'mediumDate'}}
-        <a *ngIf="order.OrderSource">{{order.OrderSource}}</a> <br>
-        <a class="order-status"> {{order.FulfillmentStatus}}</a>
-        <a class="order-status"> {{order.Status}}</a>
-      </span>
-    </h3>
-    <div class="bag" *ngIf="order.Orderproducts && order.Orderproducts.length">
-      <div class="cart-item" *ngFor="let item of order.Orderproducts; let i = index">
+<div class="banner">
+  <div class="backkk">
 
-        <div class="item">
-          <h4 class="order-product-name">
-            {{item.ProductName}}
-            <span *ngFor="let option of item.OrderOptions">
-              {{option.OptionName}} - {{option.Price | currency :'R ' }}
-            </span>
-          </h4>
-          <p>
-            <span class="price">
-              {{item.Quantity}} x {{item.UnitPrice  | currency:'R'}}
-            </span>
-          </p>
-        </div>
-
-        <div class="item">
-          <div class="icon" *ngIf="item.FeaturedImageUrl">
-            <div class="user-dp-image">
-              <img [src]="item.FeaturedImageUrl" alt="">
-            </div>
-          </div>
-
-          <div class="icon" *ngIf="!item.FeaturedImageUrl">
-            <div class="user-dp-image">
-              <img src="assets/images/icons/add.svg" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- <h3>
-        <span class="print" (click)="print()">Print Invoice</span>
-      </h3> -->
+    <div class="name menu-back" (click)="goto('home/my-orders')">
+      <h6>
+        <i class="fa-solid fa-arrow-left"></i> Orders
+      </h6>
     </div>
 
-
-    <div class="shipping-method">
-      <div class="name">
-        {{ order.Shipping}} : <b>{{ this.order.ShippingPrice  | currency:'R'}}</b>
-      </div>
+    <div class="title" (click)="goto('home/my-orders')">
+      <h6>
+        My Order
+        <span *ngIf="order">
+          #{{order.Id}}
+        </span>
+      </h6>
     </div>
-
-    <div class="shipping-method" *ngIf="order.Delivery">
-      <div class="name">
-        🛵 {{ order.Delivery.DriverName}} <b>{{ this.order.Delivery.DriverReg}}</b>
-      </div>
-    </div>
-
-
-    <div class="shipping-method">
-      <div class="name">
-        <b>
-          Delivery information <br>
-        </b>
-        {{order.Customer.Name}} {{order.Customer.Surname}} <br>
-        {{order.Customer.PhoneNumber}} <br>
-        {{order.Customer.Email}} <br>
-
-
-        <p class="full-address" *ngIf="order.Customer.AddressLineHome">
-
-          {{order.Customer.AddressLineHome}}
-        </p>
-
-        <p *ngIf="!order.Customer.AddressLineHome" class="warn">
-          Please capture your delivery address
-          <br>
-        </p>
-      </div>
-
-
-    </div>
-
-
-    <div class="shipping-method">
-      <div class="name">
-        <b>
-          Order Notes <br>
-        </b>
-
-      </div>
-      <p>
-        {{order.Notes || 'No notes'}}
-      </p>
-    </div>
-
-
-    <h3 class="sammary" *ngIf="order">
-      <span class="tot">
-        Order Total: {{order.Total  | currency:'R'}} <a *ngIf="order.Due == 0">Fully paid.</a>
-      </span>
-    </h3>
-
-
-    <div class="actions">
-      <button type="button" (click)="goto('home/my-orders')" class="cta shop-more secondary">Order History</button>
-      <button type="button" (click)="goto('')" class="cta primary">Take me home</button>
-    </div>
-
-
-
-
   </div>
 
+
+</div>
+
+
+
+<!-- <app-history-order [order]="order" *ngIf="order && order.Status === 'Delivered'"></app-history-order>
+<app-history-order [order]="order" *ngIf="order && order.Status === 'Cancelled'"></app-history-order> -->
+
+
+<app-current-order [order]="order" [messegeCount]="messegeCount" [user]="user" [progress]="progress" *ngIf="user && order">
+</app-current-order>
+
+<div class="actions">
+  <button class="btn btn-primary" (click)="reOrder()">Order again</button>
+</div>
+
+<div class="private">
 
 
   <div class="quick-add" *ngIf="showAdd">

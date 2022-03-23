@@ -13,7 +13,7 @@ export class PaymentCancelledComponent implements OnInit {
   booking: Order;
   bookingId: string;
   showDone: boolean;
-
+  errorMessage = `The payment didn't finish successfully please try again`;
   constructor(
     private bookingService: OrderService,
     private activatedRoute: ActivatedRoute,

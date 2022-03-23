@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { TokenModel, EmailGetRequestModel, ChangePasswordModel } from 'src/models/account.model';
 import { User, UserModel } from 'src/models/user.model';
 import { SocialAuthService } from 'angularx-social-login';
+import { UxService } from './ux.service';
 
 
 @Injectable({
@@ -25,6 +26,7 @@ export class AccountService {
   constructor(
     private http: HttpClient,
     private authService: SocialAuthService,
+    private uxService: UxService,
 
     private router: Router) {
     this._user = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
@@ -41,7 +43,6 @@ export class AccountService {
   updateUserState(user: User) {
     this._user.next(user);
     localStorage.setItem('user', JSON.stringify(user));
-    this.authService.signOut();
 
   }
 
@@ -88,6 +89,9 @@ export class AccountService {
   logout() {
     this._user.next(null);
     localStorage.clear();
-    this.router.navigate(['']);
+    this.uxService.clearLocationState();
+    this.router.navigate(['/home/welcome']);
+    this.authService.signOut();
+
   }
 }
