@@ -62,7 +62,7 @@ h1 {
 .add-image {
   padding: .5em;
   text-align: center;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   width: 8.5em;
   min-height: 4.5em;
   top: 1em;

@@ -1,4 +1,4 @@
-
-<div class="loading">
-  <mat-spinner></mat-spinner>
+<div class="loader">
+  <img *ngIf="config" [src]="config.Loader" alt="">
+  <div class="spinner"></div>
 </div>

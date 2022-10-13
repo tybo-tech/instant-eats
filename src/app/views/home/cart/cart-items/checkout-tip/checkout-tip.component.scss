@@ -21,7 +21,8 @@
         font-weight: 600;
     }
     .active{
-        background: $pop;
+        background-color: var(--primary-color, rgb(115, 115, 115));
+        color: var(--primary-complementary, $black);
     }
 }
 

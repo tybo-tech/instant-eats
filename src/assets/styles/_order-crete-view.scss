@@ -185,7 +185,7 @@
 
   button {
     border-radius: .5em;
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     width: 90%;
     padding: 1em;
 

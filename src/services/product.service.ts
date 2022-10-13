@@ -9,6 +9,7 @@ import { Company } from 'src/models/company.model';
 import { Order } from 'src/models';
 import { CompanyService } from './company.service';
 import { TyboShopModel } from 'src/models/TyboShop';
+import { FeesModel, Item } from 'src/models/item.model';
 
 
 @Injectable({
@@ -228,18 +229,15 @@ export class ProductService {
   }
 
 
-  commisionPrice(price: number) {
-    let commisioned = price;
-    if (price < 100) {
-      return Number(price) + 3;
+  commisionPrice(price: number, fees: FeesModel[]) {
+    if (!fees || !fees.length) {
+      return price;
     }
+    price = Number(price);
 
-    if (price >= 100 && price < 200) {
-      return Number(price) + 5;
-    }
-    if (price >= 200) {
-      return Number(price) + 7;
-    }
-    return commisioned;
+    const fee = fees.find(x => price >= Number(x.Min) && price <= Number(x.Max));
+    if (fee)
+      return price + (price * Number(fee.Fee) / 100);
+    return price;
   }
 }

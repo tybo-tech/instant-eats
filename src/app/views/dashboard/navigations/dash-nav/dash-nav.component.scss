@@ -1,50 +1,52 @@
-@import '../../../../../assets/styles/color';
+@import "../../../../../assets/styles/color";
 
 .overlay {
   z-index: 50000;
 }
 
-.items{
+.items {
   position: fixed;
   z-index: 50001;
   left: 50%;
   width: 70%;
-  height: 100vh;
+  height: 85vh;
   top: 0;
   background: $white;
   // animation: moveInLeft .2s ease-out 0s;
   // animation-fill-mode: backwards;
   max-width: 25em;
   left: 50%;
-  top: 5.2em;
+  top: 1em;
   border-radius: 0.5em;
   transform: translate(-67.555555%, 0);
 
-
   @media only screen and (max-width: 600px) {
     top: 0;
+    height: 100vh;
   }
 
-
-  .item{
+  .item {
     display: grid;
     grid-template-columns: 3em auto;
     text-align: left;
-    padding: .75em 1em;
-    margin: .5em 0;
-    img{
+    padding: 0.75em 1em;
+    margin: 0.5em 0;
+    img {
       width: 2em;
       display: block;
     }
-    h3{
+    h3 {
       font-weight: 500;
       font-size: 1.4em;
     }
   }
 
-  .profile{
-    background: $pop;
+  .profile {
+    background-color: var(--primary-color, rgb(115, 115, 115));
     padding: 2em 1.4em;
     padding-top: 4em;
+    border-top-left-radius: .4rem;
+    border-top-right-radius: .4rem;
+    color: var(--primary-complementary, rgb(115, 115, 115));
   }
 }

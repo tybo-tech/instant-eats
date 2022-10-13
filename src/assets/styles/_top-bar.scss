@@ -7,9 +7,10 @@
   border-bottom: 1px solid $grey;
   max-width: 31em;
   left: 50%;
-  top: 7.3333em;
+  top: 2.5rem;
   border-radius: .5em;
   transform: translate(-50%, -33%);
+  box-shadow: $box-shadow;
   
   @media only screen and (max-width: 600px) {
     top: 0;

@@ -104,7 +104,7 @@ export class CreateOrderComponent implements OnInit {
       }
     });
     this.productService.getProducts(this.user.CompanyId);
-    this.lineItems = this.loadInintOrderproducts();
+    // this.lineItems = this.loadInintOrderproducts();
   }
 
   back() {
@@ -146,84 +146,6 @@ export class CreateOrderComponent implements OnInit {
     this.showChooseCustomer = false;
   }
 
-  loadInintOrderproducts(): Orderproduct[] {
-    return [
-      {
-        Id: '',
-        OrderId: '',
-        ProductId: '',
-        CompanyId: '',
-        ProductName: '',
-        ProductType: '',
-        FeaturedImageUrl: '',
-        Colour: 'red',
-        Size: 'XL',
-        UnitPrice: 0,
-        Quantity: 0,
-        SubTotal: 0,
-        CreateUserId: '',
-        ModifyUserId: '',
-        StatusId: 1
-      },
-      {
-        Id: '',
-        OrderId: '',
-        ProductId: '',
-        CompanyId: '',
-        ProductName: '',
-        ProductType: '',
-        FeaturedImageUrl: '',
-        Colour: 'red',
-        Size: 'XL',
-        UnitPrice: 0,
-        Quantity: 0,
-        SubTotal: 0,
-        CreateUserId: '',
-        ModifyUserId: '',
-        StatusId: 1
-      }
-    ];
-  }
-
-  mapOrderproduct(product: Product): Orderproduct {
-    return {
-      Id: '',
-      OrderId: '',
-      ProductId: product.ProductId,
-      CompanyId: this.user.CompanyId,
-      ProductName: product.Name,
-      ProductType: 'Product',
-      UnitPrice: product.SalePrice || product.RegularPrice,
-      FeaturedImageUrl: product.FeaturedImageUrl,
-      Colour: product.SelectedCoulor || '',
-      Size: product.SelectedSize || '',
-      Quantity: product.SelectedQuantiy || 1,
-      SubTotal: product.SelectedQuantiy * Number(product.RegularPrice),
-      CreateUserId: '',
-      ModifyUserId: '',
-      StatusId: 1
-    };
-  }
-
-  addLine() {
-    this.lineItems.push({
-      Id: '',
-      OrderId: '',
-      ProductId: '',
-      CompanyId: '',
-      ProductName: '',
-      ProductType: '',
-      FeaturedImageUrl: '',
-      Colour: 'red',
-      Size: 'XL',
-      UnitPrice: 0,
-      Quantity: 0,
-      SubTotal: 0,
-      CreateUserId: '',
-      ModifyUserId: '',
-      StatusId: 1
-    });
-  }
 
   removeLine(index: number) {
     this.lineItems.splice(index, 1);
@@ -257,7 +179,7 @@ export class CreateOrderComponent implements OnInit {
 
   doneSelectingProduct(product: Product) {
     if (product && this.order) {
-      this.order.Orderproducts.push(this.mapOrderproduct(product));
+      this.order.Orderproducts.push(this.orderService.mapOrderproduct(product));
       this.showChooseProduct = false;
       this.calculateTotalOverdue();
       this.order.Total = this.Total;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BASE } from 'src/environments/environment';
 import { Category, Product, User } from 'src/models';
 import { Company } from 'src/models/company.model';
 import { LocationModel, SearchResultModel, SliderHomeWidgetModel } from 'src/models/UxModel.model';
@@ -8,6 +9,7 @@ import { CompanyService } from 'src/services/company.service';
 import { InteractionService } from 'src/services/Interaction.service';
 import { UxService } from 'src/services/ux.service';
 import { DELIVERY_MODES, OPEN_CLOSE } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 
 @Component({
@@ -16,6 +18,7 @@ import { DELIVERY_MODES, OPEN_CLOSE } from 'src/shared/constants';
   styleUrls: ['./product-section.component.scss']
 })
 export class ProductSectionComponent implements OnInit {
+  config: WebConfig = getConfig(BASE);
   pickup = 'secondary';
   delivery = 'primary';
   loading = true;
@@ -29,7 +32,7 @@ export class ProductSectionComponent implements OnInit {
   categoriesItems: SliderHomeWidgetModel[];
   catergoryHeading = 'Catergory'
   popularFoodHeading = 'Popular food'
-  restaurantsHeading = 'Restaurants'
+  restaurantsHeading = `${this.config.WebCatergoryName}`
   restaurants: Company[] = [];
   searchResutls: SearchResultModel[] = [];
   user: User;
@@ -39,6 +42,7 @@ export class ProductSectionComponent implements OnInit {
   searchString: string;
   categories: Category[];
   products: Product[];
+
   constructor(
     private uxService: UxService,
     private router: Router,
@@ -50,6 +54,7 @@ export class ProductSectionComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.accountService.user.subscribe(data => {
       this.user = data;
     })
@@ -81,7 +86,7 @@ export class ProductSectionComponent implements OnInit {
             if (this.shopsNearByIds && this.shopsNearByIds.length) {
               this.getNearBy();
             } else {
-              alert("Opps no restaurants  found near you.")
+              alert(`Opps no ${this.config.WebCatergoryName}  found near you.`)
             }
           }
         })
@@ -188,11 +193,11 @@ export class ProductSectionComponent implements OnInit {
 
   searchClicked(item: SearchResultModel) {
     if (item.Type === 'product') {
-      this.router.navigate([`restaurant/${item.CompanyId}/${item.Id}`])
+      this.router.navigate([`${this.config.ShopLinkName}/${item.CompanyId}/${item.Id}`])
     }
 
     if (item.Type === 'restaurant') {
-      this.router.navigate([`restaurant/${item.Id}`])
+      this.router.navigate([`${this.config.ShopLinkName}/${item.Id}`])
     }
 
 
@@ -210,7 +215,7 @@ export class ProductSectionComponent implements OnInit {
       this.shopsItems.push({
         Image: item.Dp,
         Name: item.Name,
-        Link: `restaurant/${item.CompanyId}`,
+        Link: `${this.config.ShopLinkName}/${item.CompanyId}`,
         MinimumOrder: `${item.MinimumOrder}`,
         DeliveryTime: `${item.DeliveryTime}`,
         Description: `${item.AddressLine && item.AddressLine.substring(0, 33) || 'No Address.'}... `,

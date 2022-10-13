@@ -1,0 +1,79 @@
+@import "../../../../../assets/styles/color";
+.container {
+    padding-top: 5%;
+}
+
+.tabs {
+    grid-template-columns: repeat(2, 50%);
+}
+
+.fees {
+    background: $white;
+    padding: 1em;
+    margin: 1em 0;
+}
+.details {
+    padding: 1em;
+    textarea {
+        border: none;
+        background: none;
+    }
+}
+.delivery-fee {
+    padding: 1rem;
+    background: rgb(232, 237, 190);
+    border-radius: 0.4rem;
+    input {
+        background: $white;
+    }
+}
+
+.alert {
+    color: #000;
+}
+.link {
+    cursor: pointer;
+}
+.quick-add {
+    background: #fff;
+    height: 80vh;
+    .form {
+        background: #fff;
+        max-height: 30rem;
+        overflow-y: scroll;
+        // padding-bottom: 12rem;
+        h5 {
+            text-align: center;
+        }
+
+        .form-item {
+            // position: fixed;
+            // width: 90%;
+            // display: flex;
+            // justify-content: space-between;
+            // gap: 1rem;
+        }
+    }
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+    input {
+        margin-right: 1rem;
+    }
+}
+
+._filters{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    select, input{
+        font-size: .7rem;
+        background: none;
+        border: 1px solid rgb(194, 194, 194);
+        margin: 0;
+        padding: .2rem;
+    }
+}

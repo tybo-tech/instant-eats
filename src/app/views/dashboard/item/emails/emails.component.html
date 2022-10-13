@@ -1,0 +1,157 @@
+<div class="banner">
+    <div class="backkk">
+        <div class="menu-back">
+            <span class="material-icons" (click)="back()">
+                arrow_back
+            </span>
+        </div>
+
+
+        <div class="name menu-back" (click)="back()">
+            Send new email
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div class="container" *ngIf="item">
+    <div class="tabs">
+        <div class="tab" *ngFor="let tab of EMAILS_TABS" [ngClass]="tab.Class" (click)="goto(tab)">
+            {{tab.Name}}
+        </div>
+    </div>
+
+
+    <div class="dash-forms">
+
+        <div class="upload-preview">
+            <div class="upload">
+                <input type="file" accept="image/png, image/jpeg" #file placeholder="Choose file" multiple
+                    (change)="uploadFile(file.files)" style="display:none;">
+            </div>
+            <div class="preview" (click)="file.click()">
+                <img *ngIf="item.ImageUrl" [src]="item.ImageUrl" alt="">
+            </div>
+            <span class="material-icons  user-dp" *ngIf="!item.ImageUrl" (click)="file.click()">
+                add_a_photo
+            </span>
+        </div>
+        <div class="form-item">
+            <label for="name">Subject</label>
+            <input type="text" [(ngModel)]="item.Name">
+        </div>
+
+        <div class="form-item">
+            <label for="name">Title</label>
+            <input type="text" [(ngModel)]="item.ItemSubCategory">
+        </div>
+        <div class="form-item">
+            <label for="name">Heading</label>
+            <input type="text" [(ngModel)]="item.ItemCode">
+        </div>
+
+        <div class="form-item">
+            <label for="name">Body</label>
+            <textarea type="text" [(ngModel)]="item.Description"></textarea>
+        </div>
+
+        <div class="form-item">
+            <label for="name">Button Label</label>
+            <input type="text" [(ngModel)]="item.ActionName">
+        </div>
+
+        <div class="form-item">
+            <label for="name">Button Click Url</label>
+            <input type="text" [(ngModel)]="item.ActionUrl">
+        </div>
+
+        <div class="form-item">
+            <label for="name">Recipients</label>
+            <!-- <div class="alert alert-secondary" role="alert">
+                <small>{{item.AddressLine}}</small>
+            </div> -->
+
+            <textarea readonly [(ngModel)]="item.AddressLine"></textarea>
+            <a class="link" (click)="selectUser = true">Select customers</a>
+        </div>
+        <br><br>
+
+
+
+
+
+
+        <button mat-button class="btn btn-primary" type="button" [disabled]="!item.Name" type="button" (click)="send()">
+            Send email
+        </button>
+
+    </div>
+</div>
+
+
+<!-- <div class="quick-add" *ngIf="selectUser && customers">
+    <div class="form">
+    </div>
+
+    <div class="form">
+        <h5>
+            Choose customers
+        </h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div><input id="all" type="checkbox" (change)="inputChanged()"></div>
+                <label for="all">All</label>
+            </li>
+            <li class="list-group-item" *ngFor="let customer of customers; let i = index">
+                <input [checked]="customer.Selected" [id]="'id-'+i" type="checkbox" (change)="inputChanged(customer)">
+                <div> <label [for]="'id-'+i">
+                        {{customer.Name}} <br> {{customer.Email}}
+                    </label> </div>
+            </li>
+        </ul>
+
+        <div class="form-item">
+            <button (click)="select()">Choose selected</button>
+            <button (click)="selectUser = false">Cancel</button>
+        </div>
+    </div>
+</div> -->
+
+<div class="_modal-v2" *ngIf="customers && selectUser">
+    <div class="_modal-header">
+        <h5>
+            Choose customers ({{customers.length}})
+        </h5>
+        <h6>
+            <i class="fa fa-times pointer"  (click)="selectUser = false"></i>
+        </h6>
+    </div>
+    <div class="_modal-body">
+        <ul class="list-group">
+            <div class="_filters">
+                <label>Filters</label>
+                <select name="" id="" [(ngModel)]="filter1" (change)="filter1Changed()">
+                    <option value="all">All customers</option>
+                    <option value="no-phone">No Phone number</option>
+                </select>
+                <input type="text" [(ngModel)]="search">
+            </div>
+            <li class="list-group-item">
+                <div><input id="all" type="checkbox" [checked]="chooseAll" [(ngModel)]="chooseAll" (change)="inputChanged()"></div>
+                <label for="all">All</label>
+            </li>
+            <li class="list-group-item" *ngFor="let customer of customers | searchuser:search; let i = index">
+                <input [checked]="customer.Selected" [id]="'id-'+i" type="checkbox" (change)="inputChanged(customer)">
+                <div> <label [for]="'id-'+i">
+                        {{customer.Name}} <br> {{customer.Email}}
+                    </label> </div>
+            </li>
+        </ul>
+    </div>
+    <div class="_modal-footer">
+            <button (click)="select()">Choose selected</button>
+    </div>
+</div>

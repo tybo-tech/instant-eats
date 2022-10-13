@@ -199,6 +199,11 @@ export class CompanyService {
       `${this.url}/api/company/add-company.php`, company
     );
   }
+  QueryDelete(q: string) {
+    return this.http.post<Company>(
+      `${this.url}/api/company/delete-by-query.php`, {Query: q}
+    );
+  }
 
   getNearBy(shopNearBy: string[]) {
     return this.http.post<Company[]>(

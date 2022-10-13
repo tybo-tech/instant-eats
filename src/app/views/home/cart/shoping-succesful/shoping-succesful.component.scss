@@ -25,7 +25,7 @@
   .actions {
       text-align: center;
     button {
-      background: $pop;
+      background-color: var(--primary-color, rgb(115, 115, 115));
       color: $black;
       margin: 1em auto;
       border-radius: .5em;
@@ -76,7 +76,7 @@
   }
 
   button {
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     color: $black;
     width: 14em;
     margin: .2em auto;

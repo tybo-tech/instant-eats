@@ -3,7 +3,7 @@
 <div class="main">
 
   <div class="search-all">
-    <input type="search" [(ngModel)]="searchString" (keyup)="search()" placeholder="Search Restaurants or Food cuisines">
+    <input type="search" [(ngModel)]="searchString" *ngIf="config" (keyup)="search()" [placeholder]="config.SearchPlaceHolder">
     <div class="results" *ngIf="searchString && searchResutls && searchResutls.length">
       <div class="result" *ngFor="let item of searchResutls">
         <div class="row">
@@ -23,13 +23,13 @@
     </div>
   </div>
 
-  <div class="restaurants-counter">
-    <div class="col">
+  <div class="company-counter">
+    <div class="col" *ngIf="config">
       <h4>
-        {{shopsItems?.length || 0}} Restaurants near you
+        {{shopsItems?.length || 0}} {{config.WebCatergoryName}} near you
       </h4>
     </div>
-    <div class="col actions">
+    <div class="z actions">
       <button [ngClass]="delivery" (click)="switchPickUpMode(DELIVERY_MODES[2])">delivery</button>
       <button [ngClass]="pickup" (click)="switchPickUpMode(DELIVERY_MODES[1])">Collect</button>
     </div>
@@ -47,5 +47,5 @@
 
 
 
-<!-- <app-slider-widget *ngIf="shopsItems" [items]="shopsItems" [heading]="restaurantsHeading"></app-slider-widget> -->
+<!-- <app-slider-widget *ngIf="shopsItems" [items]="shopsItems" [heading]=" {{config.WebCatergoryNameSingular}}sHeading"></app-slider-widget> -->
 <!-- <app-slider-widget *ngIf="productsItems" [items]="productsItems" [heading]="popularFoodHeading"></app-slider-widget> -->

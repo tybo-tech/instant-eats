@@ -34,6 +34,7 @@ import { ShopingSuccesfulComponent } from './cart/shoping-succesful/shoping-succ
 import { WishListComponent } from './cart/wish-list/wish-list.component';
 import { CustomerFeedbackComponent } from './customer-feedback/customer-feedback.component';
 import { DriverDashboardComponent } from './driver/driver-dashboard/driver-dashboard.component';
+import { DriverHistoryComponent } from './driver/driver-history/driver-history.component';
 import { RateDriverComponent } from './driver/rate-driver/rate-driver.component';
 import { FiitingRoomComponent } from './fiiting-room/fiiting-room.component';
 import { AboutComponent } from './general/about/about.component';
@@ -95,6 +96,8 @@ const routes: Routes = [
       // { path: ':id', component: ShopComponent },
       { path: 'restaurant/:id', component: ShopProductsComponent },
       { path: 'restaurant/:id/:productId', component: ShopProductsComponent },
+      { path: 'farmer/:id', component: ShopProductsComponent },
+      { path: 'farmer/:id/:productId', component: ShopProductsComponent },
 
       // { path: 'home/shop', component: HomeLandingComponent },
       { path: 'home/welcome', component: HelloPageComponent },
@@ -144,6 +147,7 @@ const routes: Routes = [
       { path: 'home/chat/:id', component: ChatComponent },
       { path: 'home/rate/:id', component: RateDriverComponent },
       { path: 'driver/dashboard', component: DriverDashboardComponent },
+      { path: 'driver/history', component: DriverHistoryComponent },
       { path: 'driver/dashboard/:id', component: DriverDashboardComponent },
       
 

@@ -26,7 +26,7 @@
 
       <div class="logo">
         <a routerLink="">
-          <img src="assets/images/common/logo.jpeg" alt="">
+          <img [src]="config.Logo" alt="">
         </a>
       </div>
 
@@ -72,7 +72,7 @@
 
         <div class="forgot-password sign-up">
           <br>
-          <a routerLink="/home/sign-up">New to Instant? <span>Sign Up</span></a>
+          <a routerLink="/home/sign-up">New to {{config.Name}}? <span>Sign Up</span></a>
         </div>
 
       </div>

@@ -22,7 +22,7 @@
   </h3>
 
 
-  <app-card-list-widget (itemSelectedEvent)="OnItemSelected($event)" [showFilter]="showFilter"
+  <app-card-list-widget (itemSelectedEvent)="OnItemSelected($event)" (deleteEvent)="deleteEvent($event)" [showFilter]="showFilter"
     [primaryAction]="primaryAction" (primaryActionEvent)="onPrimaryActionEvent($event)" [items]="widgetItems">
   </app-card-list-widget>
 
@@ -65,7 +65,9 @@
       <label for="">Phone Number</label>
       <input type="email" name="" id="" [(ngModel)]="user.PhoneNumber">
     </div>
-    <div class="form-item">
+
+
+    <div class="form-item"  *ngIf="user.UserType == DRIVER">
       <label for="">Status</label>
       <select [(ngModel)]="user.UserStatus">
         <option value="Online">Online</option>
@@ -96,6 +98,13 @@
       <input type="text" name="" id="" [(ngModel)]="user.CarReg">
     </div>
 
+    <div class="form-item">
+      <label for="">Status</label>
+      <select type="number" name="" id="" [(ngModel)]="user.UserStatus">
+        <option [value]="item" *ngFor="let item of ['Active','Deactivated','Account Locked']">{{item}}</option>
+      </select>
+    </div>
+
 
 
 
@@ -117,3 +126,6 @@
   </div>
 
 </div>
+
+
+

@@ -1,0 +1,168 @@
+<div class="banner">
+    <div class="backkk">
+        <div class="menu-back">
+            <span class="material-icons" (click)="back()">
+                arrow_back
+            </span>
+        </div>
+
+
+        <div class="name menu-back" (click)="back()">
+             {{config.WebCatergoryNameSingular}} dashboard
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div class="container" *ngIf="items">
+    <h1>
+        Reports
+    </h1>
+    <br>
+    <!-- <div class="tabs">
+        <div class="tab" *ngFor="let tab of REPORTS_TABS" [ngClass]="tab.Class" (click)="goto(tab)">
+            {{tab.Name}}
+        </div>
+    </div> -->
+
+    <div class="dates">
+        <div class=""> <label for="">Select date range :</label>
+        </div>
+        <div class=""></div>
+        <div class="date">
+            <input type="date" [(ngModel)]="fromDate" (change)="getReports()">
+        </div>
+        <div class="date">
+            <input type="date" [(ngModel)]="toDate" (change)="getReports()">
+        </div>
+    </div>
+    <div class="grid-2" *ngIf="orders">
+        <div class="order-amounts-per-status ">
+            <p>
+                Total orders
+            </p>
+            <h5 class="mid-header">
+               {{orders.length}}
+            </h5>
+        </div>
+
+        <div class="order-amounts-per-status ">
+            <p>
+                Sales
+            </p>
+            <h5 class="mid-header">
+               {{ sales | currency:'R' }}
+            </h5>
+        </div>
+    </div>
+
+    <div class="order-amounts-per-status" *ngIf="doughnutData">
+        <h3>
+            Order totals per status
+        </h3>
+        <p-chart type="doughnut" [data]="doughnutData" [options]="chartOptions" [style]="{'width': '100%'}"></p-chart>
+
+
+        <table class="table" *ngIf="orderReport">
+            <tr (click)="viewReport(ORDER_STATUSES[0])">
+                <td><b>PEN</b> Pending</td>
+                <td>{{orderReport.COUNT_PEN}}</td>
+                <td><b>{{orderReport.PEN | currency: 'R'}}</b></td>
+            </tr>
+            <tr (click)="viewReport(ORDER_STATUSES[2])">
+                <td><b>PRE</b> Preparing</td>
+                <td>{{orderReport.COUNT_PRE}}</td>
+                <td><b>{{orderReport.PRE | currency: 'R'}}</b></td>
+            </tr>
+            <tr (click)="viewReport(ORDER_STATUSES[3])">
+                <td><b>RFP</b> Read for pick up</td>
+                <td>{{orderReport.COUNT_RFP}}</td>
+                <td><b>{{orderReport.RFP | currency: 'R'}}</b></td>
+            </tr>
+            <tr (click)="viewReport(ORDER_STATUSES[4])">
+                <td><b>TRN</b> On the way</td>
+                <td>{{orderReport.COUNT_TRN}}</td>
+                <td><b>{{orderReport.TRN | currency: 'R'}}</b></td>
+            </tr>
+            <tr (click)="viewReport(ORDER_STATUSES[5])">
+                <td><b>DEL</b> Delivered</td>
+                <td>{{orderReport.COUNT_DEL}}</td>
+                <td><b>{{orderReport.DEL | currency: 'R'}}</b></td>
+            </tr>
+            <tr (click)="viewReport(ORDER_STATUSES[6])">
+                <td><b>CAN</b> Delivered</td>
+                <td>{{orderReport.COUNT_CAN}}</td>
+                <td><b>{{orderReport.CAN | currency: 'R'}} </b></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="order-amounts-per-status" *ngIf="commissions">
+        <h3>
+            Commissions
+        </h3>
+
+        <div class="commissions">
+            <div class="commission" *ngFor="let commission of commissions" (click)="viewReport()">
+                <p>{{commission.Name}}</p>
+                <h5 class="mid-header">
+                    {{ commission.Amount | currency:'R' }}
+                 </h5>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="seletedList && seletedList.length" class="quick-add" (click)="seletedList = null">
+    <div class="form">
+        <h3>{{report}}</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Create Date</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col"> {{config.WebCatergoryNameSingular}}</th>
+                    <th scope="col">Shipping Commission Fee</th>
+                    <th scope="col">Driver Shipping Fee</th>
+                    <th scope="col">Service Fee</th>
+                    <th scope="col"> {{config.WebCatergoryNameSingular}} fees</th>
+                    <th scope="col">Driver Tip</th>
+                    <th scope="col">Order Commission Fee</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">More</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of seletedList">
+                    <th scope="row">{{item.Id}}</th>
+                    <td>
+                        {{item.CreateDate | dateformater}}  {{item.CreateDate | dateformater: 'time'}}
+                    </td>
+                    <td>
+                        {{item.CustomerName}}
+                    </td>
+                    <td>
+                        {{item.CompanyName}}
+                    </td>
+                    <td>{{item.ShippingCommissionFee | currency: 'R'}}</td>
+                    <td>{{item.DriverShippingFee | currency: 'R'}}</td>
+                    <td>{{item.ServiceFee | currency: 'R'}}</td>
+                    <td>{{item.ItemsTotal | currency: 'R'}}</td>
+                    <td>{{item.DriverTip | currency: 'R'}}</td>
+                    <td>{{item.OrderCommissionFee | currency: 'R'}}</td>
+                    <td>{{item.Total | currency: 'R'}}</td>
+                    <td>
+                        <a class="link-success" [routerLink]="[ '/admin/dashboard/order/' + item.OrdersId]">View
+                            more</a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -61,7 +61,9 @@
         <button type="button" (click)="payOnline()" *ngIf="user && order && order.Orderproducts.length"
           class="cta">Proceed to online
           payments</button>
-        <button type="button" *ngIf="user" (click)="payCash()" class="cta shop-more secondary">Pay with cash on
+        <button type="button" *ngIf="user" (click)="payCash()" style="margin-top: .9rem;" class="cta shop-more secondary">Pay with cash on
+          delivery</button>
+        <button type="button" *ngIf="user" (click)="payCard()" style="margin-top: 0;background: rgb(27, 225, 116) !important; color: #000 !important; border: none !important;" class="cta shop-more secondary">Pay with card on
           delivery</button>
         <button type="button" *ngIf="!user" (click)="goto('home/sign-in')" class="cta">Login & checkout</button>
         <button type="button" *ngIf="!user" (click)="goto('home/sign-up')" class="cta shop-more secondary">Register &
@@ -83,7 +85,7 @@
             <div class="form-item">
               <button type="submit" class="cta">Proceed to
                 payfast</button>
-              <div class="link" (click)="showCashConfirm = false">Cancel</div>
+              <div class="link" (click)="showOnlinePayment = false">Cancel</div>
             </div>
           </div>
         </div>
@@ -104,12 +106,32 @@
     <p>
       Please ensure that you have enough cash to pay <b> Instant eats</b> driver.
       <br>
-      Our drivers carry limited change and do not carry credit card machine
+      Our drivers carry limited change and they also carry credit card machine
     </p>
 
     <div class="form-item">
       <button (click)="onCashConfirm()">Confirm Cash Order</button>
       <div class="link" (click)="showCashConfirm = false">Cancel</div>
+    </div>
+  </div>
+</div>
+
+<div class="quick-add" *ngIf="showCardConfirm">
+  <div class="form">
+    <img src="assets/images/atm.png" alt="">
+
+    <h1>Tap or Swipe {{order.Total | currency:'R'}}
+    </h1>
+    <br>
+    <p>
+      Please ensure that you have your card with you to pay <b> Instant eats</b> driver.
+      <br>
+      Our drivers carry credit card machine.
+    </p>
+
+    <div class="form-item">
+      <button (click)="onCardConfirm()">Confirm Card Order</button>
+      <div class="link" (click)="showCardConfirm = false">Cancel</div>
     </div>
   </div>
 </div>

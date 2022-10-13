@@ -163,7 +163,7 @@
 
     button {
       margin-top: 2em;
-      background: $pop;
+      background-color: var(--primary-color, rgb(115, 115, 115));
       border-radius: .5em;
       padding: .7em;
     }
@@ -276,7 +276,7 @@
     border-radius: .5em;
     width: auto;
     height: 2em;
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     text-align: center;
     padding: .2em .5em;
     font-weight: 700;
@@ -422,4 +422,30 @@ textarea {
   img {
     width: 100%;
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ppp{
+margin-top: 0;
+margin-left: 0;
+margin-top: 0;
+margin-bottom: 0;
+margin-right: 0;
+
+border-image: '';
+font-weight:  none ;
 }

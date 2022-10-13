@@ -22,6 +22,9 @@ export class ItemService {
   private ItemListBehaviorSubject: BehaviorSubject<Item[]>;
   public ItemListObservable: Observable<Item[]>;
 
+  private feesBehaviorSubject: BehaviorSubject<Item[]>;
+  public feesObservable: Observable<Item[]>;
+
   private ItemBehaviorSubject: BehaviorSubject<Item>;
   public ItemObservable: Observable<Item>;
   url: string;
@@ -32,11 +35,13 @@ export class ItemService {
   ) {
     this.ItemListBehaviorSubject = new BehaviorSubject<Item[]>(JSON.parse(localStorage.getItem("ItemsList")) || []);
     this.pageListBehaviorSubject = new BehaviorSubject<Item[]>(JSON.parse(localStorage.getItem("PageList")) || []);
+    this.feesBehaviorSubject = new BehaviorSubject<Item[]>(JSON.parse(localStorage.getItem("fees")) || []);
     this.ItemBehaviorSubject = new BehaviorSubject<Item>(null);
 
     this.ItemListObservable = this.ItemListBehaviorSubject.asObservable();
     this.pageListObservable = this.pageListBehaviorSubject.asObservable();
     this.ItemObservable = this.ItemBehaviorSubject.asObservable();
+    this.feesObservable = this.feesBehaviorSubject.asObservable();
 
     this.url = environment.API_URL;
     this.user = accountService.currentUserValue;
@@ -60,12 +65,16 @@ export class ItemService {
     this.pageListBehaviorSubject.next(items);
     localStorage.setItem('PageList', JSON.stringify(items));
   }
+  updateFeesState(items: Item[]) {
+    this.feesBehaviorSubject.next(items);
+    localStorage.setItem('fees', JSON.stringify(items));
+  }
 
   add(Item: Item) {
     return this.http.post<Item>(`${this.url}/api/item/add-item.php`, Item);
   }
   addRange(items: Item[]) {
-    return this.http.post<Item>(`${this.url}/api/item/add-item-range.php`, items);
+    return this.http.post<Item[]>(`${this.url}/api/item/add-item-range.php`, items);
   }
   getItems(companyId: string, itemCategory: string, showChildren = false) {
     return this.http.get<Item[]>(`${this.url}/api/item/get-items.php?CompanyId=${companyId}&ItemCategory=${itemCategory}&ShowChildren=${showChildren}`)

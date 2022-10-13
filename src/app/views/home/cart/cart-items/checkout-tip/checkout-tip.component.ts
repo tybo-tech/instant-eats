@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Order } from 'src/models';
+import { Item } from 'src/models/item.model';
 import { OrderService } from 'src/services';
+import { ItemService } from 'src/services/item.service';
 
 @Component({
   selector: 'app-checkout-tip',
@@ -11,6 +13,8 @@ export class CheckoutTipComponent implements OnInit {
 
   @Input() order: Order;
   edit: boolean;
+  fees: Item[];
+
   tips = [
     { Name: '0', Unit: '%', Class: ['active'] },
     { Name: '5', Unit: '%' },
@@ -19,7 +23,8 @@ export class CheckoutTipComponent implements OnInit {
     { Name: '50', Unit: '%' },
   ]
   constructor(
-    private orderService: OrderService
+    private orderService: OrderService,    private itemService: ItemService,
+
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +36,11 @@ export class CheckoutTipComponent implements OnInit {
       if (item)
         this.select(item, true);
     }
-
+    this.itemService.feesObservable.subscribe(fees => {
+      if (fees && fees.length) {
+      this.fees = fees;
+      }
+    })
   }
   select(item, skipSave = false) {
     if (item.Name === 'MORE') {
@@ -43,7 +52,7 @@ export class CheckoutTipComponent implements OnInit {
     this.order.DriverTip = Math.floor(this.order.DriverTip);
     this.tips.map(x => x.Class = []);
     item.Class = ['active'];
-    this.order = this.orderService.calculateTotalOverdue(this.order);
+    this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
     if (!skipSave)
       this.orderService.updateOrderState(this.order);
   }

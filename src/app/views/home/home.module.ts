@@ -25,6 +25,7 @@ import { DriverDashboardComponent } from './driver/driver-dashboard/driver-dashb
 import { OrderDriverComponent } from './driver/order-driver/order-driver.component';
 import { RateDriverComponent } from './driver/rate-driver/rate-driver.component';
 import {RatingModule} from 'primeng/rating';
+import { DriverHistoryComponent } from './driver/driver-history/driver-history.component';
 
 @NgModule({
   imports: [
@@ -48,7 +49,7 @@ import {RatingModule} from 'primeng/rating';
     // QuillModule.forRoot()
 
   ],
-  declarations: [...declarations, CheckoutCustomerInfoComponent, AltraCheckoutComponent, AltraCheckoutCustomerComponent, AltraCheckoutCartComponent, AltraCheckoutPaymentsComponent, CheckoutTipComponent, DriverDashboardComponent, OrderDriverComponent, RateDriverComponent]
+  declarations: [...declarations, CheckoutCustomerInfoComponent, AltraCheckoutComponent, AltraCheckoutCustomerComponent, AltraCheckoutCartComponent, AltraCheckoutPaymentsComponent, CheckoutTipComponent, DriverDashboardComponent, OrderDriverComponent, RateDriverComponent, DriverHistoryComponent]
 })
 export class HomeModule { }
 

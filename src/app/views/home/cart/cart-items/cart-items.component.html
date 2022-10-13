@@ -111,13 +111,13 @@
     </div>
 
     <textarea name="" id="" cols="30" rows="10" [(ngModel)]="order.Notes" (change)=updateOrder()
-      placeholder="Add your notes to the restaurant here "></textarea>
+      placeholder="Add your notes to the  {{config.WebCatergoryNameSingular}} here "></textarea>
   </div>
 
 
 
 
-  <div class="card" *ngIf="order.Shipping && shippings &&  shippings.length  && user">
+  <div class="card" *ngIf="order && order.Shipping && shippings &&  shippings.length">
 
 
     <div class="sammary">
@@ -127,9 +127,9 @@
       <h6 *ngIf="this.order.DriverTip">
         Driver Tip .... {{ this.order.DriverTip | currency:'R'}}
       </h6>
-      <h6 *ngIf="this.order.ServiceFee">
+      <!-- <h6 *ngIf="this.order.ServiceFee">
         Service Fee.... {{ this.order.ServiceFee | currency:'R'}}
-      </h6>
+      </h6> -->
       <h6>
         {{ order.Shipping}} .... {{ this.order.ShippingPrice | currency:'R'}}
       </h6>
@@ -160,11 +160,11 @@
       </h1>
       <br>
       <p>
-        Explore restaurants nearby and order your favorite food
+        Explore {{config.WebCatergoryName}} nearby and order your favorite food
       </p>
 
       <div class="form-item">
-        <button (click)="back()">Go to restaurants</button>
+        <button (click)="back()">Go to {{config.WebCatergoryName}}</button>
       </div>
     </div>
   </div>

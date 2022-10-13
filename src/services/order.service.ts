@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { Order } from 'src/models/order.model';
 import { ACCEPT_REQUEST_SECONDS, ADD_ORDER_URL, DELIVERY_REQUEST_STATUSES, GET_ORDERS_BY_USER_ID_URL, GET_ORDERS_URL, GET_ORDER_URL, ITEM_TYPES, ORDER_STATUSES, PRINT_URL, SEND_EMAIL_GENERAL_TEXT, UPDATE_ORDER_URL } from 'src/shared/constants';
 import { Router } from '@angular/router';
-import { Email, User } from 'src/models';
-import { Item } from 'src/models/item.model';
+import { Email, Orderproduct, Product, User } from 'src/models';
+import { FeesModel, Item } from 'src/models/item.model';
 
 
 @Injectable({
@@ -127,6 +127,8 @@ export class OrderService {
   }
 
   select(query: string) {
+    console.log(query);
+
     return this.http.post<any[]>(`${this.url}/api/orders/select.php`, { query });
   }
 
@@ -144,15 +146,37 @@ export class OrderService {
   }
 
 
+  mapOrderproduct(product: Product): Orderproduct {
+    return {
+      Id: '',
+      OrderId: '',
+      ProductId: product.ProductId,
+      CompanyId: product.CompanyId,
+      ProductName: product.Name,
+      ProductType: 'Product',
+      Colour: product.SelectedCoulor || '',
+      Size: product.SelectedSize || '',
+      Quantity: product.SelectedQuantiy,
+      SubTotal: product.SelectedQuantiy * Number(product.RegularPrice),
+      OriginalPrice: product.OldPrice || 0,
+      OriginalSubTotal: product.SelectedQuantiy * Number(product.OldPrice) || 0,
+      UnitPrice: product.SalePrice || product.RegularPrice,
+      FeaturedImageUrl: product.FeaturedImageUrl,
+      CreateUserId: '',
+      ModifyUserId: '',
+      StatusId: 1
+    };
+  }
+
   reOrder(order: Order) {
     order.OrdersId = '';
     order.EstimatedDeliveryDate = '';
     order.MaxDeliveryTime = '';
-    order.CashCollected = 0;
     order.DriverTip = 0;
+    order.CashCollected = 0;
+    order.ServiceFee = 0;
     order.DriverRating = '';
     order.DriverRatingNotes = '';
-    order.ServiceFee = 0;
     order.DriverId = '';
     order.DriverName = '';
     order.DriverStatus = '';
@@ -204,7 +228,7 @@ export class OrderService {
 
 
 
-  calculateTotalOverdue(order: Order): Order {
+  calculateTotalOverdue(order: Order, fees: Item[]): Order {
     if (!order)
       return;
 
@@ -214,41 +238,81 @@ export class OrderService {
     order.DriverTip = Number(order.DriverTip);
     order.Paid = order.Paid || 0
     order.ShippingPrice = order.ShippingPrice || 0;
+
+    // Fees
+    order.DriverShippingFee = 0;
+    order.ShippingCommissionFee = 0;
+    order.RestaurantFee = 0;
+    order.OrderCommissionFee = 0;
+    let itemsOldTotal = 0;
     order.Orderproducts.forEach(line => {
       line.SubTotal = line.Quantity * Number(line.UnitPrice);
       order.ItemsTotal += (Number(line.UnitPrice) * Number(line.Quantity));
+      itemsOldTotal += (Number(line.OriginalPrice) * Number(line.Quantity));
       order.CartItems += Number(line.Quantity);
 
     });
 
-    order.ServiceFee = this.getServiceFee(Number(order.ItemsTotal));
     order.Total = Number(order.ItemsTotal) + Number(order.ShippingPrice) + order.DriverTip + order.ServiceFee;
     order.Due = Number(order.Total) - Number(order.Paid);
+    order.RestaurantFee = order.ItemsTotal
+    order.OrderCommissionFee = this.round(order.ItemsTotal - itemsOldTotal);
+    //  Calculate Fees
+    if (fees && order.Shipping) {
+      console.log(order.ShippingPrice);
+      order = this.getShippingFees(order, fees);
+    }
+
+    if (fees && order.Shipping) {
+      console.log(order.ShippingPrice);
+      order = this.getServiceFee(order, fees);
+    }
+
+    console.log(order);
+
     return order;
   }
-  getServiceFee(total: number): number {
-    const fees = 0
-    if (total <= 50) {
-      return 5;
-    }
-    if (total > 50 && total <= 100) {
-      return 7;
+  getShippingFees(order, fees) {
+    let deliveryFees;
+    order.DriverShippingFee = 0;
+    order.ShippingCommissionFee = 0;
+    const price = Number(order.ShippingPrice);
+    const delivery = fees.find(x => x.ItemType === 'delivery');
+    if (delivery) {
+      deliveryFees = JSON.parse(delivery.Description);
+
+      const fee = deliveryFees.find(x => price >= Number(x.Min) && price <= Number(x.Max));
+      if (fee) {
+        order.ShippingCommissionFee = (price * Number(fee.Fee) / 100);
+        order.DriverShippingFee = price - Number(order.ShippingCommissionFee);
+      }
+
     }
 
-    if (total > 100 && total <= 150) {
-      return 11;
-    }
-
-    if (total > 150 && total <= 200) {
-      return 15;
-    }
-
-    if (total > 200) {
-      return 17;
-    }
-
-    return fees;
+    return order;
   }
+
+  round(num = 0.000) {
+    return Math.round(num * 100) / 100
+  }
+
+  getServiceFee(order: Order, fees) {
+    let serviceFees;
+    order.ServiceFee = 0;
+    const price = Number(order.ItemsTotal);
+    const theFeeRanges = fees.find(x => x.ItemType === 'order');
+    if (theFeeRanges) {
+      serviceFees = JSON.parse(theFeeRanges.Description);
+
+      const fee = serviceFees.find(x => price >= Number(x.Min) && price <= Number(x.Max));
+      if (fee)
+        order.ServiceFee =  Number(fee.Fee);
+    }
+    return order;
+  }
+
+
+
 
   getOneProductOrderImage(order: Order): string {
     let image = '';
@@ -459,7 +523,7 @@ export class OrderService {
 
     orders.forEach(item => {
       console.log(item.DriverCount);
-      
+
       if (item.DriverRequestLastModified && item.DriverStatus !== DELIVERY_REQUEST_STATUSES.ACCEPTED.Name && item.DriverCount > ACCEPT_REQUEST_SECONDS) {
         item.DriverRequestLastModified = '';
         item.DriverStatus = '';
@@ -469,7 +533,7 @@ export class OrderService {
     })
 
 
-    const order = orders.find(x => !x.DriverRequestId);
+    const order = orders.find(x => !x.DriverRequestId && x.Status !== ORDER_STATUSES[0] && !x.DriverId);
     if (order && order.Drivers) {
       order.Drivers.map(x => x.LastDeliveryCount = this.getSeconds(x.LastDeliveryTime));
       const sortedByTime = order.Drivers.sort(function (a, b) {
@@ -489,18 +553,18 @@ export class OrderService {
           if (_order && _order.OrdersId) {
             if (driver.AddressUrlWork && driver.AddressUrlWork.includes("endpoint")) {
               console.log(driver.AddressUrlWork);
-              
+
               this.pushNotify(driver.AddressUrlWork, `New delivery request`, `From ${order.Company.Name} to ${order.FullAddress}`,
                 `${environment.BASE_URL}/driver/dashboard/${order.OrdersId}`, this.getOneProductOrderImage(order));
             }
-    
+
             // Email
             const emailToSend: Email = {
               Email: driver.Email,
               Subject: `New delivery request`,
               Message: `From ${order.Company.Name} to ${order.FullAddress}`
             };
-    
+
             this.sendGeneralTextEmail(emailToSend);
           }
         })

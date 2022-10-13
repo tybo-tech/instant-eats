@@ -10,7 +10,7 @@
 
 
       <div class="name menu-back" (click)="back()">
-        Instant eats
+        {{config?.Name}}
       </div>
 
 
@@ -34,8 +34,7 @@
 
     <div class="cover">
 
-      <img *ngIf="company.Background" [src]="company.Background" alt="">
-      <img *ngIf="!company.Background" src="assets/images/cover.png" alt="">
+      <img [src]="company.Background || 'assets/images/cover.png'" alt="">
 
       <div class="lg">
         <img [src]="company.Dp" alt="">
@@ -65,6 +64,9 @@
   <div class="products-holder" *ngIf="!emptyShop && !warning ">
 
     <div class="products" *ngIf="products">
+      <div class="search">
+        <input type="text" class="form-control" placeholder="Search products" [(ngModel)]="searchString">
+      </div>
       <div class="product" *ngFor="let product of products | searchproductshome:searchString; let i = index"
         (click)="select(product)">
 
@@ -113,7 +115,7 @@
   <div class="warning" *ngIf="warning && company">
     Note: {{warning}} <br>
     <span *ngIf="company.OperatingHours[0].OperatingStatus == OPEN_CLOSE[1].Name">
-      Restaurant is closed today
+       {{config.WebCatergoryNameSingular}} is closed today
     </span>
     <span *ngIf="company.OperatingHours[0].OperatingStatus == OPEN_CLOSE[0].Name">
       Opens : {{company.OperatingHours[0].StartTime}} to {{company.OperatingHours[0].FinishTime}}

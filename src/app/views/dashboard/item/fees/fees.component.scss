@@ -1,0 +1,31 @@
+@import "../../../../../assets/styles/color";
+.container {
+    padding-top: 5%;
+}
+
+.tabs {
+    grid-template-columns: repeat(3, 33%);
+}
+
+.fees {
+    background: $white;
+    padding: 1em;
+    margin: 1em 0;
+}
+.details {
+    padding: 1em;
+    textarea {
+        border: none;
+        background: none;
+    }
+}
+.delivery-fee{
+    padding: 1rem;
+    background: rgb(232, 237, 190);
+    border-radius: .4rem;
+    input{
+        background: $white;
+    }
+}
+
+

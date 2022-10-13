@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { Email } from 'src/models';
 import { User } from 'src/models/user.model';
 import { LocationModel, SliderWidgetModel } from 'src/models/UxModel.model';
 import { EmailService, UserService } from 'src/services';
+import { CompanyService } from 'src/services/company.service';
 import { UxService } from 'src/services/ux.service';
-import { CC_EMAILS, DRIVER, DRIVER_STATUSES, GENDER, SUPER, VIHICLES } from 'src/shared/constants';
+import { CC_EMAILS, CUSTOMER, DRIVER, DRIVER_STATUSES, GENDER, SUPER, VIHICLES } from 'src/shared/constants';
+import { EmailHelper } from 'src/shared/EmailHelper';
+import { getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-all-users',
@@ -26,11 +29,14 @@ export class AllUsersComponent implements OnInit {
   DRIVER = DRIVER;
   VIHICLES = VIHICLES;
   GENDER = GENDER;
+  config = getConfig(BASE);
+
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private emailService: EmailService,
+    private companyService: CompanyService,
     private uxService: UxService,
 
   ) {
@@ -63,7 +69,9 @@ export class AllUsersComponent implements OnInit {
               Name: `${item.Name}`,
               Description: `${item.AddressLineHome}`,
               Link: `event`,
-              Icon: item.Dp || 'assets/images/def-user.svg'
+              Icon: item.Dp || 'assets/images/def-user.svg',
+              ShowDelete: true,
+              ConfirmDelete: false,
             })
 
 
@@ -116,6 +124,7 @@ export class AllUsersComponent implements OnInit {
   }
 
   save() {
+
     this.uxService.showLoader();
     if (this.user.CreateDate && this.user.UserId.length > 0) {
       this.userService.updateUserSync(this.user).subscribe(data => {
@@ -130,14 +139,18 @@ export class AllUsersComponent implements OnInit {
       this.userService.add(this.user).subscribe(data => {
         if (data && data.UserId) {
           this.uxService.showQuickMessage(`${this.userType} created.`);
-          this.user = null;
           this.uxService.hideLoader()
+          let message = '';
+          if (this.user.UserType === DRIVER)
+            message = EmailHelper.getWelcomeEmailForDriver(this.user.Name, this.config.Name, `${environment.BASE_URL}/home/sign-in`);
 
-          const body = `
-          We're glad to welcome  you. With Instant Easts, you can 
-          Earn extra money working flexible hours. Start delivering today.`;
-          this.sendEmail(data, body, data.Name, `${data.Email}, ${CC_EMAILS}`, 'Welcome to Instant Easts Drivers');
+          if (this.user.UserType === CUSTOMER)
+            message = EmailHelper.getWelcomeEmailForCustomer(this.user.Name, this.config.Name, `${environment.BASE_URL}/home/sign-in`, this.user.Email);
+
+          this.sendAltraEmail(this.user.Email, message, 'Welcome to ' + this.config.Name, this.config.Email);
+          this.sendAltraEmail(`${CC_EMAILS}`, message, 'Welcome to ' + this.config.Name, this.config.Email);
           this.getUsers();
+          this.user = null;
         } else {
           this.error = data;
 
@@ -161,20 +174,30 @@ export class AllUsersComponent implements OnInit {
     }
   }
 
-  sendEmail(user: User, data, companyName: string, email: string, sub: string) {
+
+
+  sendAltraEmail(email: string, message: string, subjet: string, from: string) {
     const emailToSend: Email = {
       Email: email,
-      Subject: sub,
-      Message: `${data}`,
-      UserFullName: companyName,
-      Link: `${environment.BASE_URL}/home/change-password/${user.UserToken}`,
-      LinkLabel: 'Reset my password'
+      Subject: subjet,
+      Message: message,
+      From: from
     };
-    this.emailService.sendGeneralTextEmail(emailToSend)
+
+    this.emailService.sendAltraGeneralTextEmail(emailToSend)
       .subscribe(response => {
         if (response > 0) {
 
         }
       });
+  }
+  deleteEvent(item: SliderWidgetModel) {
+    if (item.Id) {
+      const q = `DELETE FROM user WHERE UserId = '${item.Id}'`;
+      this.companyService.QueryDelete(q).subscribe(data=>{
+        this.getUsers()
+        this.uxService.showQuickMessage(`User deleted successfully`);
+      })
+    }
   }
 }

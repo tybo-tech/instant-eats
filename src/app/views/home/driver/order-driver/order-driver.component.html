@@ -24,10 +24,10 @@
             [width]="progress"></app-progress-bar> -->
         <br>
         <h3 *ngIf="order.Status === 'Pending'">
-            Waiting for restaurant to accept the order
+            Waiting for  {{config.WebCatergoryNameSingular}} to accept the order
         </h3>
         <h3 *ngIf="order.Status === 'Preparing'">
-            Restaurant is busy preparing the food
+             {{config.WebCatergoryNameSingular}} is busy preparing the food
         </h3>
         <h3 *ngIf="order.Status === 'Ready to be picked'">
             The food is ready to be picked.

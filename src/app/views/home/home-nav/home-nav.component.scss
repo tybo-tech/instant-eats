@@ -98,7 +98,7 @@
 
 .notice {
   background: $black;
-  color: $pop;
+  color: var(--primary-color, rgb(115, 115, 115));
   text-align: left;
   padding: .5em;
 

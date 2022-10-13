@@ -1,12 +1,10 @@
-export const BASE = 'instanteats.co.za';
+const bases = ['instanteats.co.za','agrifarmer.africa'];
+export const BASE = bases[0];
+
 export const environment = {
   production: true,
-  API_URL: 'https://instanteats.co.za/api/',
-  BASE_URL: 'https://instanteats.co.za',
-  // API_URL: 'https://Instanteats.co.za/api',
-  // BASE_URL: 'https://Instanteats.co.za',
-  // API_URL: 'http://localhost:8200/api-tybo-accounting',
-  // BASE_URL: 'http://localhost:4200',
+  API_URL: `https://${BASE}/api/`,
+  BASE_URL: `https://${BASE}`,
   ACCOUNT_TEST_EMAIL: undefined,
   ACCOUNT_TEST_PASSWORD: undefined,
   TEST_EMAIL_ACCOUNT: undefined,

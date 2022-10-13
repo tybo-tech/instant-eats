@@ -1,0 +1,16 @@
+<div *ngIf="fee" class="fee">
+    <div class="col">
+        <input class="form-control" [(ngModel)]="fee.Min" (change)="change()" placeholder="From" type="text">
+    </div>
+    <div class="col">
+        <input class="form-control" [(ngModel)]="fee.Max"  (change)="change()"  placeholder="To" type="text">
+    </div>
+    <div class="col">
+        <h3><i class="fas fa-arrow-right"></i></h3>
+    </div>
+    <div class="col">
+        <input class="form-control" [(ngModel)]="fee.Fee"  (change)="change()"  placeholder="Value" type="text">
+    </div>
+
+
+</div>

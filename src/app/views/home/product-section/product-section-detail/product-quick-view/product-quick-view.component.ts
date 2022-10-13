@@ -236,7 +236,7 @@ export class ProductQuickViewComponent implements OnInit {
 
     if (product && product.ProductId) {
       product.SelectedQuantiy = this.selectedQuantiy;
-      const orderproduct = this.mapOrderproduct(product);
+      const orderproduct = this.orderService.mapOrderproduct(product);
       this.order.Orderproducts.push(orderproduct);
       if (product.Company) {
         this.order.Company = product.Company;
@@ -267,25 +267,6 @@ export class ProductQuickViewComponent implements OnInit {
 
 
 
-  mapOrderproduct(product: Product): Orderproduct {
-    return {
-      Id: '',
-      OrderId: '',
-      ProductId: product.ProductId,
-      CompanyId: product.CompanyId,
-      ProductName: product.Name,
-      ProductType: 'Product',
-      Colour: product.SelectedCoulor || '',
-      Size: product.SelectedSize || '',
-      Quantity: product.SelectedQuantiy || 1,
-      SubTotal: product.SelectedQuantiy * Number(product.RegularPrice),
-      UnitPrice: product.SalePrice || product.RegularPrice,
-      FeaturedImageUrl: product.FeaturedImageUrl,
-      CreateUserId: '',
-      ModifyUserId: '',
-      StatusId: 1
-    };
-  }
 
   calculateTotalOverdue() {
     this.Total = 0;

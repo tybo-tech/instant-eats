@@ -74,6 +74,10 @@ import { ImageBannerWidgetComponent } from './shared/image-widget/image-banner-w
 import { MylocationComponent } from '../home/general/address-widget/mylocation/mylocation.component';
 import { OperatinghoursComponent } from './super/super-companies/operatinghours/operatinghours.component';
 import { ItemComponent } from './item/item.component';
+import { FeesComponent } from './item/fees/fees.component';
+import { ReportsComponent } from './reports/reports/reports.component';
+import { EmailsComponent } from './item/emails/emails.component';
+import { SearchUserPipe } from 'src/app/_pipes/search.user.pipe';
 
 const routes: Routes = [
   {
@@ -124,6 +128,9 @@ const routes: Routes = [
       { path: 'deliveries/:id', component: DeliveriesComponent },
       { path: 'company-users/:id', component: CompanyUsersComponent },
       { path: 'company/:id', component: AddViewCompanyWidgetComponent },
+      { path: 'fees/:id', component: FeesComponent },
+      { path: 'reports/:id', component: ReportsComponent },
+      { path: 'emails/:id', component: EmailsComponent },
     ]
   }
 ];
@@ -191,6 +198,7 @@ export const declarations: Array<any> = [
   DashLoaderComponent,
   RestaurantComponent,
   ImageBannerWidgetComponent,
+  FeesComponent,
   // pipes
   SearchProductPipe,
   Overviewv2Component,
@@ -205,7 +213,8 @@ export const declarations: Array<any> = [
   DeliveryWidgetComponent,
   CompanyUsersComponent,
   MylocationComponent,
-  OperatinghoursComponent
+  OperatinghoursComponent,
+  SearchUserPipe
 
 ];
 @NgModule({

@@ -77,7 +77,7 @@
       }
 
       span {
-        color: $pop;
+        color: var(--primary-color, rgb(115, 115, 115));
       }
     }
   }
@@ -283,7 +283,7 @@
 
     .share {
       text-align: right;
-      background: $pop;
+      background-color: var(--primary-color, rgb(115, 115, 115));
       text-align: center;
       padding: .4em;
       cursor: pointer;
@@ -293,7 +293,7 @@
 
 
 .goto-shop {
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   width: 15em;
   margin: 1em 0;
 

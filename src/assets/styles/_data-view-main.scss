@@ -69,7 +69,7 @@
     grid-template-columns: 50% auto;
 
     .collection {
-      background: $pop;
+      background-color: var(--primary-color, rgb(115, 115, 115));
       text-transform: uppercase;
       text-align: center;
       margin: 1em;
@@ -110,7 +110,7 @@
 
         &:last-child {
           text-align: center;
-          background: $pop;
+          background-color: var(--primary-color, rgb(115, 115, 115));
           color: $black;
           width: 100%;
           border-radius: .3em;

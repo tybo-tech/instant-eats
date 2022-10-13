@@ -57,14 +57,37 @@ export class DashNavComponent implements OnInit {
           ImageUrl: `assets/images/profle/menu-orders.png`,
           Url: '/admin/dashboard'
         }
+
+      );
+    }
+
+    if (this.user && this.user.UserType === SUPER) {
+      this.items.push(
+     
+        {
+          Label: 'Fees',
+          ImageUrl: `assets/images/fees.png`,
+          Url: '/admin/dashboard/fees/product'
+        },
+
+        {
+          Label: 'Reports',
+          ImageUrl: `assets/images/fees.png`,
+          Url: '/admin/dashboard/reports/orders'
+        },
+        {
+          Label: 'Emails',
+          ImageUrl: `assets/images/fees.png`,
+          Url: '/admin/dashboard/emails/send'
+        }
       );
     }
 
     if (this.user && this.user.UserType !== DRIVER) {
       this.items.push(
         {
-          Label: 'Go to home page',
-          ImageUrl: `assets/images/profle/menu-orders.png`,
+          Label: 'Landing page',
+          ImageUrl: `assets/images/landing.png`,
           Url: ''
         }
       );

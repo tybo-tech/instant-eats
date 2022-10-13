@@ -20,12 +20,12 @@
 
   <h3>
     <span>
-      Restaurants <br> <br>
+      {{config.WebCatergoryName}} <br> <br>
     </span>
   </h3>
 
 
-  <app-card-list-widget *ngIf="usersItems && usersItems.length" [primaryAction]="primaryAction"
+  <app-card-list-widget *ngIf="usersItems && usersItems.length" (deleteEvent)="deleteEvent($event)" [primaryAction]="primaryAction"
     (primaryActionEvent)="onPrimaryActionEvent($event)"
     [showFilter]="showFilter" [items]="usersItems">
   </app-card-list-widget>

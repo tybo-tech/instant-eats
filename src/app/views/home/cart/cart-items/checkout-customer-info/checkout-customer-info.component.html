@@ -2,53 +2,53 @@
   Delivery information
 </h3>
 
-<div class="card" >
+<div class="card">
 
-<div class="sammary" *ngIf="order">
-  <div class="name">
+  <div class="sammary" *ngIf="order">
+    <div class="name">
 
-    <div class="action">
-      <div></div>
-      <button class="tertiary edit-info" (click)="profile()">Edit profile</button>
+      <div class="action">
+        <div></div>
+        <button class="tertiary edit-info" (click)="profile()">Edit profile</button>
+      </div>
+
+      <p class="full-address" *ngIf="order.Latitude">
+        <span class="hlabel">
+          <b>Delivering to</b>
+        </span>
+        {{order.FullAddress}}
+      </p>
+      <hr>
+      <p *ngIf="order.CustomerName">
+        <span class="hlabel">
+          <br>
+          <b>Contact details</b>
+
+        </span><b>
+          {{order.CustomerName}} {{order.CustomerSurname}}
+        </b>
+
+      </p>
+
+      <p *ngIf="order.CustomerPhone || order.CustomerEmail">
+        <span>
+          <b> {{order.CustomerPhone}}</b>
+        </span>
+        <span>
+          <b> {{order.CustomerEmail}}</b>
+        </span>
+
+
+      </p>
+
+
+      <p *ngIf="!order.Latitude" class="warn">
+        Please capture your delivery address
+        <br>
+      </p>
     </div>
 
-    <p class="full-address" *ngIf="order.Latitude">
-      <span class="hlabel">
-        <b>Delivering to</b>
-      </span>
-      {{order.FullAddress}}
-    </p>
-    <hr>
-    <p *ngIf="order.CustomerName">
-      <span class="hlabel">
-        <br>
-        <b>Contact details</b>
-   
-      </span><b>
-        {{order.CustomerName}} {{order.CustomerSurname}}
-      </b>
-      
-    </p>
-
-    <p *ngIf="order.CustomerPhone || order.CustomerEmail">
-      <span>
-       <b> {{order.CustomerPhone}}</b>
-      </span>
-      <span>
-       <b> {{order.CustomerEmail}}</b>
-      </span>
-
-     
-    </p>
-
-
-    <p *ngIf="!order.Latitude" class="warn">
-      Please capture your delivery address
-      <br>
-    </p>
   </div>
-
-</div>
 </div>
 
 
@@ -82,6 +82,32 @@
 
     <div class="form-item">
       <button (click)="save()" [disabled]="!user.Name">Save profile</button>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="quick-add" *ngIf="user && addPhoneNumber" style="    background: #a7a1a1e6;">
+
+  <div class="form">
+    <h1 style="font-size: 4rem; color: rgb(76, 217, 149)">
+      <i class="fa fa-phone"></i>
+    </h1>
+    <h3>
+      Please enter your cell number so that we can reach you when needed
+    </h3>
+    <div class="form-item">
+      <input type="text" [(ngModel)]="user.PhoneNumber" placeholder="e.g. 084 001 0100">
+    </div>
+
+
+
+
+    <div class="form-item">
+      <button (click)="saveUser()" [disabled]="!user.PhoneNumber">Save phone number</button>
+      <a style="display: block; text-align:center; margin:1rem 0" class="btn link-danger" (click)="back()">Back to
+        cart</a>
     </div>
   </div>
 

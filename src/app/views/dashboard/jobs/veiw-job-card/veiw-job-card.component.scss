@@ -204,7 +204,7 @@ textarea {
 .cloud{
   background: $cloud;
   button{
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
   }
 }
 
@@ -218,7 +218,7 @@ textarea {
     left: 3em;
     padding: .2em 1em;
     text-align: center;
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     border-radius: .2em;
     cursor: pointer;
     color: $black;

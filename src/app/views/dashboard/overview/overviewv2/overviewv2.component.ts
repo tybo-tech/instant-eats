@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { Order, Product, User } from 'src/models';
 import { AdminStatModel, SliderWidgetModel } from 'src/models/UxModel.model';
 import { ProductService, AccountService, CompanyCategoryService, OrderService, UserService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { UxService } from 'src/services/ux.service';
-import { ACTIVEORDERS, ADMIN, CUSTOMER, DRIVER, DRIVER_TABS, HISTORYORDERS, PENDINGORDERS, SUPER } from 'src/shared/constants';
+import { ACTIVEORDERS, ADMIN, CUSTOMER, DRIVER, DRIVER_TABS, HISTORYORDERS, PENDINGORDERS, STAF, SUPER } from 'src/shared/constants';
 import { MouseEvent } from '@agm/core';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-overviewv2',
@@ -31,6 +32,7 @@ export class Overviewv2Component implements OnInit {
   iconWidth = 4;
   lat;
   lng;
+  config: WebConfig;
 
   DRIVER = DRIVER;
 
@@ -45,6 +47,7 @@ export class Overviewv2Component implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.config = getConfig(BASE);
     this.user = this.accountService.currentUserValue;
     if (!this.user || !this.user.Company) {
       this.router.navigate(['home/sign-in'])
@@ -108,7 +111,7 @@ export class Overviewv2Component implements OnInit {
     if (this.user && this.user.UserType === SUPER) {
       this.superMenu.push(
         {
-          Name: `Restaurants`,
+          Name: this.config.WebCatergoryName,
           Description: `${this.adminStat.Restaurants} items`,
           Link: `admin/dashboard/restaurants`,
           Icon: `assets/images/icon-restaurant.svg`
@@ -169,6 +172,13 @@ export class Overviewv2Component implements OnInit {
           Description: `${this.adminStat.Customers}  customers`,
           Link: `admin/dashboard/all-users/${CUSTOMER}`,
           Icon: `assets/images/def-user.svg`
+        },
+
+        {
+          Name: `Staff members`,
+          Description: `${this.adminStat.Stafs}  Staff members`,
+          Link: `admin/dashboard/all-users/${STAF}`,
+          Icon: `assets/images/def-user.svg`
         }
 
 
@@ -184,6 +194,22 @@ export class Overviewv2Component implements OnInit {
           Icon: `assets/images/icon.svg`
         },
 
+      )
+    }
+    if (this.user && this.user.UserType === STAF) {
+      this.superMenu.push(
+        {
+          Name: `Pending Orders`,
+          Description: `${this.adminStat.PendingOrders}  orders`,
+          Link: `admin/dashboard/invoices/${PENDINGORDERS}/${this.user.CompanyId}`,
+          Icon: `assets/images/icon-orders-pen.svg`
+        },
+        {
+          Name: this.config.WebCatergoryName,
+          Description: `${this.adminStat.Restaurants} items`,
+          Link: `admin/dashboard/restaurants`,
+          Icon: `assets/images/icon-restaurant.svg`
+        },
       )
     }
 

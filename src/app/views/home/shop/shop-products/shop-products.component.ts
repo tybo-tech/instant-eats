@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { Category, Order, Orderproduct, Product, User } from 'src/models';
 import { Company } from 'src/models/company.model';
 import { Interaction, InteractionSearchModel } from 'src/models/interaction.model';
+import { FeesModel, Item } from 'src/models/item.model';
 import { OrderOption } from 'src/models/order.option.model';
 import { ProductVariation } from 'src/models/product.variation.model';
 import { ProductVariationOption } from 'src/models/product.variation.option.model';
@@ -13,9 +14,11 @@ import { AccountService, OrderService, UserService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { HomeShopService } from 'src/services/home-shop.service';
 import { InteractionService } from 'src/services/Interaction.service';
+import { ItemService } from 'src/services/item.service';
 import { ProductService } from 'src/services/product.service';
 import { UxService } from 'src/services/ux.service';
 import { ADMIN, DISCOUNT_TYPES, INTERRACTION_TYPE_LIKE, MAX_PAGE_SIZE, OPEN_CLOSE, ORDER_TYPE_SALES, VARIATION_NUMBER_OF_SELECTION, VARIATION_PRICE_MODES, VARIATION_SELECTION_MODES } from 'src/shared/constants';
+import { getConfig, WebConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-shop-products',
@@ -63,6 +66,8 @@ export class ShopProductsComponent implements OnInit {
   OPEN_CLOSE = OPEN_CLOSE
   warning: string;
   productId: any;
+  fees: FeesModel[];
+  config: WebConfig;
   constructor(
     private homeShopService: HomeShopService,
     private productService: ProductService,
@@ -73,10 +78,18 @@ export class ShopProductsComponent implements OnInit {
     private interactionService: InteractionService,
     private accountService: AccountService,
     private userService: UserService,
+    private itemService: ItemService,
     private orderService: OrderService,
 
   ) {
     this.activatedRoute.params.subscribe(r => {
+      itemService.feesObservable.subscribe(fees => {
+        if (fees && fees.length) {
+          const product = fees.find(x => x.ItemType === 'product');
+          if (product)
+            this.fees = JSON.parse(product.Description);
+        }
+      })
       this.shopSlug = r.id;
       this.productId = r.productId;
       this.user = this.accountService.currentUserValue;
@@ -89,6 +102,7 @@ export class ShopProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.config = getConfig(BASE);
     this.accountService.user.subscribe(data => {
       this.user = data;
       // this.getInteractions();
@@ -122,6 +136,7 @@ export class ShopProductsComponent implements OnInit {
   }
   select(product) {
     this.product = product;
+    this.product.SelectedQuantiy = 1;
     if (this.product && this.product.ProductVariations) {
       this.product.ProductVariations.forEach(variation => {
         if (variation.PriceMode === VARIATION_PRICE_MODES[0].Name) {
@@ -139,7 +154,6 @@ export class ShopProductsComponent implements OnInit {
 
       })
     }
-    console.log(this.product);
 
   }
 
@@ -180,7 +194,6 @@ export class ShopProductsComponent implements OnInit {
 
       })
     }
-    console.log('options', options);
     return options;
   }
   share() {
@@ -216,35 +229,11 @@ export class ShopProductsComponent implements OnInit {
       this.getProduct(this.productId);
 
       if (data && data.length) {
-        data.forEach(product => {
-          product.RegularPrice = this.productService.commisionPrice(product.RegularPrice);
-          if (product && product.ProductVariations) {
-            product.ProductVariations.forEach(variation => {
-              let basesPrices: number[] = [];
-              if (variation.ProductVariationOptions && variation.ProductVariationOptions.length && variation.PriceMode === VARIATION_PRICE_MODES[0].Name) {
-
-                variation.ProductVariationOptions.forEach(variationOption => {
-                  variationOption.Price = this.productService.commisionPrice(variationOption.Price);
-                });
-
-                basesPrices = variation.ProductVariationOptions.map(x => {
-                  if (x.Price) {
-                    return Number(x.Price)
-                  }
-                });
-                product.PriceFromLabel = 'From ';
-                product.RegularPrice = this.getMin(basesPrices);
-                console.log('Bases Prices', basesPrices);
-                console.log('Min Prices', this.getMin(basesPrices));
-              }
-
-            });
-          }
-        })
 
 
 
-        this.products = data;
+
+        this.products = this.proccessProducts(data);
         this.allProducts = data;
         this.products.map(x => x.SelectedQuantiy = 1);
         this.company = this.products[0].Company;
@@ -321,6 +310,7 @@ export class ShopProductsComponent implements OnInit {
         Total: 0,
         Paid: 0,
         Due: 0,
+        DriverTip: 0,
         InvoiceDate: new Date(),
         DueDate: '',
         CreateUserId: 'shop',
@@ -329,6 +319,8 @@ export class ShopProductsComponent implements OnInit {
         StatusId: 1,
         Orderproducts: []
       }
+      this.order.CashCollected = 0;
+      this.order.ServiceFee = 0;
       this.orderService.updateOrderState(this.order);
     }
     this.getTotalCartItems();
@@ -337,6 +329,7 @@ export class ShopProductsComponent implements OnInit {
   loadMore() {
     this.productService.getAllActiveProductsForCompanySync(this.shopSlug, this.nextPage).subscribe(data => {
       if (data && data.length) {
+        const products = this.proccessProducts(data);
         this.products.push(...data);
         this.nextPage = data[data.length - 1]?.Id || 99999999;
         this.showShowMore = data.length >= MAX_PAGE_SIZE;
@@ -344,16 +337,36 @@ export class ShopProductsComponent implements OnInit {
     });
 
   }
-  // getCompany() {
-  //   this.companyService.getCompanyById(this.shopSlug).subscribe(data => {
-  //     if (data && data.CompanyId) {
-  //       this.company = data;
 
-  //     }
-  //   });
+  proccessProducts(products: Product[]) {
+    if (!products) return [];
+    products.forEach(product => {
+      product.OldPrice = product.RegularPrice;
+      product.RegularPrice = this.productService.commisionPrice(product.RegularPrice, this.fees);
+      if (product && product.ProductVariations) {
+        product.ProductVariations.forEach(variation => {
+          let basesPrices: number[] = [];
+          if (variation.ProductVariationOptions && variation.ProductVariationOptions.length && variation.PriceMode === VARIATION_PRICE_MODES[0].Name) {
 
+            variation.ProductVariationOptions.forEach(variationOption => {
+              product.OldPrice = Number(product.OldPrice) + Number(variationOption.Price);
+              variationOption.Price = this.productService.commisionPrice(variationOption.Price, this.fees);
+            });
 
-  // }
+            basesPrices = variation.ProductVariationOptions.map(x => {
+              if (x.Price) {
+                return Number(x.Price)
+              }
+            });
+            product.PriceFromLabel = 'From ';
+            product.RegularPrice = this.getMin(basesPrices);
+          }
+
+        });
+      }
+    })
+    return products;
+  }
 
   viewMore(product: Product) {
     if (product) {
@@ -531,7 +544,6 @@ export class ShopProductsComponent implements OnInit {
   }
 
   tabParentCategories(category: Category) {
-    console.log(category);
     if (category) {
       this.parentCategories.map(x => x.Class = ['']);
       category.Class = ['active'];
@@ -554,7 +566,7 @@ export class ShopProductsComponent implements OnInit {
     }
 
     if (product && product.ProductId) {
-      const orderproduct = this.mapOrderproduct(product);
+      const orderproduct = this.orderService.mapOrderproduct(product);
       orderproduct.OrderOptions = this.mapOrderOptions(product);
       product.IsSelected = true;
       this.order.Orderproducts.push(orderproduct);
@@ -577,25 +589,7 @@ export class ShopProductsComponent implements OnInit {
     });
 
   }
-  mapOrderproduct(product: Product): Orderproduct {
-    return {
-      Id: '',
-      OrderId: '',
-      ProductId: product.ProductId,
-      CompanyId: product.CompanyId,
-      ProductName: product.Name,
-      ProductType: 'Product',
-      Colour: product.SelectedCoulor || '',
-      Size: product.SelectedSize || '',
-      Quantity: product.SelectedQuantiy,
-      SubTotal: product.SelectedQuantiy * Number(product.RegularPrice),
-      UnitPrice: product.SalePrice || product.RegularPrice,
-      FeaturedImageUrl: product.FeaturedImageUrl,
-      CreateUserId: '',
-      ModifyUserId: '',
-      StatusId: 1
-    };
-  }
+
   next() {
     this.product.SelectedQuantiy++;
   }

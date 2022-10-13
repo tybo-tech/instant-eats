@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/models';
 import { AccountService } from 'src/services';
 import { UxService } from 'src/services/ux.service';
@@ -12,7 +13,7 @@ export class DashboardTopBarComponent implements OnInit {
   showMenu: boolean;
   user: User;
 
-  constructor(private accountService: AccountService, private uxService: UxService) { }
+  constructor(private accountService: AccountService, private router: Router,private uxService: UxService) { }
 
   ngOnInit() {
     this.accountService.user.subscribe(data => {
@@ -24,5 +25,9 @@ export class DashboardTopBarComponent implements OnInit {
   }
   menu() {
     this.showMenu = !this.showMenu;
+  }
+
+  profile(){
+    this.router.navigate(['/admin/dashboard/edit-user-profile'])
   }
 }

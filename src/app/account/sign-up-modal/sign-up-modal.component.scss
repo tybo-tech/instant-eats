@@ -118,7 +118,7 @@
 
 
 .more {
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   width: 15em;
   padding: 1em 1.5em;
   margin: 3em auto;

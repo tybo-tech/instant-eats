@@ -8,7 +8,7 @@
   
   
     <div class="name menu-back" (click)="back()">
-      Restaurant dashboard
+       {{config.WebCatergoryNameSingular}} dashboard
     </div>
   </div>
 
@@ -20,7 +20,7 @@
 
 <div class="container" *ngIf="usersItems">
 
-  <app-card-list-widget *ngIf="usersItems" (primaryActionEvent)="onPrimaryActionEvent($event)"
+  <app-card-list-widget *ngIf="usersItems" (primaryActionEvent)="onPrimaryActionEvent($event)" (deleteEvent)="deleteEvent($event)"
     (itemSelectedEvent)="OnItemSelected($event)" [primaryAction]="primaryAction" [showFilter]="showFilter"
     [items]="usersItems">
   </app-card-list-widget>

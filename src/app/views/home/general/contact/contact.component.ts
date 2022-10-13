@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BASE } from 'src/environments/environment';
 import { Email } from 'src/models';
 import { EmailService } from 'src/services';
 import { COMPANY_EMIAL } from 'src/shared/constants';
+import { getConfig } from 'src/shared/web-config';
 
 
 @Component({
@@ -18,7 +20,7 @@ email;
 massage;
 phone;
 address;
-
+config = getConfig(BASE);
 showLoader;
   sent: boolean;
 constructor(

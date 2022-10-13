@@ -73,13 +73,29 @@ export class HomeSideNavComponent implements OnInit {
     }
 
 
-    if (this.user && (this.user.UserType === SUPER || this.user.UserType === DRIVER || this.user.UserType === ADMIN)) {
+    if (this.user && (this.user.UserType === SUPER || this.user.UserType === ADMIN)) {
       this.items.push(
         {
           Label: 'Dashboard',
           ImageUrl: `assets/images/profle/menu-orders.png`,
           Url: '/admin/dashboard'
         }
+      );
+    }
+
+    
+    if (this.user && this.user.UserType === DRIVER) {
+      this.items.push(
+        {
+          Label: 'History',
+          ImageUrl: `assets/images/profle/menu-orders.png`,
+          Url: '/driver/history'
+        },
+        // {
+        //   Label: 'Earnings',
+        //   ImageUrl: `assets/images/profle/menu-orders.png`,
+        //   Url: '/admin/dashboard'
+        // }
       );
     }
 

@@ -58,6 +58,15 @@
         <input type="number" name="" id="" [(ngModel)]="product.RegularPrice" placeholder="Stock in hand.">
       </div>
 
+      
+      <div class="form-item">
+        <label for="">Status</label>
+        <select type="number" name="" id="" [(ngModel)]="product.ProductStatus">
+          <option [value]="item" *ngFor="let item of ['Active','Not available','Discontinued']">{{item}}</option>
+        </select>
+      </div>
+
+
 
 
 

@@ -195,7 +195,7 @@
   
       .active {
         color: $secondary;
-        // background-color: $pop;
+        // background-color: var(--primary-color, rgb(115, 115, 115));
       }
     }
   

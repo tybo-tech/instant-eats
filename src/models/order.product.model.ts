@@ -22,6 +22,9 @@ export interface Orderproduct {
 
   OrderOptions?: OrderOption[];
   OrderOptionsString?: string;
+
+  OriginalPrice: number;
+  OriginalSubTotal: number;
 };
 
 

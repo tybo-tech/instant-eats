@@ -1,5 +1,4 @@
-@import '../../../../../assets/styles/color';
-
+@import "../../../../../assets/styles/color";
 
 .top-bar-conatiner {
   // display: none;
@@ -17,36 +16,27 @@
 
   @media only screen and (max-width: 600px) {
     grid-template-columns: 5% 40% 20% auto;
-    padding: .75em .5em;
+    padding: 0.75em 0.5em;
     background: rgba(255, 255, 255, 0.472);
     border: none;
-
   }
 
   .share,
   .cart {
     text-align: right;
 
-
     @media only screen and (max-width: 600px) {
       text-align: center;
-
     }
   }
-
 }
-
-
 
 .holder {
   background: $white;
   width: 100%;
   margin: 0;
   box-shadow: $box-shadow;
-
-
 }
-
 
 .company-profile {
   margin: 0 auto;
@@ -60,7 +50,7 @@
 
   @media only screen and (max-width: 600px) {
     grid-template-columns: 6em auto;
-    padding: 1em .5em;
+    padding: 1em 0.5em;
     margin: 0;
     margin-top: 3em;
     padding-top: 4em;
@@ -73,40 +63,39 @@
   }
 
   h3 {
-    padding: .5em 0;
-    padding-top: .8em;
+    padding: 0.5em 0;
+    padding-top: 0.8em;
 
     span {
       font-weight: 400;
       padding: 0;
-      font-size: .85em;
+      font-size: 0.85em;
       color: $darker-grey;
       display: block;
 
       .material-icons {
         margin: 0;
-        top: .2em;
+        top: 0.2em;
         font-size: 1.2em;
         color: $black;
       }
     }
-
   }
 }
 
 .products {
-  padding: .75em;
-  padding-bottom: 10em;
+  padding: 0.75em;
+  padding-bottom: 8em;
 
   .product {
     display: grid;
     grid-template-columns: auto 8em;
     background: $white;
     margin: 1em auto;
-    border-radius: .25em;
+    border-radius: 0.25em;
     padding: 0;
     box-shadow: $box-shadow;
-    padding-right: .4em;
+    padding-right: 0.4em;
 
     .image {
       // overflow: hidden;
@@ -115,8 +104,7 @@
 
       img {
         width: 100%;
-        border-radius: .25em;
-
+        border-radius: 0.25em;
       }
     }
 
@@ -126,8 +114,8 @@
 
     .choose {
       width: fit-content;
-      padding: .5em 1.5em !important;
-      margin: .5em 0;
+      padding: 0.5em 1.5em !important;
+      margin: 0.5em 0;
     }
   }
 }
@@ -138,22 +126,23 @@
   grid-template-columns: 45% auto;
 
   button {
-    padding: .75em !important;
-    font-size: .8em;
+    padding: 0.75em !important;
+    font-size: 0.8em;
   }
 }
 
 .cart-btn {
   padding: 1em 2em;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
+  color: var(--primary-complementary, rgb(115, 115, 115));
   display: grid;
   grid-template-columns: repeat(3, 33%);
   position: fixed;
   z-index: 100000;
-  bottom: 3em;
+  bottom: 11%;
   width: 100%;
   max-width: 30em;
-  border-radius: .5em;
+  border-radius: 0.5em;
   font-weight: 600;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
@@ -161,7 +150,6 @@
     bottom: 1em;
     width: 96%;
   }
-
 
   left: 50%;
   transform: translate(-50%, -50%);
@@ -171,21 +159,17 @@
     font-weight: 700;
     font-size: 1em;
 
-
     &:first-child {
       text-align: left;
       font-weight: 600;
-
     }
 
     &:last-child {
       text-align: right;
       font-weight: 600;
-
     }
   }
 }
-
 
 .cover {
   padding: 0;
@@ -222,22 +206,21 @@
   }
 }
 
-
 .intro {
   text-align: center;
   padding-bottom: 1em;
 
   h3,
   p {
-    padding: .25em;
+    padding: 0.25em;
     max-width: 60%;
-    margin: .1em auto;
+    margin: 0.1em auto;
   }
 
   h3 {
     span {
       font-weight: 800;
-      color: $pop;
+      color: var(--primary-color, rgb(115, 115, 115));
     }
   }
 
@@ -248,16 +231,13 @@
   .material-icons {
     font-size: 1.3em;
     position: relative;
-    top: .25em;
+    top: 0.25em;
   }
 }
-
-
 
 .line-option {
   display: grid;
   grid-template-columns: 40% 40% auto;
-
 }
 
 .cardd {
@@ -265,10 +245,8 @@
     display: grid;
     grid-template-columns: 50% auto;
     font-weight: 600;
-    padding: .5em;
+    padding: 0.5em;
     border-bottom: 1px solid $cloud;
-
-
   }
 
   .linnk {
@@ -276,11 +254,11 @@
     color: $pop-darker;
     display: block;
     margin: 1em 0;
-    padding: .5em;
+    padding: 0.5em;
   }
 
   .body {
-    padding: .5em 0;
+    padding: 0.5em 0;
 
     .tr {
       display: grid;
@@ -288,17 +266,15 @@
 
       img {
         width: 2.5em;
-        top: .1em;
+        top: 0.1em;
       }
 
       input {
         position: relative;
-        top: .2em;
+        top: 0.2em;
       }
-
     }
   }
-
 }
 
 .from-top {
@@ -306,7 +282,7 @@
   // top: 0;
 
   .form {
-    height: 100%
+    height: 100%;
   }
 
   .product-banner {
@@ -321,10 +297,9 @@
       z-index: 100000;
       width: fit-content;
       background: $black;
-      padding: .5em;
-      border-radius: .5em;
+      padding: 0.5em;
+      border-radius: 0.5em;
       padding-bottom: 0;
-
     }
 
     .tittle {
@@ -338,7 +313,7 @@
       width: 80%;
       background: $white;
       text-align: center;
-      border-radius: .5em;
+      border-radius: 0.5em;
       box-shadow: $box-shadow;
 
       h3 {
@@ -369,40 +344,38 @@
     h3,
     h5 {
       text-align: left;
-      padding: .4em 1em;
+      padding: 0.4em 1em;
       margin: 0;
     }
 
     h5 {
       text-align: center;
       background: $white;
-      border-radius: .5em;
+      border-radius: 0.5em;
     }
   }
 
   .options {
     background: $white;
     padding: 1em;
-    border-radius: .5em;
+    border-radius: 0.5em;
     box-shadow: $box-shadow;
 
     .option {
-
       .row {
         display: grid;
         grid-template-columns: 2.5em 70% auto;
-        padding: .5em 0;
+        padding: 0.5em 0;
         border-bottom: 1px solid $grey;
 
         &:last-child {
           border: none;
         }
-
       }
 
       h6 {
         font-size: 1em;
-        padding: .15em;
+        padding: 0.15em;
       }
 
       .checked {
@@ -416,23 +389,25 @@
   padding: 1em;
   display: grid;
   grid-template-columns: 10em auto;
+  color: $white;
 
   .qty {
     display: grid;
     grid-template-columns: repeat(3, 2.5em);
-    padding: .5em;
-    top: .75em;
+    padding: 0.5em;
+    top: 0.75em;
     position: relative;
 
     img {
       width: 2em;
-      margin: .1em auto;
+      margin: 0.1em auto;
     }
 
     p {
       font-weight: 600;
       text-align: center;
-      padding: .5em;
+      padding: 0.5em;
+      color: $black;
     }
   }
 
@@ -443,8 +418,6 @@
   // }
 }
 
-
-
 .warning {
   text-align: center;
   padding: 4em;
@@ -453,11 +426,30 @@
   font-size: 1.2em;
 }
 
-
-.not-taking-orders{
+.not-taking-orders {
   padding: 1em;
   text-align: center;
   font-weight: 600;
   background: $black;
-  color: $white; 
+  color: $white;
+}
+
+.next {
+  margin-bottom: 10em;
+  display: block;
+  button {
+    background: $black;
+    color: $white;
+  }
+}
+
+.quick-add .form button {
+  color: $white;
+}
+
+.search {
+  margin: 2rem auto;
+  input {
+    background: $white;
+  }
 }

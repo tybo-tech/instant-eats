@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BASE } from 'src/environments/environment';
 import { User } from 'src/models';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
 import { AccountService, UserService } from 'src/services';
 import { ItemService } from 'src/services/item.service';
 import { UxService } from 'src/services/ux.service';
 import { CUSTOMER, ITEM_TYPES } from 'src/shared/constants';
+import { getConfig, WebConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-hello-page',
@@ -17,6 +19,10 @@ export class HelloPageComponent implements OnInit {
   user: User;
   adresses: SliderWidgetModel[]
   showMenu: boolean;
+  config: WebConfig;
+  banner: string;
+  SubHeading
+  Heading
 
   constructor(
     private uxService: UxService,
@@ -32,13 +38,21 @@ export class HelloPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.config = getConfig(BASE);
+    if(this.config){
+      this.banner = this.config.PhoneBanner;
+      this.Heading = this.config.Heading;
+      this.SubHeading = this.config.SubHeading;
+    }
+    console.log(this.config);
+    
     this.accountService.user.subscribe(data => {
       this.user = data;
       if (this.user && this.user.UserType === CUSTOMER) {
         this.checkAddresses();
       }
 
-      if (this.user && this.user.Items.length) {
+      if (this.user && this.user.Items && this.user.Items.length) {
         this.loadListItems();
       } else {
         this.adresses = [];

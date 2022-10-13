@@ -1,0 +1,46 @@
+<div class="banner">
+    <div class="backkk">
+        <div class="menu-back">
+            <span class="material-icons" (click)="back()">
+                arrow_back
+            </span>
+        </div>
+
+
+        <div class="name menu-back" (click)="back()">
+            {{config.WebCatergoryNameSingular}} dashboard
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div class="container" *ngIf="items && items.length && item">
+    <h1>
+        Fees
+    </h1>
+    <br>
+    <div class="tabs">
+        <div class="tab" *ngFor="let tab of FEES_TABS" [ngClass]="tab.Class" (click)="goto(tab)">
+            {{tab.Name}}
+        </div>
+    </div>
+  
+    <div class="details">
+        <textarea class="form-control" [(ngModel)]="item.Name" (change)="save()" placeholder="Details"></textarea>
+        
+    <div class="delivery-fee" *ngIf="feeId === 'delivery' && item">
+      <label for="">Base delivery fee</label>
+      <input type="number" [(ngModel)]="item.Price" (input)="baseChanged()">
+      <label for="" style="display: block;margin-top:1rem">Delivery rate/km</label>
+      <input type="number" [(ngModel)]="item.ItemCode" (input)="baseChanged()">
+    </div>
+    </div>
+    <div class="fees">
+        <div class="fee" *ngFor="let fee of item.Fees">
+            <app-fee [fee]="fee" (feeEvent)="onFeeEvent($event)"></app-fee>
+        </div>
+    </div>
+</div>

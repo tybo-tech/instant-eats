@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Email } from 'src/models/email.model';
 import { SEND_EMAIL_ACTIVATE_ACCOUNT, SEND_EMAIL_GENERAL_TEXT, SEND_EMAIL_RESET_PASSWORD, SEND_EMAIL_BILLING, SEND_EMAIL_GENERAL_RANGE_TEXT } from 'src/shared/constants';
+import { BASE } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,14 @@ export class EmailService {
 
   getCustomerEmails(): Observable<Email[]> {
     return this.http.get<Email[]>('assets/locale/communications/customer-emails.json');
+  }
+
+  sendAltraGeneralTextEmail(data: Email): Observable<any> {
+   const alntraLink = `https://${BASE}/api/api/email/general-email.php`;
+    return this.http.post<any>(alntraLink, data);
+  }
+  sendAltraGeneralTextEmailRange(data: Email[]): Observable<any> {
+   const alntraLink = `https://${BASE}/api/api/email/general-email-range.php`;
+    return this.http.post<any>(alntraLink, data);
   }
 }

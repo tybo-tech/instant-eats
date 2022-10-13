@@ -64,7 +64,7 @@ pre {
 
 .job-status {
   font-weight: 600;
-  color: $pop;
+  color: var(--primary-color, rgb(115, 115, 115));
   background: rgba(0, 0, 0, 0.568);
   width: 8em;
   padding: .3em;

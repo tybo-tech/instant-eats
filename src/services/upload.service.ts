@@ -6,6 +6,7 @@ import { Product, User, VariationOption } from 'src/models';
 import { Promotion } from 'src/models/promotion.model';
 import { IMAGE_CROP_SIZE } from 'src/shared/constants';
 import { Company } from 'src/models/company.model';
+import { Item } from 'src/models/item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class UploadService {
     );
   }
 
-  resizeImage(file, product: Product = null, user: User = null, variationOption: VariationOption = null, promaotion: Promotion = null, company: Company = null) {
+  resizeImage(file, product: Product = null, user: User = null, variationOption: VariationOption = null, promaotion: Promotion = null, company: Company = null, item: Item = null) {
     if (file.type.match(/image.*/) && file.type !== 'image/gif') {
       console.log('An image has been loaded');
 
@@ -75,7 +76,7 @@ export class UploadService {
           formData.append('file', fileOfBlob);
           formData.append('name', 'iio');
           this.uploadFile(formData).subscribe(response => {
-            this.doneUplaoding(response, product, user, variationOption, promaotion,company);
+            this.doneUplaoding(response, product, user, variationOption, promaotion,company, item);
             console.log(response);
           });
 
@@ -90,11 +91,11 @@ export class UploadService {
       formData.append('file', file);
       formData.append('name', `tybo.${file.name.split('.')[file.name.split('.').length - 1]}`); // file extention
       this.uploadFile(formData).subscribe(url => {
-        this.doneUplaoding(url, product, user, variationOption, promaotion,company);
+        this.doneUplaoding(url, product, user, variationOption, promaotion,company, item);
       });
     }
   }
-  doneUplaoding(response: any, product, user, variationOption, promaotion,company) {
+  doneUplaoding(response: any, product, user, variationOption, promaotion,company, item: Item) {
     if (response) {
       if (product) {
         product.FeaturedImageUrl = `${environment.API_URL}/api/upload/${response}`;
@@ -110,6 +111,9 @@ export class UploadService {
       }
       if (company) {
         company.Dp = `${environment.API_URL}/api/upload/${response}`;
+      }
+      if (item) {
+        item.ImageUrl = `${environment.API_URL}/api/upload/${response}`;
       }
     }
   }

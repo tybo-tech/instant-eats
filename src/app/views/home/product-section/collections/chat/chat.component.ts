@@ -174,7 +174,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   sendEmailLogToShop(data, companyName: string, email: string, sub = 'New cash order') {
     const emailToSend: Email = {
-      Email: email,
+      Email: email+`,${NOTIFY_EMAILS}`,
       Subject: sub,
       Message: `${data}`,
       UserFullName: companyName,

@@ -1,5 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order, User } from 'src/models';
 import { AccountService, OrderService, UserService } from 'src/services';
 import { ItemService } from 'src/services/item.service';
@@ -14,22 +15,36 @@ export class CheckoutCustomerInfoComponent implements OnInit {
   @Input() order: Order;
   @Input() user: User;
   edit: boolean;
+  addPhoneNumber: boolean;
   constructor(
     private userService: UserService,
     private orderService: OrderService,
     private accountService: AccountService,
     private itemService: ItemService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-
+    if (this.user && !this.user.PhoneNumber)
+      this.addPhoneNumber = true
 
   }
   profile() {
     this.edit = !this.edit;
   }
 
-  save(){
+  saveUser(){
+    this.userService.updateUserSync(this.user).subscribe(data => {
+      if (data && data.UserId === this.user.UserId) {
+        this.user = data;
+        this.addPhoneNumber = false;
+        this.order.CustomerPhone = this.user.PhoneNumber;
+        this.accountService.updateUserState(this.user)
+      }
+    })
+  }
+
+  save() {
     this.userService.updateUserSync(this.user).subscribe(data => {
       if (data && data.UserId === this.user.UserId) {
         this.user = data;
@@ -40,9 +55,9 @@ export class CheckoutCustomerInfoComponent implements OnInit {
   saveAddress() {
     if (!this.user)
       return;
-    let item = this.user.Items.find(x=>x.Latitude === this.order.Latitude);
-    if(!item)
-    return
+    let item = this.user.Items.find(x => x.Latitude === this.order.Latitude);
+    if (!item)
+      return
     item.ParentId = this.user.UserId;
     item.AddressLine = this.user.AddressLineHome;
     item.Longitude = this.user.Longitude;
@@ -50,21 +65,28 @@ export class CheckoutCustomerInfoComponent implements OnInit {
     item.LocationType = this.user.AddressLineWork;
     this.itemService.update(item).subscribe(e => {
       if (e) {
-      item = e;
-      this.profile();
-      this.order.CustomerId = this.user.UserId;
-      this.order.CustomerName= this.user.Name;
-      this.order.CustomerSurname= this.user.Surname;
-      this.order.CustomerEmail= this.user.Email;
-      this.order.CustomerPhone= this.user.PhoneNumber;
-      this.order.Latitude= this.user.Latitude;
-      this.order.Longitude= this.user.Longitude;
-      this.order.FullAddress= this.user.AddressLineHome;
-      this.orderService.updateOrderState(this.order);
+        item = e;
+        this.profile();
+        this.order.CustomerId = this.user.UserId;
+        this.order.CustomerName = this.user.Name;
+        this.order.CustomerSurname = this.user.Surname;
+        this.order.CustomerEmail = this.user.Email;
+        this.order.CustomerPhone = this.user.PhoneNumber;
+        this.order.Latitude = this.user.Latitude;
+        this.order.Longitude = this.user.Longitude;
+        this.order.FullAddress = this.user.AddressLineHome;
+        this.orderService.updateOrderState(this.order);
         // this.getUser();
       }
       this.accountService.updateUserState(this.user);
     })
   }
 
+  back() {
+    if (this.order && this.order.CompanyId) {
+      this.router.navigate([`/shop/cart`]);
+      return;
+    }
+    this.router.navigate(['']);
+  }
 }

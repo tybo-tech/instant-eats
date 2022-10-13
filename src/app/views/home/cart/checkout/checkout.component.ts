@@ -1,16 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { config } from 'process';
+import { BASE, environment } from 'src/environments/environment';
 import { Email, Order, User } from 'src/models';
+import { Item } from 'src/models/item.model';
 import { Shipping, SHIPPING_OPTIONS } from 'src/models/shipping.model';
 import { LocationModel } from 'src/models/UxModel.model';
 import { AccountService, EmailService, OrderService, UserService } from 'src/services';
 import { CustomerService } from 'src/services/customer.service';
 import { InteractionService } from 'src/services/Interaction.service';
+import { ItemService } from 'src/services/item.service';
 import { ShippingService } from 'src/services/shipping.service';
 import { UxService } from 'src/services/ux.service';
 import { DRAFT_ORDERS, NOTIFY_EMAILS, ORDER_PAYMENT_STATUSES, PENDINGORDERS } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-checkout',
@@ -27,8 +31,10 @@ export class CheckoutComponent implements OnInit {
   companyId: string;
   productName = '';
   productDescription = '';
-  merchantId = '17194710';
-  merchantKey = 'tqcl4iesooa66';
+  config: WebConfig = getConfig(BASE);
+  merchantId = this.config.MerchantId;
+  merchantKey = this.config.MerchantKey;showCardConfirm: boolean;
+;
   shopingSuccesfulUrl: string;
   paymentCallbackUrl: string;
   paymentCancelledUrl: string;
@@ -36,6 +42,8 @@ export class CheckoutComponent implements OnInit {
   showCashConfirm: boolean;
   locationData: LocationModel;
   showOnlinePayment: boolean;
+  fees: Item[];
+
   constructor(
     private accountService: AccountService,
     // private shoppingService: ShoppingService,
@@ -45,7 +53,8 @@ export class CheckoutComponent implements OnInit {
     private interactionService: InteractionService,
     private customerService: CustomerService,
     private emailService: EmailService,
-    private userService: UserService
+    private userService: UserService,
+    private itemService: ItemService
   ) {
 
   }
@@ -117,6 +126,12 @@ export class CheckoutComponent implements OnInit {
       this.productDescription = this.productDescription.substring(0, 254);
     }
     this.laodShipping();
+
+    this.itemService.feesObservable.subscribe(fees => {
+      if (fees && fees.length) {
+        this.fees = fees;
+      }
+    })
   }
   contineuAsGuest() {
     this.isGuest = true;
@@ -156,7 +171,7 @@ export class CheckoutComponent implements OnInit {
     this.order.EstimatedDeliveryDate = '';
     this.order.MaxDeliveryTime = '';
     this.order.PaymentMethod = 'Online';
-    this.order = this.orderService.calculateTotalOverdue(this.order);
+    this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
 
 
     if (this.order.CreateDate && this.order.OrdersId) {
@@ -192,6 +207,9 @@ export class CheckoutComponent implements OnInit {
   payCash() {
     this.showCashConfirm = true;
   }
+  payCard() {
+    this.showCardConfirm = true;
+  }
   onCashConfirm() {
     this.showCashConfirm = false;
     this.order.OrderSource = 'Online shop';
@@ -200,6 +218,16 @@ export class CheckoutComponent implements OnInit {
     this.order.MaxDeliveryTime = '';
     this.order = this.orderService.estimateDelivery(this.order);
     const emailbody = `New CASH ORDER order is in placed. <br>  <h3>R${this.order.Total}</h3>`;
+    this.checkCustomerProfileForCompany(emailbody);
+  }
+  onCardConfirm() {
+    this.showCashConfirm = false;
+    this.order.OrderSource = 'Online shop';
+    this.order.PaymentMethod = 'Card';
+    this.order.EstimatedDeliveryDate = '';
+    this.order.MaxDeliveryTime = '';
+    this.order = this.orderService.estimateDelivery(this.order);
+    const emailbody = `New CARD ORDER order is in placed. <br>  <h3>R${this.order.Total}</h3>`;
     this.checkCustomerProfileForCompany(emailbody);
   }
 
@@ -212,7 +240,7 @@ export class CheckoutComponent implements OnInit {
       this.order.ShippingPrice = 0;
     }
 
-    this.order = this.orderService.calculateTotalOverdue(this.order);
+    this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
 
     this.updateOrderAddress();
     this.order.OrderSource = 'Online shop';

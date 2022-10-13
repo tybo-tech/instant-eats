@@ -1,9 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
+import { BASE } from 'src/environments/environment';
 import { Order, User } from 'src/models';
 import { AccountService, OrderService, UserService } from 'src/services';
 import { UxService } from 'src/services/ux.service';
 import { DRIVER_STATUSES, ORDER_STATUSES, PAY_METHODS } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-order-driver',
@@ -26,6 +28,7 @@ export class OrderDriverComponent implements OnInit, OnDestroy {
   time: number;
   navText: string;
   showCollectCash: boolean;
+  config: WebConfig = getConfig(BASE);
   constructor(private userService: UserService, private acc: AccountService, private ux: UxService,
     private orderService: OrderService
   ) { }

@@ -73,6 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   getActiveOrders() {
     this.orderService.getActiveOrders(this.user.CompanyId).subscribe(data => {
       if (data && data.length) {
+        this.order = data.find(x => x.Status === ORDER_STATUSES[0]);
         this.orderService.queDrivers(data);
       }
     })

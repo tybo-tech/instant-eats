@@ -3,6 +3,7 @@ import { Item } from "./item.model";
 import { Order } from "./order.model";
 
 export interface User {
+  Selected?: boolean;
   Id?: number;
   UserStatus?: any;
   UserId?: string;

@@ -22,7 +22,7 @@ $size : 6em;
     background: none;
     border-radius: 50%;
     border: 7px solid rgba(227, 243, 136, 0.555);
-    border-top-color: $pop;
+    border-top-color: var(--primary-color, rgb(115, 115, 115));
     animation: spin 1s linear infinite;
     width: 100%;
     height: 100%;

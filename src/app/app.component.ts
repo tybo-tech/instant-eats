@@ -1,27 +1,34 @@
-import { OnInit } from '@angular/core';
+import { AfterViewInit, ElementRef, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwPush, SwUpdate } from '@angular/service-worker';
-import { take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { User } from 'src/models';
-import { AccountService, UserService } from 'src/services';
-import { VAPID_PUBLIC_KEY } from 'src/shared/constants';
+import { AccountService } from 'src/services';
+import { ItemService } from 'src/services/item.service';
+import { ITEM_TYPES } from 'src/shared/constants';
+import { getConfig, WebConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   user: User;
-  constructor(private swUpdate: SwUpdate, private swPush: SwPush, private accountService: AccountService, private router: Router, private userService: UserService) {
+  config: WebConfig;
+  constructor(private elementRef: ElementRef, private swUpdate: SwUpdate, private swPush: SwPush, private accountService: AccountService, private router: Router, private itemService: ItemService) {
     this.updateClientapp();
     this.swPush.notificationClicks.subscribe(event => {
       console.log('Received notification: ', event);
       const url = event.notification.data.url;
       window.open(url, '_blank');
     });
+  }
+  ngAfterViewInit(): void {
+    this.config = getConfig(BASE);
+    this.elementRef.nativeElement.style.setProperty('--primary-color', this.config.BackgroundColor);
+    this.elementRef.nativeElement.style.setProperty('--primary-complementary', this.config.ComplementaryColor);
   }
   ngOnInit(): void {
     if (environment.production) {
@@ -36,6 +43,7 @@ export class AppComponent implements OnInit {
     });
 
 
+    this.getFees();
 
   }
 
@@ -59,6 +67,15 @@ export class AppComponent implements OnInit {
       console.log('New update activated.', data);
 
     });
+  }
+
+
+  getFees() {
+    this.itemService.getItems('super', ITEM_TYPES.FEES.Name).subscribe(data => {
+      if (data && data.length) {
+        this.itemService.updateFeesState(data);
+      }
+    })
   }
 
 }

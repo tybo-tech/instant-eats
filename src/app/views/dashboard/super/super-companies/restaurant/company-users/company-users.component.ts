@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { User, Email } from 'src/models';
 import { Company } from 'src/models/company.model';
 import { SliderWidgetModel, LocationModel } from 'src/models/UxModel.model';
@@ -8,6 +8,7 @@ import { UserService, EmailService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { UxService } from 'src/services/ux.service';
 import { ADMIN, CC_EMAILS } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-company-users',
@@ -24,7 +25,8 @@ export class CompanyUsersComponent implements OnInit {
   primaryAction = 'Add an admin'
   companyId: any;
   company: Company;
-
+  config: WebConfig = getConfig(BASE);
+  noUsersFoundError: string;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -42,6 +44,7 @@ export class CompanyUsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.noUsersFoundError = `No users found in this ${this.config.WebCatergoryNameSingular} `
   }
   getUsers() {
     this.loading = true;

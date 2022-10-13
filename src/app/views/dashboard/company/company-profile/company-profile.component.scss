@@ -165,7 +165,7 @@
 
 .edit-btn {
   margin: 1em 0;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
 }
 
 .long-btn {
@@ -175,7 +175,7 @@
 .center-btn {
   width: 17em;
   margin: 2em auto;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
 
 }
 

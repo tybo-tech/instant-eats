@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { Email, Order, User } from 'src/models';
 import { Delivery } from 'src/models/delivery.model';
 import { SHIPPING_OPTIONS } from 'src/models/shipping.model';
@@ -9,7 +9,8 @@ import { CompanyService } from 'src/services/company.service';
 import { DeliveryService } from 'src/services/delivery.service';
 import { ItemService } from 'src/services/item.service';
 import { UxService } from 'src/services/ux.service';
-import { ACTIVEORDERS, DRIVER, HISTORYORDERS, NOTIFY_EMAILS, ORDER_STATUSES, PENDINGORDERS } from 'src/shared/constants';
+import { ACTIVEORDERS, DELIVERY_REQUEST_STATUSES, DRIVER, DRIVER_STATUSES, HISTORYORDERS, NOTIFY_EMAILS, ORDER_STATUSES, PENDINGORDERS } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-order-widget',
@@ -20,17 +21,21 @@ export class OrderWidgetComponent implements OnInit {
   @Input() orders: Order[];
   @Input() user: User;
   @Output() orderClicked: EventEmitter<Order> = new EventEmitter<Order>();
+  driverId: string;
   PENDINGORDERS = PENDINGORDERS
   order: Order;
   showAddCancel: boolean;
   showAdd: boolean;
+  config: WebConfig = getConfig(BASE);
   formError;
   showAssignDrivers: boolean;
   loading: boolean;
   users: User[];
   selectedOrder: Order;
   drivers: User[];
+  noDriver = 'No driver assigned';
   ORDER_STATUSES = ORDER_STATUSES;
+  cancelReason: string = '';
   constructor(
     private orderService: OrderService,
     private userService: UserService,
@@ -43,20 +48,26 @@ export class OrderWidgetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getUsers()
   }
   select(order: Order) {
     this.orderClicked.emit(order);
   }
-  accept(order: Order) {
 
-  }
   calTime() {
     if (this.order) {
       this.order = this.orderService.estimateDelivery(this.order, this.order.DeliveryMins);
     }
 
   }
+  cancel(order: Order) {
 
+    order.Status = ORDER_STATUSES[6];
+    order.StatusId =0;
+    order.FulfillmentStatus = this.cancelReason;
+    this.order =order
+    this.updateOrder()
+  }
   orderAction(action: string, order: Order) {
     this.order = order
 
@@ -114,6 +125,14 @@ export class OrderWidgetComponent implements OnInit {
 
     if (this.order.Status === ORDER_STATUSES[2]) {
       this.order.AccetpTime = `${new Date()}`;
+      if (this.order.DriverId) {
+        if (!this.users)
+          return;
+
+        const driver = this.users.find(x => x.UserId === this.driverId);
+        if (driver)
+          this.notifyDriver(driver, this.order)
+      }
     }
 
 
@@ -156,7 +175,7 @@ export class OrderWidgetComponent implements OnInit {
 
     if (this.order.Status === ORDER_STATUSES[3]) {
       if (this.order.Customer.AddressUrlWork)
-        this.pushNotify(this.order.Customer.AddressUrlWork, `Food is ready to be picked`, `The restaurant just finished`,
+        this.pushNotify(this.order.Customer.AddressUrlWork, `Food is ready to be picked`, `The ${this.config.WebCatergoryNameSingular} just finished`,
           `${environment.BASE_URL}/home/view-my-order/${this.order.OrdersId}`, this.orderService.getOneProductOrderImage(this.order));
     }
 
@@ -170,6 +189,26 @@ export class OrderWidgetComponent implements OnInit {
       if (this.order.Customer.AddressUrlWork)
         this.pushNotify(this.order.Customer.AddressUrlWork, `Your food arrived`, `The driver is here, Enjoy!`,
           `${environment.BASE_URL}/home/view-my-order/${this.order.OrdersId}`, this.orderService.getOneProductOrderImage(this.order));
+    }
+
+    if (this.order.Status === ORDER_STATUSES[6]) {
+      if (this.order.Customer.AddressUrlWork)
+        this.pushNotify(this.order.Customer.AddressUrlWork, ` Order cancelled`, `Sorry, your order has been cancelled by ${this.order.Company.Name}
+        <br>
+        Reason: ${this.order.FulfillmentStatus}
+        `, 
+      
+          `${environment.BASE_URL}/home/view-my-order/${this.order.OrdersId}`, this.orderService.getOneProductOrderImage(this.order));
+
+      const body = `Sorry, your order has been cancelled by ${this.order.Company.Name}
+      <br>
+      Reason: ${this.order.FulfillmentStatus}
+    
+    `;
+      this.sendEmailLogToShop(body, this.order.CustomerName, this.order.CustomerEmail, 'Order cancelled');
+      this.sendEmailLogToShop(body, this.order.CustomerName, NOTIFY_EMAILS,'Order cancelled');
+      this.sendEmailRange(this.order.Company.Name, this.order.Company.AddressLine);
+      this.getUsersNearByDrivers();
     }
   }
 
@@ -186,12 +225,35 @@ export class OrderWidgetComponent implements OnInit {
     this.loading = true;
     this.userService.getAllUsersStync(DRIVER).subscribe(data => {
       this.users = [];
-      this.showAssignDrivers = true;
       this.loading = false;
       if (data && data.length) {
         this.users = data;
       }
     })
+  }
+  driverSelected() {
+    if (!this.users)
+      return;
+
+    const driver = this.users.find(x => x.UserId === this.driverId);
+    if (driver) {
+      this.order.DriverId = driver.UserId;
+      this.order.DriverName = driver.Name;
+      this.order.DriverRequestLastModified = `${new Date()}`;
+      this.order.DriverStatus = DELIVERY_REQUEST_STATUSES.ACCEPTED.Name;
+
+      driver.DriverStatus = this.order.DriverStatus;
+      driver.UserStatus = DRIVER_STATUSES.BUSY.Name;
+      this.userService.updateUserSync(driver).subscribe(data => {
+        if (data) {
+          console.log(this.order);
+
+        }
+
+      })
+
+    }
+
   }
   saveAssignDriver(user: User) {
     this.selectedOrder.DriverId = user.UserId;
@@ -203,7 +265,34 @@ export class OrderWidgetComponent implements OnInit {
       }
     });
   }
+  notifyDriver(driver: User, order: Order) {
+    const driverData: Email = {
+      Email: `${driver.Email}, ${NOTIFY_EMAILS}`,
+      Subject: 'New delivery assigned to you.',
+      Message: `
+    Hi ${driver.Name}, <br>
+    You have new delivery assigned to you.
+<br>
+<h6 class="name">
+<b> Order #${order.Id} , </b> for <b>${order.CustomerName} </b>
+<br>
+<small>
+    ${order.FullAddress}
+</small>
+</h6>
 
+    `,
+      Link: `${environment.BASE_URL}/home/sign-in`,
+      LinkLabel: 'View details'
+    }
+    this.emailService.sendGeneralTextEmail(driverData)
+      .subscribe(response => {
+        if (response > 0) {
+          console.log('Mail sent');
+
+        }
+      });
+  }
   sendEmailRange(companyName: string, companyAddress: string) {
     if (this.drivers && this.drivers.length) {
       const emails: Email[] = [];
@@ -234,10 +323,10 @@ export class OrderWidgetComponent implements OnInit {
 
 
   }
-  sendEmailLogToShop(data, companyName: string, email: string) {
+  sendEmailLogToShop(data, companyName: string, email: string, sub: string =  'New order accepted & in  progress.') {
     const emailToSend: Email = {
       Email: email,
-      Subject: 'New order accepted & in  progress.',
+      Subject: sub,
       Message: `${data}`,
       UserFullName: companyName,
       Link: `${environment.BASE_URL}/private/order-details/${this.order.OrdersId}`,

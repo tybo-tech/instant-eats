@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { UploadService } from 'src/services';
 import { IMAGE_CROP_SIZE } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-image-banner-widget',
@@ -13,6 +14,7 @@ export class ImageBannerWidgetComponent implements OnInit {
   @Input() image: string;
   @Output() imageChangedEvent: EventEmitter<string> = new EventEmitter<string>();
   loading: boolean;
+  config: WebConfig = getConfig(BASE);
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {

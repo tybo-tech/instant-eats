@@ -24,6 +24,12 @@ import { AgmCoreModule } from '@agm/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AltraOrderComponent } from './orders/altra-order/altra-order.component';
+import { FeeComponent } from './item/fees/fee/fee.component';
+import { ReportsComponent } from './reports/reports/reports.component';
+import {ChartModule} from 'primeng/chart';
+import { AppConfigService } from 'src/services/appconfigservice';
+import { EmailsComponent } from './item/emails/emails.component';
+
 // import {ToastModule} from 'primeng/toast';
 
 
@@ -56,10 +62,12 @@ import { AltraOrderComponent } from './orders/altra-order/altra-order.component'
     MatSlideToggleModule,
     ImageCropperModule,
     AgmCoreModule,
+    ChartModule,
     // ToastModule,
     QuillModule.forRoot()
 
   ],
-  declarations: [...declarations, AltraOrderComponent]
+  declarations: [...declarations, AltraOrderComponent, FeeComponent, ReportsComponent, EmailsComponent],
+  providers: [AppConfigService]
 })
 export class DashboardModule { }

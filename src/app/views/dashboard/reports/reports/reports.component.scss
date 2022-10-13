@@ -1,0 +1,90 @@
+@import "../../../../../assets/styles/color";
+.container {
+    padding-top: 5%;
+}
+
+.tabs {
+    grid-template-columns: repeat(5, 20%);
+}
+
+.fees {
+    background: $white;
+    padding: 1em;
+    margin: 1em 0;
+}
+.details {
+    padding: 1em;
+    textarea {
+        border: none;
+        background: none;
+    }
+}
+.dates {
+    display: grid;
+    grid-template-columns: 50% auto;
+    padding: 0.5em 0;
+    margin: 1em auto;
+    input {
+        width: 96%;
+        background: $white;
+    }
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-gap: 1em;
+}
+.order-amounts-per-status {
+    text-align: center;
+    margin: 1em auto;
+    // border-bottom: 1px solid $grey;
+    padding: 2em 0.5em;
+    background: $white;
+    box-shadow: $box-shadow;
+    border-radius: 0.25555em;
+    width: 100%;
+    
+
+    small{
+        background:  $cloud;
+        display: inline-block;
+        margin: .5em;
+        padding: .2em .777em;
+    }
+
+    td{
+        text-align: left;
+    }
+}
+
+.mid-header
+{
+    font-weight: 900;
+}
+
+.commissions{
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-gap: 1em;
+    .commission{
+        text-align: left;
+        border: 2px solid $grey;
+        margin: .5em;
+        padding: 1em;
+        border-radius: .5em;
+    }
+}
+
+table{
+    width: 100%;
+    overflow-x: scroll;
+
+    td, th{
+        width: fit-content;
+        white-space: nowrap;
+        padding: .1em 1em;
+        border-right: 1px solid $cloud;
+    }
+
+}

@@ -1,4 +1,6 @@
+import { BASE } from "src/environments/environment";
 import { HomeTabModel } from "src/models/UxModel.model";
+import { getConfig } from "./web-config";
 export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com';
 export const CC_EMAILS = 'mrnnmthembu@gmail.com';
 // export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com,orders@instanteats.co.za';
@@ -7,13 +9,14 @@ export const ACTIVEORDERS = 1;
 export const HISTORYORDERS = 2;
 export const PENDINGORDERS = 3;
 export const DRAFT_ORDERS = 4;
-export const ACCEPT_REQUEST_SECONDS = 45;
+export const ACCEPT_REQUEST_SECONDS = 50;
 
 export const COMMISSION_MODES = ['Fixed Fee', 'Percentage'];
 export const DELIVERY_MODES = ['Self Pickup & Delivery', 'Self Pickup only', 'Delivery Only'];
 export const ORDER_ACCEPTING_MODES = ['Accepting Orders', 'Not Accepting Orders'];
 export const VERSION = '1.40';
 export const CUSTOMER = 'Customer';
+export const STAF = 'Staf';
 export const DRIVER = 'Driver';
 export const COMPANY_EMIAL = 'info@Instanteats.co.za, accounts@tybo.co.za, mrnnmthembu@gmail.com';
 export const IMAGE_CROP_SIZE = 700;
@@ -138,11 +141,11 @@ export const ORDER_PAYMENT_STATUSES = [
         Class: ['active']
     }
 ];
-
+const config = getConfig(BASE);
 export const VARIATION_SELECTION_MODES = [{ Name: 'Customer can select only one', Class: ['active'] }, { Name: 'Customer can select many', Class: [] }];
 export const VARIATION_PRICE_MODES = [{ Name: 'Base price', Class: ['active'] }, { Name: 'Additional price', Class: [] }];
 export const PRODUCTS_MODES = [{ Id: 1, Name: 'Product Info', Class: ['active'] }, { Id: 2, Name: 'Product Variations', Class: [] }];
-export const COMPANY_TABS = [{ Id: 1, Name: 'Restaurant Info', Class: ['active'] }, { Id: 2, Name: 'Operating Hours', Class: [] }];
+export const COMPANY_TABS = [{ Id: 1, Name: `${config.WebCatergoryNameSingular} Info`, Class: ['active'] }, { Id: 2, Name: 'Operating Hours', Class: [] }];
 export const VARIATION_REQUIRED_MODES = [{ Id: 1, Name: 'Required', Class: ['active'] }, { Id: 2, Name: 'Optional', Class: [] }];
 export const VIHICLES = [{ Id: 1, Name: 'Motorbike', Class: ['active'] }, { Id: 2, Name: 'Car', Class: [] }];
 export const GENDER = [{ Id: 1, Name: 'Female', Class: ['active'] }, { Id: 2, Name: 'Male', Class: [] }, { Id: 3, Name: 'Rather not say', Class: [] }];
@@ -151,6 +154,10 @@ export const VARIATION_NUMBER_OF_SELECTION = [
     { Id: 6, Name: 'Many', Class: [] },
 ];
 
+export const FEES_TABS = [{ Id: 'product', Name: 'Product Fees', Class: ['active'] }, { Id: 'delivery', Name: 'Delivery Fees', Class: [] }, { Id: 'order', Name: 'Order Fees', Class: [] }];
+export const EMAILS_TABS = [{ Id: 'send', Name: 'New email', Class: ['active'] }, { Id: 'sent', Name: 'Sent emails', Class: [] }];
+export const REPORTS_TABS = [{ Id: 'overview', Name: 'Overview', Class: ['active'] }, { Id: 'sales', Name: 'Sales', Class: [] },
+{ Id: 'orders', Name: 'Orders ', Class: [] }, { Id: 'products', Name: 'Products ', Class: [] }, { Id: 'drivers', Name: 'Drivers ', Class: [] }];
 
 export const OPEN_CLOSE = [{ Id: 1, Name: 'Open', Class: ['active'] }, { Id: 2, Name: 'Closed', Class: [] }];
 
@@ -160,12 +167,16 @@ export const ITEM_TYPES = {
     CUSTOMER_ADDRESS: { Name: 'CustomerAddress' },
     CUSTOMER_DATA: { Name: 'CustomerData' },
     CHAT: { Name: 'Chat' },
+    FEES: { Name: 'Fees' },
     RATING: { Name: 'Rating' },
     REQUEST: { Name: 'Request' },
 }
 export const MESSAGE_STATUSES = {
     SENT: { Name: 'Sent' },
     READ: { Name: 'Read' }
+}
+export const EMAILS_TEMPLATE = {
+    TEMPLATE: { Name: 'Email-Template' }
 }
 export const PAY_METHODS = {
     CASH: { Name: 'Cash' },

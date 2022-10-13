@@ -12,7 +12,7 @@
 
 
     <div class="name menu-back" (click)="back()">
-      Restaurant dashboard
+       {{config.WebCatergoryNameSingular}} dashboard
     </div>
   </div>
 
@@ -46,8 +46,13 @@
 
 
       <div class="form-item">
-        <label for="">Restaurant name*</label>
+        <label for=""> {{config.WebCatergoryNameSingular}} name*</label>
         <input type="text" name="" id="" [(ngModel)]="company.Name" placeholder="">
+      </div>
+
+      <div class="form-item">
+        <label for=""> {{config.WebCatergoryNameSingular}} slug*</label>
+        <input type="text" name="" id="" [(ngModel)]="company.Slug" placeholder="">
       </div>
 
 

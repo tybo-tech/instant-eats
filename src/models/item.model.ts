@@ -54,7 +54,8 @@ export interface Item {
   ShowMore?: boolean;
   Style?: any;
   Goto?: string
-
+  Fees?: FeesModel [];
+  
 }
 
 export interface OperatingHoursModel {
@@ -62,6 +63,12 @@ export interface OperatingHoursModel {
   Open: string
   OpenTime: string
   CloseTime: string
+}
+export interface FeesModel {
+  Min: number;
+  Max: number;
+  Fee: number;
+  Label: string
 }
 
 export const OPARATING_HOURS: OperatingHoursModel[] = [

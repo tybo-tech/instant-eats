@@ -53,7 +53,7 @@ p {
 }
 
 .edit {
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   width: 12em;
   margin: .5em 0;
   border-radius: .5em;

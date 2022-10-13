@@ -3,7 +3,7 @@
     <input type="file" accept="image/png, image/jpeg" #file placeholder="Choose file" (change)="uploadFile(file.files)"
       style="display:none;">
     <span class="user-dp" *ngIf="!image" (click)="file.click()">
-      Upload restaurant cover
+      Upload  {{config.WebCatergoryNameSingular}} cover
     </span>
   </div>
   <div class="preview" (click)="file.click()">

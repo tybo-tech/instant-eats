@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BASE } from 'src/environments/environment';
 import { User } from 'src/models';
 import { Company } from 'src/models/company.model';
 import { Product } from 'src/models/product.model';
@@ -8,7 +9,8 @@ import { AccountService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { ProductService } from 'src/services/product.service';
 import { UxService } from 'src/services/ux.service';
-import { DELIVERY_MODES, COMMISSION_MODES, ACTIVEORDERS, HISTORYORDERS, PENDINGORDERS, SUPER, ADMIN } from 'src/shared/constants';
+import { DELIVERY_MODES, COMMISSION_MODES, ACTIVEORDERS, HISTORYORDERS, PENDINGORDERS, SUPER, ADMIN, STAF } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-restaurant',
@@ -16,11 +18,12 @@ import { DELIVERY_MODES, COMMISSION_MODES, ACTIVEORDERS, HISTORYORDERS, PENDINGO
   styleUrls: ['./restaurant.component.scss']
 })
 export class RestaurantComponent implements OnInit {
+  config: WebConfig = getConfig(BASE);
   company: Company;
   companyId: any;
   products: Product[];
   tabsItems: BreadModel[];
-  addEditCompanyHeading = 'View/Edit restaurant';
+  addEditCompanyHeading = `View/Edit ${this.config.WebCatergoryNameSingular}`;
   user: User;
   loading = true;
   superMenu: SliderWidgetModel[];
@@ -29,6 +32,8 @@ export class RestaurantComponent implements OnInit {
   adminStat: AdminStatModel;
   SUPER = SUPER
   ADMIN = ADMIN
+  STAF =STAF;
+
   constructor(
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
@@ -43,7 +48,8 @@ export class RestaurantComponent implements OnInit {
     this.activatedRoute.params.subscribe(r => {
       this.companyId = r.id;
       if (this.companyId === 'add') {
-        this.addEditCompanyHeading = 'Add new restaurant'
+        this.loading = false;
+        this.addEditCompanyHeading = `Add new ${this.config.WebCatergoryNameSingular}`
 
         this.company = {
           CompanyId: '',
@@ -87,7 +93,7 @@ export class RestaurantComponent implements OnInit {
     this.tabsItems = [
       { Name: `<span class="material-icons">arrow_back_ios</span>Back`, Link: '', Class: ['back-btn'], Id: 'back-btn' },
       { Id: '1', Name: 'Details', Link: '', Class: ['active'] },
-      { Id: '2', Name: 'Food items', Link: '', Class: [] },
+      { Id: '2', Name: `${this.config.ProductName}s`, Link: '', Class: [] },
       { Id: '3', Name: 'Admins', Link: '', Class: [] },
     ];
 
@@ -111,13 +117,13 @@ export class RestaurantComponent implements OnInit {
     this.superMenu.push(
       {
         Name: `${this.company.Name}`,
-        Description: `View restaurants info`,
+        Description: `View ${this.config.WebCatergoryName} info`,
         Link: `admin/dashboard/company/${this.company.CompanyId}`,
-        Icon: `${this.company.Dp}`
+        Icon: `${this.company.Dp || 'assets/images/icon-restaurant.svg'}`
       },
     
       {
-        Name: `Food items`,
+        Name: `${this.config.ProductName}s`,
         Description: `${this.adminStat.Products || 0}  items`,
         Link: `admin/dashboard/products/${this.companyId}`,
         Icon: `assets/images/icon-food.png`
@@ -145,7 +151,7 @@ export class RestaurantComponent implements OnInit {
       },
 
       {
-        Name: `Restaurants Admins`,
+        Name: `${this.config.WebCatergoryNameSingular} Admins`,
         Description: `${this.adminStat.Admins}  users`,
         Link: `admin/dashboard/company-users/${this.companyId}`,
         Icon: `assets/images/def-user.svg`

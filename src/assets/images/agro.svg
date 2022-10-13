@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="987" height="234" viewBox="0 0 987 234">
+  <g id="agro" transform="translate(-726 -347)">
+    <g id="Group_2523" data-name="Group 2523">
+      <g id="Group_2519" data-name="Group 2519" transform="translate(-60 14)">
+        <rect id="Rectangle_360" data-name="Rectangle 360" width="987" height="234" rx="22" transform="translate(786 333)" fill="#fff"/>
+        <g id="Group_2521" data-name="Group 2521" transform="translate(-5 8.004)">
+          <g id="Group_2522" data-name="Group 2522" transform="translate(-10 14)">
+            <text id="grifarmer" transform="translate(942.083 459.996)" fill="#09e14e" font-size="132" font-family="Rockwell-ExtraBold, Rockwell" font-weight="800"><tspan x="0" y="0">grifarmer</tspan></text>
+            <g id="Group_2520" data-name="Group 2520">
+              <path id="Path_265" data-name="Path 265" d="M3451.546-4426.547l14.238,29.5s-12.247.594-18.477,0-5.857-1.232-8.113-2.657-10.7-9.379-10.7-9.379Z" transform="translate(-2494.465 4882.765)" fill="#09e14e" stroke="#fff" stroke-width="3"/>
+              <path id="Path_264" data-name="Path 264" d="M3396.732-4441.1s16.777-9.256,37.045-9.256,43.832,5.221,43.832,5.221-18.121,13.272-36.669,26.076-17.833,20.556-37.529,25.139-43.215-1.867-43.215-1.867,20.4-14.662,39.52-24.976,34.062-16.414,34.062-16.414a298.4,298.4,0,0,0-38.051,14.085c-22.273,9.812-50.779,26.279-50.779,26.279l47.291-103.1h29.507l19.194,45.837a68.683,68.683,0,0,0-14.9,0,71.534,71.534,0,0,0-14.61,3.725l-6.016-14.9Z" transform="translate(-2495.029 4882.269)" fill="#09e14e" stroke="#fff" stroke-width="2"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,4 +1,4 @@
-@import '../../../../../assets/styles/color';
+@import "../../../../../assets/styles/color";
 
 .overlay {
   z-index: 50000;
@@ -6,32 +6,28 @@
 
 .items {
   position: fixed;
-  z-index: 50001;
-  left: 50%;
+  z-index: 10000000;
+  left: 51%;
   width: 70%;
-  height: 100vh;
-  top: 0;
+  height: 88vh;
   background: $white;
-  // animation: moveInLeft .2s ease-out 0s;
-  // animation-fill-mode: backwards;
   max-width: 25em;
-  left: 50%;
-  top: 5.2em;
-  border-radius: 0.5em;
-  transform: translate(-67.555555%, 0);
-
+  top: .75em;
+  border-radius: 1rem 0 0 1rem;
+  transform: translate(-71.555555%, 0);
 
   @media only screen and (max-width: 600px) {
     top: 0;
+    height: 100vh;
+    border-radius: 0;
   }
-
 
   .item {
     display: grid;
     grid-template-columns: 3em auto;
     text-align: left;
-    padding: .75em 1em;
-    margin: .5em 0;
+    padding: 0.75em 1em;
+    margin: 0.5em 0;
 
     img {
       width: 2em;
@@ -45,7 +41,9 @@
   }
 
   .profile {
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
+    color: var(--primary-complementary, rgb(115, 115, 115));
+
     padding: 2em 1.4em;
     padding-top: 4em;
   }

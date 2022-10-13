@@ -91,7 +91,7 @@
   z-index: 10000000;
   right: 21em;
   top: .5em;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   padding: .4em 1em;
   text-align: center;
   color: $black;

@@ -22,7 +22,7 @@
     <div class="form-container">
       <div class="logo">
         <a routerLink="">
-          <img src="assets/images/common/logo.jpeg" alt="">
+          <img [src]="config.Logo" alt="">
         </a>
       </div>
 
@@ -34,29 +34,23 @@
 
       <div class="form-group">
         <label for="exampleInputName">Full Name*</label>
-        <input type="text" class="form-control" formControlName="Name" id="exampleInputFirstName"
+        <input type="text" class="form-control" formControlName="Name" 
           placeholder="John Doe">
         <div class="alert" *ngIf="!rForm.controls['Name'].valid  && rForm.controls['Name'].touched ">
           Name is required
         </div>
       </div>
 
-      <!-- <div class="form-group">
-        <label for="exampleInputPhoneNumber">Contact number*</label>
-        <input type="email" class="form-control" formControlName="PhoneNumber" id="exampleInputPhoneNumber"
-          placeholder="Enter Contact Number">
-        <div class="alert" *ngIf="!rForm.controls['PhoneNumber'].valid  && rForm.controls['PhoneNumber'].touched ">
-          PhoneNumber is required
-        </div>
-      </div> -->
 
-<!-- 
+      
       <div class="form-group">
-        <label for="exampleInputSurname">Delivery address</label>
-        <input ngx-google-places-autocomplete [options]='options' formControlName="AddressLineHome"
-          placeholder="Start typing..." class="input" #places="ngx-places"
-          (onAddressChange)="handleAddressChange($event)" />
-      </div> -->
+        <label for="exampleInputName">Phone Number*</label>
+        <input type="text" class="form-control" formControlName="PhoneNumber" 
+          placeholder="Enter a valid phone">
+        <div class="alert" *ngIf="!rForm.controls['PhoneNumber'].valid  && rForm.controls['PhoneNumber'].touched ">
+          Phone Number is required
+        </div>
+      </div>
 
       <div class="form-group">
         <label for="exampleInputEmail">Email address*</label>
@@ -88,13 +82,13 @@
 
         <div class="forgot-password sign-up">
           <br>
-          <a routerLink="/home/sign-in">Already using Instant Eats? <span>Sign in</span></a>
+          <a routerLink="/home/sign-in">Already using {{config.Name}}? <span>Sign in</span></a>
         </div>
         <span class="error">{{error}}</span>
       </div>
     </div>
   </form>
 </div>
-<app-customer-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-customer-feedback>
+<!-- <app-customer-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-customer-feedback> -->
 
 <app-home-loader *ngIf="showLoader"></app-home-loader>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BASE } from 'src/environments/environment';
 import { User } from 'src/models';
 import { Company } from 'src/models/company.model';
 import { LocationModel } from 'src/models/UxModel.model';
@@ -7,6 +8,7 @@ import { ProductService, AccountService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { UxService } from 'src/services/ux.service';
 import { COMMISSION_MODES, COMPANY_TABS, DELIVERY_MODES } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-add-view-company-widget',
@@ -22,7 +24,7 @@ export class AddViewCompanyWidgetComponent implements OnInit {
   addEditCompanyHeading: string;
   COMPANY_TABS = COMPANY_TABS;
   tabId = 1;
-
+  config: WebConfig = getConfig(BASE);
   constructor(
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
@@ -36,7 +38,7 @@ export class AddViewCompanyWidgetComponent implements OnInit {
     this.activatedRoute.params.subscribe(r => {
       this.companyId = r.id;
       if (this.companyId === 'add') {
-        this.addEditCompanyHeading = 'Add new restaurant'
+        this.addEditCompanyHeading = `Add new ${this.config.WebCatergoryNameSingular}`
 
         this.company = {
           CompanyId: '',
@@ -108,7 +110,7 @@ export class AddViewCompanyWidgetComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['admin/dashboard/restaurant', this.companyId]);
+    this.router.navigate([`admin/dashboard/restaurant`, this.companyId]);
   }
 
   save() {
@@ -117,7 +119,7 @@ export class AddViewCompanyWidgetComponent implements OnInit {
 
         if (data && data.CompanyId) {
           this.company = data;
-          this.uxService.showQuickMessage('Restaurant updated.');
+          this.uxService.showQuickMessage(`${this.config.WebCatergoryNameSingular} updated.`);
         }
 
       })
@@ -125,7 +127,7 @@ export class AddViewCompanyWidgetComponent implements OnInit {
       this.companyService.add(this.company).subscribe(data => {
         if (data && data.CompanyId) {
           this.company = data;
-          this.uxService.showQuickMessage('Restaurant created.');
+          this.uxService.showQuickMessage(`${this.config.WebCatergoryNameSingular} created.`);
         }
 
 

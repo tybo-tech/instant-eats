@@ -23,63 +23,81 @@
 
           Order No... #{{order.Id}} <br>
           Order Status... <span class="order-status">{{order.Status}}</span> <br>
+          Payment Method... <span class="">{{order.PaymentMethod}}</span> <br>
           Order Date... {{order.CreateDate | dateformater}} {{order.CreateDate | dateformater: 'time'}} <br>
           <hr>
           <p *ngFor="let item of order.Orderproducts">
-            {{item.Quantity}} x {{item.ProductName}}... {{item.SubTotal | currency:'R'}}
+            {{item.Quantity}} x {{item.ProductName}} <span
+              *ngIf="user && (user.UserType === 'Admin' ||  user.UserType === 'Super')">... {{item.SubTotal |
+              currency:'R'}}</span>
           </p>
-          Delivery Fee... {{order.ShippingPrice | currency:'R'}} <br>
-          <b>
+
+          <p *ngIf="user && (user.UserType === 'Admin' ||  user.UserType === 'Super')">
+            Delivery Fee... {{order.ShippingPrice | currency:'R'}} <br>
+          </p>
+
+          <b *ngIf="user && user.UserType === 'Admin'">
+            Order Total... {{order.ItemsTotal | currency:'R'}} <br>
+
+          </b>
+
+          <b *ngIf="user && user.UserType === 'Super'">
+            {{config.WebCatergoryNameSingular}} Total... {{order.ItemsTotal | currency:'R'}} <br>
+
+          </b>
+          <b *ngIf="user && user.UserType === 'Super'">
             Order Total... {{order.Total | currency:'R'}} <br>
 
           </b>
+          <a *ngIf="user && (user.UserType === 'Admin' ||  user.UserType === 'Super')" class="link-info"
+            (click)="view(order)"> <br>
+            Full Order details</a>
+          <br>
           <hr>
           Customer: {{order.CustomerName}} <br>
           Address: {{order.FullAddress}} <br>
+          <a style="font-weight: 700; color: rgb(5, 37, 104)" *ngIf="order.CustomerPhone"
+            [href]="'tel:'+ order.CustomerPhone"><i class="fa fa-phone" style="margin-right:1rem;"></i>
+            {{order.CustomerPhone}}</a>
+
+          <hr>
+
+          <p>
+            <i class="fa-solid fa-person-biking" style="margin-right:1rem;"></i> {{order.DriverName || noDriver}}
+          </p>
+
+
         </div>
 
-        <div class=" driver">
-          <div class="col">
-            <img src="assets/images/bike.png" alt="">
-          </div>
 
-          <div class="col">
-            <h5>
-              {{order.DriverName || 'No driver assigned'}}
-            </h5>
-            <br>
-            <div *ngIf="order.DriverRating">
-              <app-showiratings [rate]="order.DriverRating" [DriverRatingNotes]="order.DriverRatingNotes">
-              </app-showiratings>
-            </div>
-          </div>
-
-          <div class="col" *ngIf="!order.DriverId">
-            <button class="secondary" (click)="assignDriver(order)">Assign</button>
-          </div>
-        </div>
 
 
         <div class="actions">
-          <!-- <a *ngIf="order.AddressId" [href]="order.AddressId" target="_blank" rel="noopener noreferrer">
-            <button class="tertiary">Directions</button>
 
-          </a> -->
 
-          <a>
-            <button class="tertiary" (click)="view(order)">Order details</button>
+          <select class="tertiary" *ngIf="order.Status !== ORDER_STATUSES[6] && order.Status !== ORDER_STATUSES[5]"
+            (change)="cancel(order)" style="padding: .4rem !important; margin: 0;" [(ngModel)]="cancelReason">
+            <option value="" selected>Cancel Order</option>
+            <option value="Product is not available at the store">Product is not available at the store
+            </option>
+            <option value="Currently can't process your order">Currently can't process your order</option>
+          </select>
 
-          </a>
           <button *ngIf="order.StatusId == PENDINGORDERS" class="primary"
             (click)="orderAction(ORDER_STATUSES[2], order)">Accept
-            order</button>
-          <button *ngIf="order.Status == ORDER_STATUSES[2]" class="primary"
+            order
+          </button>
+
+          <button *ngIf="order.Status === ORDER_STATUSES[2]" class="primary"
             (click)="orderAction(ORDER_STATUSES[3], order)">{{ORDER_STATUSES[3]}}</button>
-          <button *ngIf="order.Status == ORDER_STATUSES[3]" class="primary"
+
+          <button *ngIf="order.Status === ORDER_STATUSES[3]" class="primary"
             (click)="orderAction(ORDER_STATUSES[4], order)">Mark as On the way</button>
-          <button *ngIf="order.Status == ORDER_STATUSES[4]" class="primary"
+
+          <button *ngIf="order.Status === ORDER_STATUSES[4]" class="primary"
             (click)="orderAction(ORDER_STATUSES[5], order)">Mark as
             Delivered</button>
+
         </div>
       </div>
 
@@ -105,9 +123,21 @@
         {{order.EstimatedDeliveryDate| date:'mediumTime'}}
       </h3>
     </div>
+    <div class="select-driver" *ngIf="order.Shipping === 'Delivery' && users">
+      <hr />
+      <label for="">Select driver</label>
+      <select name="" id="" [(ngModel)]="driverId" (change)="driverSelected()">
+        <option [value]="item.UserId" *ngFor="let item of users">
+          <!-- {{item.Name}} {{user.Surname}} -->
+          {{item.Name}}- {{item.Email}}
+        </option>
+      </select>
+    </div>
 
     <div class="form-item">
-      <button (click)="updateOrder()" [disabled]="!order.EstimatedDeliveryDate || formError">Accept order</button>
+      <button (click)="updateOrder()"
+        [disabled]="!order.EstimatedDeliveryDate || formError || (order.Shipping === 'Delivery' && !order.DriverId)">Accept
+        order</button>
       <div class="link" (click)="showAdd = false">Cancel</div>
     </div>
 

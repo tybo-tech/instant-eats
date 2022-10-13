@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { Email, Order, User } from 'src/models';
 import { Delivery } from 'src/models/delivery.model';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
@@ -8,6 +8,7 @@ import { AccountService, EmailService, OrderService } from 'src/services';
 import { DeliveryService } from 'src/services/delivery.service';
 import { UxService } from 'src/services/ux.service';
 import { DRIVER_TABS, NOTIFY_EMAILS, ORDER_PAYMENT_STATUSES, ORDER_STATUSES } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-deliveries',
@@ -27,6 +28,7 @@ export class DeliveriesComponent implements OnInit {
   ORDER_STATUSES = ORDER_STATUSES;
   delivery: Delivery;
   modalHeading: string;
+  config: WebConfig = getConfig(BASE);
   constructor(
     private deliveryService: DeliveryService,
     private uxService: UxService,
@@ -221,7 +223,7 @@ export class DeliveriesComponent implements OnInit {
             body,
             order.CustomerName,
             order.CustomerEmail,
-            order, 'Driver picked up the order from restaurant',
+            order, 'Driver picked up the order from '+this.config.WebCatergoryNameSingular,
             `${environment.BASE_URL}/home/view-my-order/${order.OrdersId}`,
             'Track driver'
           );

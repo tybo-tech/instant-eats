@@ -9,6 +9,10 @@ import { UxService } from 'src/services/ux.service';
 import { LocationModel } from 'src/models/UxModel.model';
 import { PromotionService } from 'src/services/promotion.service';
 import { DISCOUNT_TYPES } from 'src/shared/constants';
+import { ItemService } from 'src/services/item.service';
+import { Item } from 'src/models/item.model';
+import { BASE } from 'src/environments/environment';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-cart-items',
@@ -29,6 +33,9 @@ export class CartItemsComponent implements OnInit {
   SHIPPING_OPTIONS = SHIPPING_OPTIONS;
   locationData: LocationModel;
   discountAmount: number;
+  fees: Item[];
+  config: WebConfig;
+
 
   constructor(
     private router: Router,
@@ -37,10 +44,18 @@ export class CartItemsComponent implements OnInit {
     private location: Location,
     private uxService: UxService,
     private promotionService: PromotionService,
+    private itemService: ItemService,
 
   ) { }
 
   ngOnInit() {
+    this.config = getConfig(BASE);
+
+    this.itemService.feesObservable.subscribe(fees => {
+      if (fees && fees.length) {
+        this.fees = fees;
+      }
+    })
 
     this.uxService.locationObservable.subscribe(data => {
       if (data) {
@@ -62,6 +77,8 @@ export class CartItemsComponent implements OnInit {
       }
     }
 
+
+
   }
   back() {
     this.location.back();
@@ -75,7 +92,7 @@ export class CartItemsComponent implements OnInit {
       this.order.Shipping = undefined;
       this.order.ShippingPrice = undefined;
     }
-    this.order = this.orderService.calculateTotalOverdue(this.order);
+    this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
     this.orderService.updateOrderState(this.order);
   }
   selectShipping(shipping: Shipping) {
@@ -84,7 +101,7 @@ export class CartItemsComponent implements OnInit {
       shipping.Selected = true;
       this.order.ShippingPrice = shipping.Price;
       this.order.Shipping = shipping.Name;
-      this.order = this.orderService.calculateTotalOverdue(this.order);
+      this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
       this.orderService.updateOrderState(this.order);
       this.showAdd = false;
     }
@@ -130,6 +147,17 @@ export class CartItemsComponent implements OnInit {
 
   }
   calucalateShipping() {
+    if (this.user) {
+      this.order.Latitude = this.user.Latitude;
+      this.order.Longitude = this.user.Longitude;
+      this.order.FullAddress = this.user.AddressLineHome;
+    }
+    else if (this.locationData) {
+      this.order.Latitude = this.locationData.lat;
+      this.order.Longitude = this.locationData.lng;
+      this.order.FullAddress = this.locationData.addressLine;
+    }
+
     const cord1: LocationModel = {
       lat: this.order.Company.Latitude,
       lng: this.order.Company.Longitude,
@@ -140,18 +168,27 @@ export class CartItemsComponent implements OnInit {
 
 
     // const distance = this.uxService.calcCrow(cord1, this.locationData);
-
-    var p1 = new google.maps.LatLng(Number(this.user.Latitude), Number(this.user.Longitude));
+    let baseDeliveryFee = 10;
+    let baseDeliveryFeePerKM = 5;
+    if (this.fees) {
+      const del = this.fees.find(x => x.ItemType === 'delivery')
+      if (del && del.Price) {
+        baseDeliveryFee = +del.Price;
+      }
+      if (del && del.ItemCode) {
+        baseDeliveryFee = +del.ItemCode;
+      }
+    }
+    var p1 = new google.maps.LatLng(Number(this.order.Latitude), Number(this.order.Longitude));
     var p2 = new google.maps.LatLng(Number(this.order.Company.Latitude), Number(this.order.Company.Longitude));
     const distance = this.orderService.calcDistance(p1, p2);
-    const shipping = (Math.ceil(Number(distance)) * 5) + 1.5;
-
+    const shipping = (Math.ceil(Number(distance)) * baseDeliveryFeePerKM) + baseDeliveryFee;
     return Math.floor(shipping);
   }
   qtyChanged(qty, product: Orderproduct) {
     product.Quantity = qty;
     product.SubTotal = product.Quantity * Number(product.UnitPrice)
-    this.order = this.orderService.calculateTotalOverdue(this.order);
+    this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
     this.orderService.updateOrderState(this.order);
 
   }
@@ -170,7 +207,7 @@ export class CartItemsComponent implements OnInit {
               line.DiscountPrice = Number(line.UnitPrice) - (line.UnitPrice * (Number(data.DiscountValue) / 100));
             });
             this.order.Discount = data;
-            this.order = this.orderService.calculateTotalOverdue(this.order);
+            this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
           }
           if (data.PromoType === DISCOUNT_TYPES[1]) {
             this.order.Orderproducts.forEach(line => {
@@ -178,7 +215,7 @@ export class CartItemsComponent implements OnInit {
               line.DiscountPrice = Number(line.UnitPrice) - Number(data.DiscountValue);
             });
             this.order.Discount = data;
-            this.order = this.orderService.calculateTotalOverdue(this.order);
+            this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
 
           }
 
@@ -204,7 +241,7 @@ export class CartItemsComponent implements OnInit {
       this.switchPickUpMode(SHIPPING_OPTIONS[1].ShippingId);
     }
 
-    this.order = this.orderService.calculateTotalOverdue(this.order);
+    this.order = this.orderService.calculateTotalOverdue(this.order, this.fees);
   }
 
 

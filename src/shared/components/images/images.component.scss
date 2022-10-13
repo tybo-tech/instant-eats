@@ -51,7 +51,7 @@ $height : 6em;
 .add-image {
   padding: .5em;
   text-align: center;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   width: $height;
   height: $height;
   top: .4em;
@@ -93,7 +93,7 @@ $height : 6em;
   display: block;
   position: absolute;
   font-weight: 600;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   padding: .3em .7em;
 }
 
@@ -138,7 +138,7 @@ $height : 6em;
 
 .laoding {
   padding: 0em;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   margin: .5em ;
   overflow-x: hidden;
 

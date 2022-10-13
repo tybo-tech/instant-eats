@@ -1,27 +1,26 @@
-@import './home-container';
-@import './inputs';
+@import "./home-container";
+@import "./inputs";
 
 .container {
   padding: 1em;
   padding-top: 26%;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h4,
-  h6 {
-    padding: 0 1em;
-  }
+  // h1,
+  // h2,
+  // h3,
+  // h4,
+  // h4,
+  // h6 {
+  //   padding: 0 1em;
+  // }
 }
-
 
 .line-option {
   display: grid;
   grid-template-columns: 80% auto;
   background: $cloud;
-  padding: .5em;
-  margin: .75em 0;
+  padding: 0.5em;
+  margin: 0.75em 0;
 
   input {
     border: none;
@@ -31,18 +30,16 @@
     margin: 0 auto;
     width: 3em;
     position: relative;
-    top: .65em;
+    top: 0.65em;
     display: block;
   }
 }
 
 .global-padding {
-
   @media only screen and (max-width: 600px) {
     padding: 0;
   }
 }
-
 
 .new-top-bar {
   background: $primary;
@@ -55,15 +52,13 @@
   .menu-back-btn {
     padding: 0;
     font-weight: 600;
-    top: -.5em;
+    top: -0.5em;
     cursor: pointer;
 
     span {
-      top: .4em;
+      top: 0.4em;
       margin: 0;
-
     }
-
   }
 
   .col-header {
@@ -75,15 +70,15 @@
     span {
       display: block;
       font-weight: 400;
-      font-size: .9em;
+      font-size: 0.9em;
 
       a {
-        background: $pop;
+        background-color: var(--primary-color, rgb(115, 115, 115));
         color: $primary;
-        padding: .3em .5em;
+        padding: 0.3em 0.5em;
         display: block;
         width: 10em;
-        margin: .5em 0;
+        margin: 0.5em 0;
         cursor: pointer;
         border-radius: 5em;
         text-align: center;
@@ -97,20 +92,20 @@
   background: $primary;
   display: grid;
   grid-template-columns: repeat(3, 33%);
-  padding: .5em 1em;
+  padding: 0.5em 1em;
 
   a {
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     color: $primary;
-    padding: .5em;
+    padding: 0.5em;
     display: block;
-    margin: .5em auto;
+    margin: 0.5em auto;
     cursor: pointer;
     border-radius: 5em;
     text-align: center;
     font-weight: 600;
     width: 94%;
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }
 
@@ -131,7 +126,7 @@
 
   a {
     display: block;
-    padding: .5em 0;
+    padding: 0.5em 0;
   }
 
   span {
@@ -141,7 +136,7 @@
     color: $white;
     background: $primary;
     text-align: center;
-    padding: .5em 1em;
+    padding: 0.5em 1em;
   }
 }
 
@@ -161,7 +156,6 @@
   display: block;
 }
 
-
 .black {
   color: $black !important;
 }
@@ -170,13 +164,12 @@
   color: $tertiary !important;
   cursor: pointer;
   font-weight: 500;
-  padding: .75em 0;
+  padding: 0.75em 0;
 }
 
 .line-break {
   white-space: pre-wrap;
 }
-
 
 .strong-text {
   font-size: 1em !important;
@@ -187,7 +180,7 @@
 .subject-line {
   display: grid;
   grid-template-columns: 50% auto;
-  padding: .5em 0;
+  padding: 0.5em 0;
   font-weight: 600;
 
   .grade {
@@ -205,10 +198,8 @@
   }
 }
 
-
 .quick-add {
   position: fixed;
-  background: rgb(163 163 163 / 77%);
   width: 100%;
   height: 86vh;
   z-index: 90000000000;
@@ -238,7 +229,7 @@
     span {
       display: block;
       font-weight: 500;
-      font-size: .85em;
+      font-size: 0.85em;
       padding: 1em;
     }
   }
@@ -251,21 +242,25 @@
     margin: 0 auto;
     padding: 1em;
     position: fixed;
-    bottom: 0;
+    bottom: 3.5rem;
     width: 100%;
-    border-radius: 0;
+    border-radius: 0 0 1rem 1rem;
     max-height: 100%;
     overflow-y: scroll;
     max-width: 60em;
-    animation: fadeIn .2s ease-out 0s;
+    animation: fadeIn 0.2s ease-out 0s;
     animation-fill-mode: backwards;
     background: $cloud;
+    border-top: 1px solid $cloud;
+    @media only screen and (max-width: 600px) {
+      bottom: 0;
+      border-radius: 0;
+    }
 
-  
     .form-item {
       background: $white;
       padding: 1em;
-      border-radius: .4em;
+      border-radius: 0.4em;
       margin: 1em auto;
       width: 100%;
 
@@ -308,11 +303,11 @@
     // }
 
     button {
-      background: $pop;
-      margin: .75em 0;
-      color: $black;
+      margin: 0.75em 0;
       padding: 1em;
-      border-radius: .4em;
+      border-radius: 0.4em;
+      background-color: var(--primary-color, rgb(115, 115, 115));
+      color: var(--primary-complementary, $black);
 
       &:disabled {
         background: $darker-grey;
@@ -346,8 +341,6 @@
   }
 }
 
-
-
 .static {
   z-index: auto;
   position: relative;
@@ -358,14 +351,13 @@
   }
 }
 
-
 .order-status {
   background: $popbg;
-  padding: .1em;
-  border-radius: .2em;
+  padding: 0.1em;
+  border-radius: 0.2em;
 }
 
-@media (min-width : 300px) {
+@media (min-width: 300px) {
   .phone-only {
     display: block;
   }
@@ -379,7 +371,7 @@
   }
 }
 
-@media (min-width : 800px) {
+@media (min-width: 800px) {
   .phone-only {
     display: none;
   }
@@ -393,7 +385,7 @@
   }
 }
 
-@media (min-width : 1400px) {
+@media (min-width: 1400px) {
   .phone-only {
     display: none;
   }
@@ -420,25 +412,24 @@
     display: block;
     text-align: center;
     border-bottom: 3px solid $grey;
-    padding: .5em;
+    padding: 0.5em;
     color: $darker-grey;
-    font-size: .85em;
+    font-size: 0.85em;
     cursor: pointer;
   }
 
   .active {
-    border-bottom: 3px solid $pop;
+    border-bottom: 3px solid var(--primary-color, $pop);
     color: $black;
-
   }
 }
-
 
 .banner {
   margin: 0;
   padding: 2em 1em;
   overflow: hidden;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
+  color: var(--primary-complementary, rgb(115, 115, 115));
   position: relative;
   margin-top: 6em;
   font-weight: 600;
@@ -452,21 +443,20 @@
 }
 
 .suggestions {
-  padding: .5em;
+  padding: 0.5em;
   display: grid;
   grid-template-columns: repeat(3, 33%);
-  grid-gap: .5em;
+  grid-gap: 0.5em;
 
   a {
-    background: #F3BB1C;
+    background: #f3bb1c;
     display: block;
-    margin: 0 .5em;
-    border-radius: .7em;
-    font-size: .75em;
-    padding: .5em;
+    margin: 0 0.5em;
+    border-radius: 0.7em;
+    font-size: 0.75em;
+    padding: 0.5em;
     font-weight: 500;
     text-align: center;
-
   }
 }
 
@@ -496,17 +486,13 @@
     font-weight: 500;
     font-size: 1.5em;
     padding: 1em;
-
   }
 
   button {
     width: 10em;
     margin: 1em auto;
   }
-
-
 }
-
 
 .pop {
   position: fixed;
@@ -517,10 +503,10 @@
   width: 90%;
   left: 5%;
   bottom: 1rem;
-  border-radius: .5em;
+  border-radius: 0.5em;
   box-shadow: $box-shadow;
   z-index: 9999999999;
-  animation: moveInButton .2s ease-in-out 0s;
+  animation: moveInButton 0.2s ease-in-out 0s;
   text-align: center;
   display: grid;
   grid-template-columns: 90% auto;
@@ -537,21 +523,56 @@
   }
 }
 
-
-
 .order-product-name {
   margin: 0 !important;
-  padding: .1em;
+  padding: 0.1em;
 
   span {
     display: block;
     font-weight: 400 !important;
-    font-size: .85em !important;
+    font-size: 0.85em !important;
     color: $darker-grey !important;
-    padding: .1em 0;
+    padding: 0.1em 0;
     margin: 0;
   }
 }
-.pointer,.menu-back{
+.pointer,
+.menu-back {
   cursor: pointer;
+}
+._modal-v2{
+  position: fixed;
+  width: 100%;
+  height: 86vh;
+  z-index: 90000000000;
+  max-width: 34em;
+  left: 50%;
+  top: 1em;
+  background: $white;
+  border-radius: 0.5em;
+  transform: translate(-49.555555%, 0);
+  ._modal-body{
+    max-height: 72vh;
+    overflow-y: scroll;
+  }
+
+  ._modal-header{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  ._modal-footer{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    justify-content: flex-end;
+    button{
+      width: 100%;
+      background: $black;
+      color: $white;
+
+    }
+  }
 }

@@ -68,7 +68,7 @@ width: 100%;
   }
 
   button {
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     margin: 1em 0;
     border-radius: .4em;
     margin-bottom: 0;

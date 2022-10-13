@@ -108,7 +108,7 @@
   grid-template-columns: 50% auto;
 
   .collection {
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     text-transform: uppercase;
     text-align: center;
     margin: 1em;
@@ -138,7 +138,7 @@
     position: relative;
     padding: .5em 1em;
     text-align: center;
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     border-radius: .2em;
     cursor: pointer;
   }
@@ -185,7 +185,7 @@ agm-map{
   background: $white;
   h2{
     padding: 1em;
-    background: $pop;
+    background-color: var(--primary-color, rgb(115, 115, 115));
     color: $black;
     margin: 0;
   }

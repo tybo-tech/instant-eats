@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { interval } from 'rxjs';
 import { User } from 'src/models';
 import { LocationModel } from 'src/models/UxModel.model';
@@ -9,7 +9,9 @@ import { UserService } from 'src/services';
   templateUrl: './markers.component.html',
   styleUrls: ['./markers.component.scss']
 })
-export class MarkersComponent implements OnInit, OnDestroy {
+export class MarkersComponent implements OnInit, OnDestroy, AfterViewInit {
+  // @Input() 
+  mapId: string = 'googleMap';
   @Input() lat;
   @Input() lng;
   @Input() user: User;
@@ -24,27 +26,27 @@ export class MarkersComponent implements OnInit, OnDestroy {
   timeInterval: any;
   subscription: any;
   constructor(private userService: UserService) { }
+  ngAfterViewInit(): void {
+    const _this = this;
+    setTimeout(() => {
+      this.loadMap();
+      this.loadMakers();
+      google.maps.event.addListener(this.marker, 'dragend', function (event) {
+        _this.lat = event.latLng.lat()
+        _this.lng = event.latLng.lng()
+        _this.codeAddress()
+      })
+    }, 1);
+   
+  }
 
   ngOnInit(): void {
 
-    this.loadMap();
-    this.loadMakers();
-
-
-    // this.timeInterval = interval(7000);
-    // this.subscription = this.timeInterval.subscribe(() => {
-    //   this.getCurrentLocation();
-    // })
-    const _this = this;
-    google.maps.event.addListener(this.marker, 'dragend', function (event) {
-      _this.lat = event.latLng.lat()
-      _this.lng = event.latLng.lng()
-      _this.codeAddress()
-    })
 
   }
 
   loadMap() {
+    // debugger
     if (this.lat) {
       this.currentPoint = { lat: Number(this.lat), lng: Number(this.lng) }
       this.mapOptions = {
@@ -55,7 +57,7 @@ export class MarkersComponent implements OnInit, OnDestroy {
         disableDefaultUI: true
       }
 
-      this.map = new google.maps.Map(document.getElementById("googleMap"), this.mapOptions);
+      this.map = new google.maps.Map(document.getElementById(this.mapId), this.mapOptions);
     }
   }
   ngOnDestroy(): void {
@@ -87,7 +89,6 @@ export class MarkersComponent implements OnInit, OnDestroy {
       icon: icon
     };
     this.marker = new google.maps.Marker(makerOptions);
-    const lol = this;
   }
 
   codeAddress() {

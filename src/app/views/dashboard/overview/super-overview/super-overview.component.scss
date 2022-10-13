@@ -79,7 +79,7 @@
         
       }
       span{
-        color: $pop;
+        color: var(--primary-color, rgb(115, 115, 115));
       }
     }
   }

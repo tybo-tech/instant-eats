@@ -58,6 +58,8 @@ export interface SliderWidgetModel {
   Name: string;
   Description:string;
   Description2?:string;
+  ShowDelete?:boolean;
+  ConfirmDelete?:boolean;
   Link:string;
   Icon?:string;
   Style?:any;
@@ -76,6 +78,7 @@ export interface AdminStatModel {
   Restaurants?:string;
   Categories?:string;
   Customers?:string;
+  Stafs?:string;
   Products?:string;
   Users?:string;
   ActiveOrders?:string;

@@ -57,7 +57,7 @@ textarea {
 button {
   margin: 1em 0;
   padding: 1em;
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   color: $black;
   font-weight: 600;
   cursor: pointer;

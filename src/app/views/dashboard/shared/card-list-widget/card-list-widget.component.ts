@@ -14,6 +14,7 @@ export class CardListWidgetComponent implements OnInit {
   @Input() primaryAction: string;
   @Output() itemSelectedEvent: EventEmitter<SliderWidgetModel> = new EventEmitter<SliderWidgetModel>();
   @Output() primaryActionEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() deleteEvent: EventEmitter<any> = new EventEmitter<any>();
   searchString: string;
   constructor(private router: Router) { }
 
@@ -41,5 +42,11 @@ export class CardListWidgetComponent implements OnInit {
   }
   primaryActionClicked() {
     this.primaryActionEvent.emit(true);
+  }
+
+  confirmDelete(item: any,i: number){
+    this.deleteEvent.emit(item);
+    item.ConfirmDelete = false;
+    this.items.splice(i,1)
   }
 }

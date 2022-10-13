@@ -6,6 +6,7 @@ button {
   font-weight: 600;
   border-radius: 0;
   transition: 0.4s ease-in-out;
+  color: $white;
 
   &:disabled {
     background: $cloud !important;
@@ -16,24 +17,11 @@ button {
 
   cursor: pointer;
   text-transform: uppercase;
-
-  &.mat-flat-button.mat-primary[disabled] {
-    background-color: $grey;
-    color: #a5b1c2 !important;
-    font-weight: 500;
-  }
-
-  @media only screen and (max-width: 600px) {
-    &.mat-primary {
-      background: $pop;
-      width: 100%;
-    }
-  }
 }
 
 .primary {
-  background: $pop;
-  color: $black;
+  background-color: var(--primary-color, rgb(115, 115, 115));
+  color: $white;
 }
 .btn-danger {
   background: $red !important;
@@ -102,7 +90,7 @@ button {
 }
 
 .btn-pop {
-  background: $pop !important;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   color: $black !important;
 }
 
@@ -139,7 +127,7 @@ button {
   text-align: center;
   border-radius: 0.5em;
   margin: 0.4em;
-  color: $black;
+  // color: $black;
   float: auto;
   width: 3em;
   height: 3em;
@@ -190,13 +178,17 @@ button {
   margin: 4em auto !important;
 }
 
-.btn-primary {
-  background: $pop;
+.btn-primary,
+.primary,
+.cta,
+.mat-primary,
+.checkout {
+  background-color: var(--primary-color, rgb(115, 115, 115));
+  color: var(--primary-complementary, $black);
   border: none;
-  color: $black;
   &:hover,
   &:active {
-    background: $pop;
-    color: $black;
+    background-color: var(--primary-color, rgb(115, 115, 115));
+    color: var(--primary-complementary, $black);
   }
 }

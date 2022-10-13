@@ -14,9 +14,11 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { AddressComponent } from 'ngx-google-places-autocomplete/objects/addressComponent';
 import { OrderService } from 'src/services';
 import { Order } from 'src/models';
-import { environment } from 'src/environments/environment';
+import { BASE, environment } from 'src/environments/environment';
 import { UxService } from 'src/services/ux.service';
 import { NavHistoryUX } from 'src/models/UxModel.model';
+import { EmailHelper } from 'src/shared/EmailHelper';
+import { getConfig } from 'src/shared/web-config';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -26,7 +28,7 @@ export class SignUpComponent implements OnInit {
   rForm: FormGroup;
   error: string;
   @ViewChild('places') places: GooglePlaceDirective;
-
+  config = getConfig(BASE)
   options = {
     types: [],
     componentRestrictions: { country: 'ZA' }
@@ -64,6 +66,7 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.order = this.orderService.currentOrderValue;
 
     this.rForm = this.fb.group({
@@ -72,7 +75,7 @@ export class SignUpComponent implements OnInit {
         Validators.email
       ])),
       Password: [null, Validators.required],
-      PhoneNumber: [''],
+      PhoneNumber: ['', Validators.required],
       Name: [null, Validators.required],
       // CompanyName: [null, Validators.required],
       Surname: [''],
@@ -106,11 +109,12 @@ export class SignUpComponent implements OnInit {
     model.AddressUrlHome = model.AddressUrlHome || ''
     model.AddressLineWork = model.AddressLineWork || ''
     model.AddressUrlWork = model.AddressUrlWork || ''
-    model.Dp =  environment.DF_USER_LOGO;
+    model.PhoneNumber = model.PhoneNumber || ''
+    model.Dp ='';
 
     this.accountService.register(model).subscribe(user => {
 
-   
+
 
       if (user && user.UserType === CUSTOMER) {
         this.accountService.updateUserState(user);
@@ -129,13 +133,14 @@ export class SignUpComponent implements OnInit {
         } else {
           this.modalModel.routeTo = ``;
         }
-        this.modalModel.heading = `Success!`
-        this.modalModel.img = IMAGE_DONE
-        this.modalModel.ctaLabel = `Go to shopping`;
+        this.uxService.showQuickMessage("Welcome to " + this.config.Name)
+
       }
       // send email logic here.
       if (user.Email) {
-        this.sendEmail(user);
+        let message = EmailHelper.getWelcomeEmailForCustomer(user.Name, this.config.Name, `${environment.BASE_URL}/home/sign-in`, user.Email);
+        this.sendAltraEmail(user.Email, message, 'Welcome to ' + this.config.Name, this.config.Email);
+        this.routeTo.navigate(['/home/welcome'])
       } else {
         alert(user);
         this.showLoader = false;
@@ -173,27 +178,41 @@ export class SignUpComponent implements OnInit {
   }
 
 
-
-  sendEmail(data: UserModel | User) {
+  sendAltraEmail(email: string, message: string, subjet: string, from: string) {
     const emailToSend: Email = {
-      Email: data.Email,
-      Subject: 'Welcome to  Instant Eats.',
-      Message: '',
-      Link: this.accountService.generateAccountActivationReturnLink(data.UserToken)
+      Email: email,
+      Subject: subjet,
+      Message: message,
+      From: from,
     };
-    this.showLoader = true;
-    this.emailService.sendAccountActivationEmail(emailToSend)
+
+    this.emailService.sendAltraGeneralTextEmail(emailToSend)
       .subscribe(response => {
         if (response > 0) {
-          setTimeout(() => {
-            this.showLoader = false;
-            this.modalModel.heading = `Success!`
-            this.modalModel.img = IMAGE_DONE;
-            this.modalModel.body.push('Account Registered successfully.')
-            this.modalModel.body.push('PLEASE Check your email for activation.')
-          }, 1000);
+
         }
       });
   }
+  // sendEmail(data: UserModel | User) {
+  //   const emailToSend: Email = {
+  //     Email: data.Email,
+  //     Subject: 'Welcome to  Instant Eats.',
+  //     Message: '',
+  //     Link: this.accountService.generateAccountActivationReturnLink(data.UserToken)
+  //   };
+  //   this.showLoader = true;
+  //   this.emailService.sendAccountActivationEmail(emailToSend)
+  //     .subscribe(response => {
+  //       if (response > 0) {
+  //         setTimeout(() => {
+  //           this.showLoader = false;
+  //           this.modalModel.heading = `Success!`
+  //           this.modalModel.img = IMAGE_DONE;
+  //           this.modalModel.body.push('Account Registered successfully.')
+  //           this.modalModel.body.push('PLEASE Check your email for activation.')
+  //         }, 1000);
+  //       }
+  //     });
+  // }
 
 }

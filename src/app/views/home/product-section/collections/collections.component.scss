@@ -12,7 +12,7 @@
   padding: .5em 2em;
   // max-width: $max-width;
   box-shadow: $box-shadow;
-  background:$pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
   display: grid;
   grid-template-columns: 10% auto;
   padding: 1em 6em;

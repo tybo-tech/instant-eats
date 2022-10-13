@@ -1,4 +1,4 @@
 <div class="loader">
-  <img src="assets/images/loader.png" alt="">
+  <img *ngIf="config" [src]="config.Loader" alt="">
   <div class="spinner"></div>
 </div>

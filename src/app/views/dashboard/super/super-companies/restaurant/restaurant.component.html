@@ -1,4 +1,4 @@
-<div class="banner" *ngIf="user && user.UserType == SUPER">
+<div class="banner" *ngIf="user && (user.UserType == SUPER || user.UserType == STAF)">
   <div class="backkk">
     <div class="menu-back">
       <span class="material-icons" (click)="back()">
@@ -8,7 +8,7 @@
 
 
     <div class="name menu-back" (click)="back()">
-      Restaurants
+      {{config.WebCatergoryName}}
     </div>
   </div>
 </div>

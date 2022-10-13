@@ -1,12 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BASE } from 'src/environments/environment';
 import { User, Category, Product, Variation, VariationOption } from 'src/models';
 import { ProductVariationOption } from 'src/models/product.variation.option.model';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
 import { ProductService, AccountService, CompanyCategoryService, CompanyVariationService } from 'src/services';
+import { CompanyService } from 'src/services/company.service';
 import { ProductVariationService } from 'src/services/product-variation.service';
 import { UxService } from 'src/services/ux.service';
 import { COMPANY_TYPE, VARIATION_PRICE_MODES } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-super-list-product',
@@ -15,12 +18,13 @@ import { COMPANY_TYPE, VARIATION_PRICE_MODES } from 'src/shared/constants';
 })
 export class SuperListProductComponent implements OnInit {
   @Input() products: Product[];
+  config: WebConfig = getConfig(BASE);
   product: Product;
   newOption: ProductVariationOption;
   user: User;
   modalHeading = 'Add product';
-  primaryAction = 'Add food item'
-  addEditCompanyHeading = 'Add new food item';
+  primaryAction = `Add ${this.config.ProductName}`
+  addEditCompanyHeading = `Add new ${this.config.ProductName}`;
   showModal: boolean;
   showAddCustomer: boolean;
   parentCategories: Category[];
@@ -42,7 +46,7 @@ export class SuperListProductComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private uxService: UxService,
-    private companyVariationService: CompanyVariationService,
+    private companyService: CompanyService,
     private companyCategoryService: CompanyCategoryService,
     private productVariationService: ProductVariationService,
   ) {
@@ -113,9 +117,12 @@ export class SuperListProductComponent implements OnInit {
         this.usersItems.push({
           Id: `${item.ProductId}`,
           Name: `${item.Name}`,
-          Description: `${item.PriceFromLabel}R${item.RegularPrice} | ${item.CategoryName || 'No Catergory'}`,
+          Description: item.ProductStatus,
+          Description2: `${item.PriceFromLabel}R${item.RegularPrice} | ${item.CategoryName || 'No Catergory'}`,
           Link: `event`,
-          Icon: item.FeaturedImageUrl
+          Icon: item.FeaturedImageUrl,
+          ShowDelete: true,
+          ConfirmDelete: false,
         })
 
 
@@ -187,5 +194,13 @@ export class SuperListProductComponent implements OnInit {
       this.view(prod);
     }
   }
-
+  deleteEvent(item: SliderWidgetModel) {
+    if (item.Id) {
+      const q = `DELETE FROM product WHERE ProductId = '${item.Id}'`;
+      this.companyService.QueryDelete(q).subscribe(data=>{
+        this.getProducts()
+        this.uxService.showQuickMessage(`Product deleted successfully`);
+      })
+    }
+  }
 }

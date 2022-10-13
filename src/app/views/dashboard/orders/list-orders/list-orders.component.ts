@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Observable, Subscription } from 'rxjs';
+import { BASE } from 'src/environments/environment';
 import { Order } from 'src/models/order.model';
 import { User } from 'src/models/user.model';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
@@ -8,6 +9,7 @@ import { AccountService } from 'src/services/account.service';
 import { OrderService } from 'src/services/order.service';
 import { UserService } from 'src/services/user.service';
 import { ORDER_TABS, ORDER_TYPE_SALES } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-list-orders',
@@ -25,7 +27,8 @@ export class ListOrdersComponent implements OnInit, OnDestroy {
   usersItems: SliderWidgetModel[]
   showFilter = true;
   noData = 'No items records found'
-  backto = 'Restaurant dashboard'
+  config: WebConfig = getConfig(BASE);
+  backto = `Restaurant ${this.config.WebCatergoryNameSingular}`
   companyId: string;
   ORDER_TABS = ORDER_TABS;
   requestInterval: Observable<number>;
@@ -69,6 +72,8 @@ export class ListOrdersComponent implements OnInit, OnDestroy {
       if (this.orders && this.orders.length) {
         this.usersItems = [];
         this.orders.forEach(item => {
+          if (!item.Orderproducts)
+            item.Orderproducts = [];
           this.usersItems.push({
             Name: `${item.Customer?.Name}, R${item.Total}`,
             Description: `${item.Orderproducts.map(x => x.ProductName).toString().substring(0, 100)}`,

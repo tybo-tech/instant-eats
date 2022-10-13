@@ -1,25 +1,34 @@
 <div class="cards" *ngIf="items">
   <div class="card" style="margin-bottom: 2em; cursor: default;" *ngIf="showFilter">
     <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
-    <button class="primary" *ngIf="primaryAction"  (click)="primaryActionClicked()"> {{primaryAction}} </button>
+    <button class="primary" *ngIf="primaryAction" (click)="primaryActionClicked()"> {{primaryAction}} </button>
   </div>
-  <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString;" [ngStyle]="item.Style" >
-    <div class="card-grid" style="cursor: pointer;" (click)="goto(item.Link, item)">
+  <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString; let i = index" [ngStyle]="item.Style">
+    <div class="card-grid" style="cursor: pointer;">
       <div class="col">
-        <img [src]="item.Icon" alt="">
+        <img [src]="item.Icon" alt="" (click)="goto(item.Link, item)">
       </div>
       <div class="col details">
-        <h3>
+        <h3 (click)="goto(item.Link, item)">
           {{item.Name}}
         </h3>
 
-        <p>
+        <p (click)="goto(item.Link, item)">
           {{item.Description}}
         </p>
-        <p *ngIf="item.Description2">
+        <p *ngIf="item.Description2" (click)="goto(item.Link, item)">
           {{item.Description2}}
         </p>
-   
+        <div *ngIf="item.ShowDelete" style="color:red; position: relative;">
+          <span (click)="item.ConfirmDelete = true"> Delete</span>
+          <ul class="list-group show-delete" *ngIf="item.ConfirmDelete">
+            <li class="list-group-item"><b>Delete {{item.Name}}?</b></li>
+            <li class="list-group-item d-flex justify-content-between" (click)="confirmDelete(item,i)"><a class="btn btn-danger">Confirm</a> <a
+                class="btn btn-light"  (click)="item.ConfirmDelete = false">Cancel</a></li>
+            <li class="list-group-item"></li>
+          </ul>
+        </div>
+
       </div>
     </div>
 
@@ -29,7 +38,7 @@
       </div>
       <div class="col"><input type="number" [(ngModel)]="item.Qty"></div>
       <div class="col">
-        <img src="assets/images/icon-add.svg"  (click)="qty(1, item)" alt="">
+        <img src="assets/images/icon-add.svg" (click)="qty(1, item)" alt="">
       </div>
     </div>
   </div>

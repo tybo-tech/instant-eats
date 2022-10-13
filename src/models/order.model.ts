@@ -75,6 +75,7 @@ export interface Order {
   Items?: Item[];
 
   AccetpTime?: string;
+  CompanyName?: string;
   FinishTime?: string;
   PickUpTime?: string;
   DropOffTime?: string;
@@ -83,7 +84,10 @@ export interface Order {
   ShoprPayoutStatus?: string;
   ShopPayoutDates?: string;
   Metadata?: string;
-  CashCollected?: any;
-
-
+  CashCollected?: number;
+  DriverShippingFee?: number;
+  RestaurantFee?: number;
+  ShippingCommissionFee?: number;
+  OrderCommissionFee?: number;
+  UpdateProducts?: boolean; 
 }

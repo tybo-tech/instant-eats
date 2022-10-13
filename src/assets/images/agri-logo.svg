@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="134.692" viewBox="0 0 404 134.692">
+  <g id="agri-logo" transform="translate(-529 -555.308)">
+    <text id="Agri" transform="translate(531 674)" fill="#23830d" font-size="65" font-family="Montserrat-Black, Montserrat" font-weight="800"><tspan x="0" y="0">Agri</tspan></text>
+    <text id="Farmer" transform="translate(680 674)" fill="#23830d" font-size="65" font-family="Montserrat-Black, Montserrat" font-weight="800"><tspan x="0" y="0">Farmer</tspan></text>
+    <g id="Flag-of-Miyawaka-Fukuoka" transform="matrix(-1, 0.017, -0.017, -1, 705.071, 627.547)">
+      <g id="Group_2511" data-name="Group 2511" transform="translate(-3.566 -8.445)">
+        <path id="Path_259" data-name="Path 259" d="M150.627,81.383s10.59-4.061,14.538-4.992,14.392-.731,14.392-.731V73.71s-10.287-.3-14.988.849-14.2,4.758-14.2,4.758Z" transform="translate(-121.322 -51.455)" fill="#58b53b"/>
+        <path id="Path_260" data-name="Path 260" d="M77.843,41.724c-8.059-6.426-9.709-17.566-9.709-17.566A37.308,37.308,0,0,1,86,31.471,38.94,38.94,0,0,1,97.318,47.43S85.9,48.15,77.843,41.724Z" transform="translate(-68.134 -19.427)" fill="#23830d" stroke="#fff" stroke-width="2"/>
+        <path id="Path_261" data-name="Path 261" d="M177.365,90.43c12.718,5.533,19.7,18.187,19.7,18.187s-13.611,2.624-26.329-2.908-19.977-17.483-19.977-17.483S164.647,84.9,177.365,90.43Z" transform="translate(-121.578 -60.224)" fill="#23830d"/>
+        <path id="Path_262" data-name="Path 262" d="M100.379,120.439C93.521,134.824,79.066,142.7,79.066,142.7S76.24,126.609,83.1,112.225s20.868-22.247,20.868-22.247S107.237,106.055,100.379,120.439Z" transform="translate(-74.832 -61.999)" fill="#23830d"/>
+        <circle id="Ellipse_75" data-name="Ellipse 75" cx="9.183" cy="9.183" r="9.183" transform="translate(29.688)" fill="#f5a101"/>
+      </g>
+    </g>
+    <rect id="Rectangle_355" data-name="Rectangle 355" width="20" height="13" transform="translate(699 647)" fill="#f5a101"/>
+    <path id="Path_263" data-name="Path 263" d="M-714.429-4342.554h0L-721-4327.14l12.86-.32-6.293-15.094" transform="translate(1271 4983)" fill="#f5a101"/>
+  </g>
+</svg>

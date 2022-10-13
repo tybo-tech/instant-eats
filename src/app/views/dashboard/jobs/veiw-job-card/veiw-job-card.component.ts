@@ -322,6 +322,8 @@ export class VeiwJobCardComponent implements OnInit {
       SubTotal: this.totalEstamate,
       CreateUserId: '',
       ModifyUserId: '',
+      OriginalPrice: 0,
+      OriginalSubTotal : 0,
       StatusId: 1
     };
   }

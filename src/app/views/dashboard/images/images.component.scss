@@ -24,7 +24,7 @@
         border-radius: .5em;
       }
       .active{
-        background: $pop;
+        background-color: var(--primary-color, rgb(115, 115, 115));
         color: $white;
       }
     }

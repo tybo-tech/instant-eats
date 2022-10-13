@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BASE } from 'src/environments/environment';
 import { Company } from 'src/models/company.model';
 import { User } from 'src/models/user.model';
 import { LocationModel } from 'src/models/UxModel.model';
@@ -7,6 +8,7 @@ import { AccountService, UploadService, UserService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { UxService } from 'src/services/ux.service';
 import { ADMIN } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-set-up-shop',
@@ -16,6 +18,7 @@ import { ADMIN } from 'src/shared/constants';
 export class SetUpShopComponent implements OnInit {
   company: Company;
   user: User;
+  config: WebConfig = getConfig(BASE);
   constructor(
     private companyService: CompanyService,
     private userService: UserService,

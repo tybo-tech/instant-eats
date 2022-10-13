@@ -1,14 +1,18 @@
+<app-home-side-nav *ngIf="showMenu" (showMobileMenuEvent)="onToggleMenu($event)"></app-home-side-nav>
 <div class="driver">
     <div class="banner" *ngIf="user">
         <div class="backkk">
 
-            <div class="name menu-back" (click)="back()">
-                <h6>
+            <div class="name menu-back">
+                <h6  *ngIf="!showMenu" (click)="menu()">
                     <i class="fa-solid fa-bars"></i>
+                </h6>
+                <h6  *ngIf="showMenu" (click)="menu()">
+                    <i class="fa-solid fa-fimes"></i>
                 </h6>
             </div>
 
-            <div class="title" (click)="back()">
+            <div class="title">
                 <h6>
                     {{user.UserStatus}}
                 </h6>
@@ -42,14 +46,19 @@
 
 
 
+
+
     <div class="body">
+        <!-- <pre>
+            {{user| json}} <hr>
+            {{order| json}}
+        </pre> -->
         <app-markers *ngIf="user && user.Longitude && user.UserStatus === DRIVER_STATUSES.ONLINE.Name && !order"
-            [lat]="user.Latitude" [lng]="user.Longitude" [user]="user" (cordsEvent)="onCords($event)"></app-markers>
+            [lat]="user.Latitude" [lng]="user.Longitude" [user]="user" (cordsEvent)="onCords($event)" ></app-markers>
 
         <app-order-driver [order]="order" [user]="user" [messegeCount]="messegeCount" [progress]="progress"
             *ngIf="user && order && user.UserStatus !== DRIVER_STATUSES.OFFLINE.Name">
         </app-order-driver>
-
     </div>
     <!-- <app-request *ngIf="request" (requestEvent)="onRequestEvent($event)" [request]="request"></app-request> -->
 

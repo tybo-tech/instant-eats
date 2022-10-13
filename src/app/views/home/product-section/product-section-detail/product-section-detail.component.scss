@@ -189,7 +189,7 @@
     }
 
     .active {
-      background: $pop;
+      background-color: var(--primary-color, rgb(115, 115, 115));
       color: $black;
       border: 1px solid $pop;
 
@@ -252,7 +252,7 @@
 
       font-weight: 600;
       text-transform: uppercase;
-      background: $pop;
+      background-color: var(--primary-color, rgb(115, 115, 115));
       color: $black;
       border-radius: .5em;
       width: 12em;
@@ -303,7 +303,7 @@ img {
       span {
         display: block;
         font-weight: 600;
-        color: $pop;
+        color: var(--primary-color, rgb(115, 115, 115));
       }
     }
 
@@ -331,7 +331,7 @@ img {
 }
 
 .checkout {
-  background: $pop;
+  background-color: var(--primary-color, rgb(115, 115, 115));
 }
 
 
@@ -390,7 +390,7 @@ img {
 
     button {
       margin: 1em;
-      background: $pop;
+      background-color: var(--primary-color, rgb(115, 115, 115));
       color: $black;
       border-radius: .4em;
       width: 12em;

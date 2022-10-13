@@ -261,6 +261,8 @@ export class JobItemComponent implements OnInit {
       SubTotal: product.Quantity * Number(product.UnitPrice),
       CreateUserId: '',
       ModifyUserId: '',
+      OriginalPrice : 0 ,
+      OriginalSubTotal : 0,
       StatusId: 1
     };
   }

@@ -24,12 +24,17 @@
 
 ._topnnav {
   position: fixed;
-  top: 0em;
-  right: 0em;
-  width: 6em;
-  height: 8em;
+  width: 100%;
+  max-width: 30em;
+  text-align: right;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
+  // height: 8em;
   z-index: 100000;
   img {
-    width: 6em;
+    width: 4rem;
+    cursor: pointer;
   }
 }

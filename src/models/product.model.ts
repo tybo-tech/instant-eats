@@ -54,7 +54,7 @@ export interface Product {
   // ProductOVariationOptions?: ProductVariationOption[];
   ProductOVariationOptions?: any[];
   ProductCombinations?: ProductCombination[];
-
+  
   SelectedQuantiy?: number;
   SelectedCoulor?: string;
   SelectedSize?: string;
@@ -68,6 +68,7 @@ export interface Product {
   Sale?:string;
   PriceFromLabel?:string;
   ProdId?:string;
-
-
+  OldPrice?: number;
+  
+  
 }

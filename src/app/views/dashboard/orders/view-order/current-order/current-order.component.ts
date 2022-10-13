@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BASE } from 'src/environments/environment';
 import { Order, User } from 'src/models';
 import { ORDER_STATUSES } from 'src/shared/constants';
+import { WebConfig, getConfig } from 'src/shared/web-config';
 
 @Component({
   selector: 'app-current-order',
@@ -14,10 +16,11 @@ export class CurrentOrderComponent implements OnInit {
   @Input() messegeCount: string;
   arrived: boolean;
   mapId = 'customerMap';
+  config: WebConfig;
   constructor() { }
 
   ngOnInit(): void {
-
+    this.config = getConfig(BASE);
   }
 
   onTravelTimeEvent(time: number) {
